@@ -71,3 +71,7 @@ router.get("/:slug", async (req, res) => {
     return res.redirect("/");
   }
 });
+
+
+
+module.exports = router;

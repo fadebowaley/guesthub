@@ -230,4 +230,4 @@ const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;
 
-///
+//Single room, Chalet, Double Bed, Flat

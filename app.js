@@ -83,10 +83,10 @@ const productsRouter = require("./routes/products");
 const usersRouter = require("./routes/user");
 const pagesRouter = require("./routes/pages");
 const adminRouter = require("./routes/admin");
-const roomRouter = require("./routes/rooms");
+const roomRouter = require("./routes/room");
 
 app.use("/products", productsRouter);
-app.use("/bookings", roomRouter);
+app.use("/rooms", roomRouter);
 app.use("/user", usersRouter);
 app.use("/pages", pagesRouter);
 app.use("/admin", adminRouter);
