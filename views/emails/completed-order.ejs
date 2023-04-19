@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Order Confirmation</title>
+    <style>
+      /* Add your CSS styling here */
+      body {
+        background-color: #f5f5f5;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 28px;
+        margin-top: 0;
+        color: #be9874;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-top: 0;
+      }
+      .button {
+        display: inline-block;
+        background-color: #be9874;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+      }
+      .button:hover {
+        background-color: #af8561;
+      }
+      .order-details {
+        margin-top: 30px;
+      }
+      .order-details table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .order-details table th,
+      .order-details table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+      }
+      .order-details table th {
+        background-color: #eee;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Thank You for Your Order</h1>
+      <p>Dear [Customer Name],</p>
+      <p>Thank you for placing an order with [Your Company Name]. Your order has been confirmed and is currently being processed.</p>
+      <p>Order Details:</p>
+      <div class="order-details">
+        <table>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+          <tr>
+            <td>[Product Name]</td>
+            <td>[Product Quantity]</td>
+            <td>$[Product Price]</td>
+          </tr>
+          <tr>
+            <td colspan="2">Subtotal:</td>
+            <td>$[Subtotal]</td>
+          </tr>
+          <tr>
+            <td colspan="2">Shipping:</td>
+            <td>$[Shipping]</td>
+          </tr>
+          <tr>
+            <td colspan="2">Tax:</td>
+            <td>$[Tax]</td>
+          </tr>
+          <tr>
+            <td colspan="2">Total:</td>
+            <td>$[Total]</td>
+          </tr>
+        </table>
+      </div>
+      <p>Your order will be shipped to the following address:</p>
+      <p>[Customer Address]</p>
+      <p>If you have any questions or concerns regarding your order, please contact us at [Your Company Email].</p>
+      <p>Thank you again for your business.</p>
+    </div>
+  </body>
+</html>
