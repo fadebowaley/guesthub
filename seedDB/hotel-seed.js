@@ -1,10 +1,8 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
-const Room = require("../models/room");
-const Review = require("../models/review");
-const Category = require("../models/category");
 const mongoose = require("mongoose");
 const connectDB = require("./../config/db");
+const Hotel = require("../models/hotel");
 connectDB();
 
 const hotels = [
@@ -18,8 +16,6 @@ const hotels = [
     phone: "08012345678",
     email: "info@overflowcourt.com",
     website: "https://overflowcourt.com",
-    rooms: [room1, room2],
-    reviews: [review1, review2],
   },
   {
     name: "Shiloh Apartment",
@@ -31,8 +27,6 @@ const hotels = [
     phone: "08023456789",
     email: "info@shilohapartment.com",
     website: "https://shilohapartment.com",
-    rooms: [room3, room4],
-    reviews: [review3, review4],
   },
   {
     name: "Peace courts",
@@ -44,8 +38,7 @@ const hotels = [
     phone: "08034567890",
     email: "info@peacecourts.com",
     website: "https://peacecourts.com",
-    rooms: [room5, room6],
-    reviews: [review5, review6],
+    
   },
   {
     name: "Joy to the wise",
@@ -57,8 +50,7 @@ const hotels = [
     phone: "08045678901",
     email: "info@joytothewise.com",
     website: "https://joytothewise.com",
-    rooms: [room7, room8],
-    reviews: [review7, review8],
+    
   },
   {
     name: "Booking Office",
@@ -70,8 +62,7 @@ const hotels = [
     phone: "08056789012",
     email: "info@bookingoffice.com",
     website: "https://bookingoffice.com",
-    rooms: [room9, room10],
-    reviews: [review9, review10],
+    
   },
   {
     name: "African mission Guest House",
@@ -83,7 +74,32 @@ const hotels = [
     phone: "08067890123",
     email: "info@africanmissionguesthouse.com",
     website: "https://africanmissionguesthouse.com",
-    rooms: [room11, room12],
-    reviews: [review11, review12],
+    
   },
 ];
+
+
+//seed hotel
+
+const seedHotels = async () => {
+  try {
+    // Delete all existing rooms
+    await Hotel.deleteMany({});
+    console.log("All hotels deleted successfully!");
+
+
+    // seed all Hotels
+    for (const hotel of hotels) {
+      await Hotel.insertMany(hotel);
+      console.log(
+        `Seeded ${hotel.name}`
+      );
+    }
+    console.log("All hotel seeded successfully!");
+    await mongoose.connection.close();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+seedHotels();

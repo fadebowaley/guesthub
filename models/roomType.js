@@ -1,19 +1,30 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const slug = require("mongoose-slug-updater");
-
-mongoose.plugin(slug);
 
 const RoomTypeSchema = Schema({
-  title: {
-    type: String, // name of the Room
-    required: true,
-    },
-    
-  slug: {
+  name: {
     type: String,
-    unique: true,
-    slug: "title",
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  features: {
+    type: [String],
+    required: true,
+  },
+  hotel: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Hotel",
   },
 });
 

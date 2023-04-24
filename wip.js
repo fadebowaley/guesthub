@@ -231,3 +231,71 @@ const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;
 
 //Single room, Chalet, Double Bed, Flat
+
+
+
+// Create a new hotel
+const createHotel = async (hotelData) => {
+  try {
+    const response = await fetch('/hotels', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ hotel: hotelData })
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Edit an existing hotel
+const getHotelData = async (hotelId) => {
+  try {
+    const response = await fetch(`/hotels/${hotelId}/edit`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Update an existing hotel
+const updateHotel = async (hotelId, hotelData) => {
+  try {
+    const response = await fetch(`/hotels/${hotelId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ hotel: hotelData })
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Delete an existing hotel
+const deleteHotel = async (hotelId) => {
+  try {
+    const response = await fetch(`/hotel/delete/${hotelId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};

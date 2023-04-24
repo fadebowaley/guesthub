@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -9,14 +10,16 @@ const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
 const Category = require("./models/category");
-var MongoStore = require("connect-mongo")(session);
 const connectDB = require("./config/db");
+var MongoStore = require("connect-mongo")(session);
 
 const app = express();
 require("./config/passport");
 
 // mongodb configuration
 connectDB();
+
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

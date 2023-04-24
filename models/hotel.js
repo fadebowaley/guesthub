@@ -37,17 +37,8 @@ const hotelSchema = Schema({
   website: {
     type: String,
     required: true,
-  },
-  roomType: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RoomType",
-  },
-  reviews: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Review",
-    },
-  ],
+  }, 
+  
   // add any other relevant fields here
 });
 

@@ -269,7 +269,7 @@ router.post(
       }
       // redirect to appropriate URL based on user role
       if (req.user.role === "admin") {
-        res.redirect("/admin/payment");
+        res.redirect("/admin/dashboard");
         // redirect to old URL before signing in
       } else if (req.session.oldUrl) {
         var oldUrl = req.session.oldUrl;

@@ -1,15 +1,14 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
-const Room = require("../models/room");
-const Category = require("../models/category");
+const RoomType = require("../models/roomType");
+const Hotel = require("../models/hotel");
 const mongoose = require("mongoose");
-const faker = require("faker");
 const connectDB = require("./../config/db");
 
 //connect to the database here
 connectDB();
 
-const rooms = [
+const typeR = [
   {
     name: "Classic Balcony Room",
     image: "/images/img/gallery/room-img01.png",
@@ -24,6 +23,7 @@ const rooms = [
       "/images/img/icon/sve-icon5.png",
       "/images/img/icon/sve-icon6.png",
     ],
+    
   },
   {
     name: "Superior Double Room",
@@ -72,27 +72,28 @@ const rooms = [
   },
 ];
 
+
 const seedRooms = async () => {
   try {
     // Delete all existing rooms
-      await Room.deleteMany({});
-      console.log("All rooms deleted successfully!");
+      await RoomType.deleteMany({});
+      console.log("All rooms Types deleted successfully!");
       
-
-    // Find all categories
-    const categories = await Category.find();
-
+    // Find all hotels
+    const hotels = await Hotel.find();
+    // console.log(hotels);
     // Create rooms for each category
-    for (const category of categories) {
-      const categoryRooms = rooms.map((room) => {
+    for (const hotel of hotels) {
+      const hotelRooms = typeR.map((items) => {
         return {
-          ...room,
-          category: category._id,
+          ...items,
+          hotel: hotel._id,
         };
       });
-      await Room.insertMany(categoryRooms);
+      console.log(hotelRooms);
+      await RoomType.insertMany(hotelRooms);
       console.log(
-        `Seeded ${categoryRooms.length} rooms for ${category.title} category`
+        `Seeded ${hotelRooms.length} rooms type for ${hotel.name} `
       );
     }
     console.log("All rooms seeded successfully!");
@@ -101,16 +102,9 @@ const seedRooms = async () => {
     console.log(error);
   }
 };
+     
+ 
 
-
-
-
-
-
-
-
-
-
-          
-          
 seedRooms();
+
+

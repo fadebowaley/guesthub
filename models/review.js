@@ -18,6 +18,12 @@ const reviewSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  hotel: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Hotel",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Review", reviewSchema);

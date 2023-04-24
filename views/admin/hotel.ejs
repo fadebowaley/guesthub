@@ -1,0 +1,324 @@
+<%- include ../partials/_head %>
+
+
+
+<style>
+.breadcrumb-area {
+    background-size: cover;
+    position: relative;
+    min-height: 20px;
+  }
+
+/* 1. Shift the "add Hotels" button to the right */
+.services-08-content .mb-4 {
+    margin-right: auto;
+}
+
+/* 2. Style the "Action" buttons as a dropdown menu */
+.services-08-content .dropdown-menu {
+    min-width: unset;
+}
+.services-08-content .dropdown-toggle {
+    background-color: #28a745;
+    color: #fff;
+}
+.services-08-content .dropdown-toggle:hover {
+    background-color: darken(#28a745, 10%);
+}
+</style>
+   <body>
+        <!-- header -->
+      <%- include ../partials/_header %>
+        <!-- header-end -->
+         <main>
+         <!-- breadcrumb-area -->
+            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url/images/img/bg/bdrc-bg.jpg);">    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12">
+                
+            </div>
+        </div>       
+    </div>
+</section>
+<section id="service-details2" class="pt-120 pb-90 p-relative">
+  <div class="animations-01"><img src="/images/img/bg/an-img-01.png" alt="an-img-01"></div>
+  <div class="container">
+    <div class="row align-items-center">
+     
+    <!-- container -->
+      <div class="row">     
+        <div class="col-lg-12 col-md-6">            
+          <div class="services-08-item mb-30">
+            <div class="services-icon2">
+              <img src="/images/img/icon/fe-icon04.png" alt="img">
+                </div>       
+
+            <div class="services-08-content">
+                <h3><a href="single-service.html">Hotel Views</a></h3>
+  
+
+ 
+<table class="table table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">City</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Website</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% hotels.forEach(function(hotel, index) { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td><%= hotel.name %></td>
+        <td><%= hotel.city %></td>
+        <td><%= hotel.email %></td>
+        <td><%= hotel.phone %></td>
+        <td><%= hotel.website %></td>
+        <td>
+  <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Actions
+</button> -->
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Actions
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Edit</a>
+    <a class="dropdown-item" href="#">Delete</a>
+  </div>
+</div>
+</td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+</div>
+          </div>           
+        </div> 
+      </div>
+
+  <!-- /container -->
+
+   </div>
+  </div>
+
+</section>
+<div class="row">
+						<div class="col-sm-12">
+							
+							<div class="card card-table">
+								<div class="card-body">
+									<div class="table-responsive">
+										<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table class="table table-center table-hover datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+											<thead class="thead-light">
+												<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending" style="width: 152.466px;">Customer</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 198.693px;">Email</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Amount Due: activate to sort column ascending" style="width: 91.6932px;">Amount Due</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Registered On: activate to sort column ascending" style="width: 102.227px;">Registered On</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 60.3864px;">Status</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 165.989px;">Actions</th></tr>
+											</thead>
+											<tbody>
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+											<tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-12.jpg" alt="User Image"></a>
+															<a href="profile.html">Alex Campbell <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>alexcampbell@example.com</td>
+													<td>-</td>
+													<td>30 Mar 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-04.jpg" alt="User Image"></a>
+															<a href="profile.html">Barbara Moore <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>barbaramoore@example.com</td>
+													<td>$8295</td>
+													<td>24 Oct 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-02.jpg" alt="User Image"></a>
+															<a href="profile.html">Brian Johnson <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>brianjohnson@example.com</td>
+													<td>$295</td>
+													<td>16 Nov 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-05.jpg" alt="User Image"></a>
+															<a href="profile.html">Greg Lynch <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>greglynch@example.com</td>
+													<td>$3000</td>
+													<td>11 Oct 2020</td>
+													<td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-11.jpg" alt="User Image"></a>
+															<a href="profile.html">Jennifer Floyd <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>jenniferfloyd@example.com</td>
+													<td>-</td>
+													<td>17 Apr 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-07.jpg" alt="User Image"></a>
+															<a href="profile.html">John Blair <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>johnblair@example.com</td>
+													<td>$50</td>
+													<td>13 Aug 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-10.jpg" alt="User Image"></a>
+															<a href="profile.html">Joseph Collins <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>josephcollins@example.com</td>
+													<td>$600</td>
+													<td>9 May 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-06.jpg" alt="User Image"></a>
+															<a href="profile.html">Karlene Chaidez <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>karlenechaidez@example.com</td>
+													<td>-</td>
+													<td>29 Sep 2020</td>
+													<td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-09.jpg" alt="User Image"></a>
+															<a href="profile.html">Leatha Bailey <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>leathabailey@example.com</td>
+													<td>$480</td>
+													<td>20 Jun 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-03.jpg" alt="User Image"></a>
+															<a href="profile.html">Marie Canales <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>mariecanales@example.com</td>
+													<td>$1750</td>
+													<td>8 Nov 2020</td>
+													<td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="odd">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-08.jpg" alt="User Image"></a>
+															<a href="profile.html">Russell Copeland <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>russellcopeland@example.com</td>
+													<td>-</td>
+													<td>2 Jul 2020</td>
+													<td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr><tr role="row" class="even">
+													<td class="sorting_1">
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets\img\profiles\avatar-13.jpg" alt="User Image"></a>
+															<a href="profile.html">Wendell Ward <span>9876543210</span></a>
+														</h2>
+													</td>
+													<td>wendellward@example.com</td>
+													<td>$7500</td>
+													<td>22 Feb 2020</td>
+													<td><span class="badge badge-pill bg-success-light">Active</span></td>
+													<td class="text-right">
+														<a href="edit-customer.html" class="btn btn-sm btn-white text-success mr-2"><i class="far fa-edit mr-1"></i> Edit</a> 
+														<a href="javascript:void(0);" class="btn btn-sm btn-white text-danger mr-2"><i class="far fa-trash-alt mr-1"></i>Delete</a>
+													</td>
+												</tr></tbody>
+										</table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 12 of 12 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+</main>
+
+  <%- include ../partials/_footer %>

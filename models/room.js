@@ -2,29 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const roomSchema = Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  price: {
+  roomID: {
     type: Number,
-    required: true,
-  },
-  features: {
-    type: [String],
     required: true,
   },
   roomType: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "RoomType",
+  },
+  hotel: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "hotel",
   },
   available: {
     type: Boolean,
