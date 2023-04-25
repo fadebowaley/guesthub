@@ -12,6 +12,7 @@ const flash = require("connect-flash");
 const Category = require("./models/category");
 const connectDB = require("./config/db");
 var MongoStore = require("connect-mongo")(session);
+const methodOverride = require("method-override");
 
 const app = express();
 require("./config/passport");
@@ -44,10 +45,14 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+// Use the method-override middleware
+app.use(methodOverride("_method"));
+
 
 // global variables across routes
 app.use(async (req, res, next) => {
   try {
+    res.locals.currentUrl = req.originalUrl;
     res.locals.login = req.isAuthenticated();
     res.locals.session = req.session;
     res.locals.currentUser = req.user;

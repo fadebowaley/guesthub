@@ -6,13 +6,16 @@
 						<ul>
 							<li class="menu-title"><span>Main</span></li>
 							<li>
-								<a href="/"><i data-feather="home"></i> <span>Home</span></a>
+								<a href="/"><i data-feather="corner-up-left"></i> <span>Home</span></a>
 							</li>
 							<li>
-								<a href="/admin/dashboard"><i data-feather="home"></i> <span>Dashboard</span></a>
+								<a href="/admin/dashboard" data-page="dashboard"><i data-feather="home"></i> <span>Dashboard</span></a>
 							</li>
-							<li class="active">
-								<a href="/admin/customers"><i data-feather="users"></i> <span>Customers</span></a>
+							<li>
+								<a href="/admin/hotels" data-page="hotels"><i data-feather="grid"></i> <span>Hotels</span></a>
+							</li>
+							<li>
+								<a href="/admin/customers" data-page="customers"><i data-feather="users"></i> <span>Customers</span></a>
 							</li>
 							<li>
 								<a href="/admin/setup"><i data-feather="file-text"></i> <span>Estimates</span></a>
@@ -96,3 +99,18 @@
 					</div>
 				</div>
 			</div>
+
+			<script>
+	const currentPage = '<%= currentUrl %>';
+	const activePage = currentPage.split('/').pop();
+	const links = document.querySelectorAll(".sidebar-menu li a");
+
+	links.forEach(link => {
+  	const pageName = link.getAttribute("data-page");
+  if (pageName === activePage) {
+    link.parentElement.classList.add("active");
+  }
+});
+
+
+			</script>

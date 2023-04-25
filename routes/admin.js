@@ -3,6 +3,7 @@ const router = express.Router();
 const Product = require("../models/product");
 const User = require("../models/user");
 const Hotel = require("../models/hotel");
+const Review = require("../models/review");
 const Order = require("../models/order");
 const Category = require("../models/category");
 const Cart = require("../models/cart");
@@ -27,9 +28,14 @@ router.use(csrfProtection);
 //1. Create Hotels -create, Read, update and Delete
 router.get("/hotels", middleware.isAdmin, async (req, res) => {
   try {
-    const hotels = await Hotel.find({});
+    const successMsg = req.flash("success")[0];
+    const errorMsg = req.flash("error")[0];
+    const hotels = await Hotel.find({}).populate("reviews");
+    //const hotels = await Hotel.find({});
     res.render("admin/hotels", {
       hotels,
+      successMsg,
+      errorMsg, 
       pageName: "Hotel Lists",
     });
   } catch (err) {
@@ -90,16 +96,15 @@ router.put('/hotels/:id', middleware.isAdmin, async (req, res) => {
 
 
 // Delete an existing hotel
-router.delete("/hotel/delete/:id", middleware.isAdmin, async (req, res) => {
+router.get("/hotels/del/:id", middleware.isAdmin, async (req, res) => {
   try {
-    console.log(req.params.id);
     await Hotel.findByIdAndDelete(req.params.id);
     req.flash("success", "Hotel deleted successfully");
     res.redirect("/admin/hotels");
   } catch (err) {
     console.error(err);
     req.flash("error", "Failed to delete hotel");
-    res.redirect("/admin/hotels");
+    res.redirect("admin/hotels");
   }
 });
 

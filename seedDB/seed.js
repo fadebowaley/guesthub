@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const Hotel = require("../models/hotel");
 const RoomType = require("../models/roomType");
 const User = require("../models/user");
-const Reviews = require("../models/review");
+const Review = require("../models/review");
+const bcrypt = require("bcrypt-nodejs");
 const connectDB = require("./../config/db");
 const fs = require("fs/promises");
-
 
 //Hotel Dummy Data
 const hotels = [
@@ -80,23 +80,27 @@ const hotels = [
 ];
 
 const ratings = [
-    {
-        rating: 5,
-        comment: "fantastic!",
-        author: "fadebowaley"
-    },
-    {
-        rating: 5,
-        comment: "Great hub for innovation",
-        author: "Debby"
-    },
-    {
-        rating: 5,
-        comment: "Solves my problems!",
-        author: "Gowon Yakubu"
-    },
-
-]
+  {
+    rating: 2,
+    comment: "fantastic!",
+    author: "fadebowaley",
+  },
+  {
+    rating: 1,
+    comment: "fantastic!",
+    author: "fadebowaley",
+  },
+  {
+    rating: 3,
+    comment: "Great hub for innovation",
+    author: "Debby",
+  },
+  {
+    rating: 1,
+    comment: "Solves my problems!",
+    author: "Gowon Yakubu",
+  },
+];
 
 //Hotel room type Dummy Data
 const typeR = [
@@ -182,13 +186,18 @@ const users = [
   },
 ];
 
+// encrypt the password before storing
+User.schema.methods.encryptPassword = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
+};
+
 const seedUsers = async () => {
-    try {
-        await User.deleteMany({ email: "admin@hotelhub.com" });
-        await User.deleteMany({ email: "user@hotelhub.com" });
-        console.log("All users deleted successfully!");
+  try {
+    await User.deleteMany({ email: { $regex: /@hotelhub.com$/ } });
+    console.log("All users deleted successfully!");
 
     for (const user of users) {
+      user.password = await User.schema.methods.encryptPassword(user.password);
       await User.insertMany(user);
     }
     console.log("All users created successfully!");
@@ -215,6 +224,33 @@ const seedHotels = async () => {
 
 const seedReviews = async () => {
   try {
+    await Review.deleteMany({});
+    console.log("All reviews deleted successfully!");
+
+    const hotels = await Hotel.find();
+    const hotelReviews = hotels.flatMap((hotel) => {
+      return ratings.map((review) => {
+        const newReview = new Review({
+          ...review,
+          hotel: hotel._id,
+        });
+        hotel.reviews.push(newReview._id);
+        return newReview;
+      });
+    });
+
+    await Review.insertMany(hotelReviews);
+    await hotels.forEach(async (hotel) => await hotel.save());
+    console.log("All reviews seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding reviews:", error);
+    process.exit(1);
+  }
+};
+
+/** 
+const seedReviews = async () => {
+  try {
     await Reviews.deleteMany({});
     console.log("All reviews deleted successfully!");
 
@@ -231,6 +267,7 @@ const seedReviews = async () => {
     process.exit(1);
   }
 };
+*/
 
 const seedRooms = async () => {
   try {
@@ -239,27 +276,28 @@ const seedRooms = async () => {
     console.log("All room types deleted successfully!");
 
     console.log("Finding all hotels...");
-    const hotels = await Hotel.find();     
+    const hotels = await Hotel.find();
     console.log("Hotels found:", hotels);
 
     //add room types for available hotel
     for (const hotel of hotels) {
       const hotelRooms = typeR.map((items) => {
-        return {...items, hotel: hotel._id};
-      }); 
+        return { ...items, hotel: hotel._id };
+      });
 
-      console.log(`Seeding ${hotelRooms.length} rooms type for ${hotel.name}...`);
+      console.log(
+        `Seeding ${hotelRooms.length} rooms type for ${hotel.name}...`
+      );
       await RoomType.insertMany(hotelRooms);
       console.log(`Seeded ${hotelRooms.length} rooms type for ${hotel.name} `);
     }
-     
+
     console.log("All rooms seeded successfully!");
   } catch (error) {
     console.error("Error seeding rooms:", error);
     process.exit(1);
   }
 };
-
 
 const closeConnection = async () => {
   try {
@@ -271,21 +309,22 @@ const closeConnection = async () => {
   }
 };
 
-
-
 const dbSeed = async () => {
-    try {
+  try {
+    // connect Database
     await connectDB();
     await seedHotels();
-    await Promise.all([ seedRooms(), seedUsers(), seedReviews()]);
+    await seedRooms();
+    await seedUsers();
+    await seedReviews();
+    console.log("Data seeded successfully . . . ");
     await fs.writeFile("seeded.txt", "true");
+    console.log("flag set successfully");
     await closeConnection();
   } catch (error) {
     console.error("Error seeding database:", error);
     process.exit(1);
   }
 };
-
-
 
 module.exports = dbSeed;

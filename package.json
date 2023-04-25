@@ -29,6 +29,7 @@
     "faker": "^4.1.0",
     "http-errors": "~1.6.3",
     "mapbox-gl": "^1.13.2",
+    "method-override": "^3.0.0",
     "moment": "^2.29.3",
     "mongoose": "^5.13.14",
     "mongoose-aggregate-paginate-v2": "^1.0.6",

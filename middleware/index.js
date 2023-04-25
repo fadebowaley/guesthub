@@ -8,12 +8,12 @@ middlewareObject.isNotLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
-//check of user is na Administrator
+//check of user is an Administrator
 middlewareObject.isAdmin = (req, res, next) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
     return next();
   }
-  res.redirect("/admin/dashboard");
+  res.redirect("/");
 };
 
 

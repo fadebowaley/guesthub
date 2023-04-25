@@ -1,6 +1,7 @@
 
 <%- include ../partials/_dashHeads %>
 
+
 <div class="main-wrapper">
 		
 			<!-- Header -->
@@ -34,21 +35,27 @@
 							</div>
 						</div>
 					</div>
-					<% if (typeof messages !== 'undefined' && messages.length > 0) { %>
-  <% messages.forEach(function(message){ %>
-    <div class="alert alert-<%= message.type %> alert-dismissible fade show" role="alert">
-    <strong>Message!</strong> <%= message.text %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-    </button>
-</div>
-    <div class="alert alert-<%= message.type %>">
-      <%= message.text %>
-    </div>
-  <% }) %>
-<% } %>
+
+
 					<!-- Search Filter -->
-					
+				<% if (successMsg) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> <%= successMsg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+<% if (errorMsg) { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> <%= errorMsg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
 					<!-- /Search Filter -->
 					
 					<div class="row">
@@ -62,7 +69,7 @@
 												<tr>
 													<th>#</th>
                                                     <th>Name</th>
-                                                    <th>City</th>
+                                                    <th>Ratings</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
                                                     <th>Website</th>
@@ -80,7 +87,25 @@
 													<a href=""><%= hotel.name %></a>
 													</td>
 													
-                                                        <td><%= hotel.city %></td>
+												<td>
+													<span class="text-warning">
+														
+														<% let highestRating = 0; %>
+														<% hotel.reviews.forEach(function(review) { %>
+														<% if (review.rating > highestRating) { %>
+															<% highestRating = review.rating; %>
+														<% } %>
+														<% }) %>														
+														<% for (let i = 0; i < 5; i++) { %>
+														<% if (i < highestRating) { %>
+															<i class="fa fa-star"></i>
+														<% } else { %>
+															<i class="far fa-star"></i>
+														<% } %>
+														<% } %>
+													</span>
+													</td>
+
                                                         <td><%= hotel.email %></td>
                                                         <td><%= hotel.phone %></td>                                                     
                                                         <td><span class="badge bg-success-light"><%= hotel.website %></span></td>
@@ -88,8 +113,8 @@
 														<div class="dropdown dropdown-action">
 															<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
 															<div class="dropdown-menu dropdown-menu-right">
-																<a class="dropdown-item" href="/admin/hotels/<%= hotel._id %>/edit"><i class="far fa-edit mr-2"></i>Edit</a>
-																<a class="dropdown-item" href="/admin/hotel/delete/<%= hotel._id %>"><i class="far fa-trash-alt mr-2"></i>Delete</a>
+																<a class="dropdown-item" href="/admin/del/hotels/:id/<%= hotel._id %>/edit"><i class="far fa-edit mr-2"></i>Edit</a>
+																<a class="dropdown-item" href="/admin/hotels/del/<%= hotel._id %>"><i class="far fa-trash-alt mr-2"></i>Delete</a>
 																<a class="dropdown-item" href="view-estimate.html"><i class="far fa-eye mr-2"></i>View</a>
 															</div>
 														</div>
@@ -111,4 +136,5 @@
 			
 		</div>
 
+		
          <%- include ../partials/_dashFooter %>
