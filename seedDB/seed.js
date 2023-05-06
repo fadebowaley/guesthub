@@ -5,6 +5,7 @@ const Hotel = require("../models/hotel");
 const RoomType = require("../models/roomType");
 const User = require("../models/user");
 const Review = require("../models/review");
+const Room = require("../models/room");
 const bcrypt = require("bcrypt-nodejs");
 const connectDB = require("./../config/db");
 const fs = require("fs/promises");
@@ -118,6 +119,8 @@ const typeR = [
       "/images/img/icon/sve-icon5.png",
       "/images/img/icon/sve-icon6.png",
     ],
+    maxNumberAdult:2,
+    maxNumberChildren:1,
   },
   {
     name: "Superior Double Room",
@@ -133,6 +136,8 @@ const typeR = [
       "/images/img/icon/sve-icon5.png",
       "/images/img/icon/sve-icon6.png",
     ],
+    maxNumberAdult:2,
+    maxNumberChildren:4,
   },
   {
     name: "Super Balcony Double Room",
@@ -148,6 +153,8 @@ const typeR = [
       "/images/img/icon/sve-icon5.png",
       "/images/img/icon/sve-icon6.png",
     ],
+    maxNumberAdult:4,
+    maxNumberChildren:4,
   },
   {
     name: "Double Deluxe Room",
@@ -163,6 +170,8 @@ const typeR = [
       "/images/img/icon/sve-icon5.png",
       "/images/img/icon/sve-icon6.png",
     ],
+    maxNumberAdult:3,
+    maxNumberChildren:3,
   },
 ];
 
@@ -207,6 +216,7 @@ const seedUsers = async () => {
   }
 };
 
+
 const seedHotels = async () => {
   try {
     await Hotel.deleteMany({});
@@ -248,56 +258,107 @@ const seedReviews = async () => {
   }
 };
 
-/** 
-const seedReviews = async () => {
+const seedRoom = async () => {
   try {
-    await Reviews.deleteMany({});
-    console.log("All reviews deleted successfully!");
+    // delete all existing rooms before seeding
+    await Room.deleteMany({});
 
-    const hotels = await Hotel.find(); 
-    //add reviews to all hotels
-    const hotelReviews = hotels.flatMap((hotel) => {
-      return ratings.map((items) => ({ ...items, hotel: hotel._id }));
-    });
+    // find all available room types and hotels
+    const roomTypes = await RoomType.find({});
+    const hotels = await Hotel.find({});
+
+    // create an array to store the new rooms
+    const newRooms = [];
+
     
-    await Reviews.insertMany(hotelReviews);
-    console.log("All reviews seeded successfully!");
-  } catch (error) {
-    console.error("Error seeding rooms:", error);
-    process.exit(1);
-  }
-};
-*/
+    // loop through and create 15 new rooms
+    let roomTypeIndex = 0;
+    let hotelIndex = 0;
+    for (let i = 0; i < 250; i++) {
+        const checkIn = new Date(
+          Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000
+        );
+        const checkOut = new Date(
+          checkIn.getTime() +
+            Math.floor(Math.random() * 30) * 48 * 60 * 60 * 1000
+        );
+      const room = {
+        roomID: i + 1,
+        roomType: roomTypes[roomTypeIndex],
+        hotel: hotels[hotelIndex],
+        available: Math.random() < 0.5, // randomly assign true or false
+        checkIn,
+        checkOut: checkOut < new Date() ? checkOut : new Date(),
+      };
 
-const seedRooms = async () => {
-  try {
-    console.log("Deleting all room types...");
-    await RoomType.deleteMany({});
-    console.log("All room types deleted successfully!");
+      // increment the roomTypeIndex and hotelIndex to select the next room type and hotel
+      roomTypeIndex = (roomTypeIndex + 1) % roomTypes.length;
+      hotelIndex = (hotelIndex + 1) % hotels.length;
 
-    console.log("Finding all hotels...");
-    const hotels = await Hotel.find();
-    console.log("Hotels found:", hotels);
+      // create the new room
+      const newRoom = await Room.create(room);
 
-    //add room types for available hotel
-    for (const hotel of hotels) {
-      const hotelRooms = typeR.map((items) => {
-        return { ...items, hotel: hotel._id };
-      });
-
-      console.log(
-        `Seeding ${hotelRooms.length} rooms type for ${hotel.name}...`
+      // add the new room to its corresponding hotel's rooms array
+      const hotel = hotels.find(
+        (h) => h._id.toString() === newRoom.hotel.toString()
       );
-      await RoomType.insertMany(hotelRooms);
-      console.log(`Seeded ${hotelRooms.length} rooms type for ${hotel.name} `);
+      if (hotel) {
+        hotel.rooms.push(newRoom);
+        await hotel.save();
+      }
+
+      // add the new room to its corresponding roomType's rooms array
+      const roomType = roomTypes.find(
+        (rt) => rt._id.toString() === newRoom.roomType.toString()
+      );
+      if (roomType) {
+        roomType.rooms.push(newRoom);
+        await roomType.save();
+      }
+
+      // add the new room to the array of new rooms
+      newRooms.push(newRoom);
     }
 
-    console.log("All rooms seeded successfully!");
+    console.log("Rooms seeded successfully");
+    return newRooms;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Seed Room Type data to the database
+const seedRoomType = async () => {
+  try {
+    console.log("Deleting all room types...");
+    await RoomType.deleteMany({}); // delete all existing room types
+
+    console.log("All room types deleted successfully!");
+
+    const hotels = await Hotel.find(); // get all hotels
+    const hotelRoomTypes = hotels.flatMap((hotel) => {
+      // create room types for each hotel
+      return typeR.map((roomType) => {
+        const newRoomType = new RoomType({
+          // create a new RoomType object with the data
+          ...roomType, // using the spread operator to copy all properties from the typeR object
+          hotel: [hotel._id], // add the hotel id to the room type object
+        });
+        hotel.roomtypes.push(newRoomType._id); // add the room type id to the hotel's room types array
+        return newRoomType;
+      });
+    });
+
+    await RoomType.insertMany(hotelRoomTypes); // insert all new room types to the database
+    await hotels.forEach(async (hotel) => await hotel.save()); // save the updated hotel data to the database
+
+    console.log("All room types seeded successfully!");
   } catch (error) {
-    console.error("Error seeding rooms:", error);
+    console.error("Error seeding room types:", error);
     process.exit(1);
   }
 };
+
 
 const closeConnection = async () => {
   try {
@@ -313,10 +374,12 @@ const dbSeed = async () => {
   try {
     // connect Database
     await connectDB();
+    // await seedUsers();
     await seedHotels();
-    await seedRooms();
-    await seedUsers();
     await seedReviews();
+    await seedRoomType();
+    await seedRoom();
+
     console.log("Data seeded successfully . . . ");
     await fs.writeFile("seeded.txt", "true");
     console.log("flag set successfully");

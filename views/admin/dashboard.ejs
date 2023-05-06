@@ -1,5 +1,5 @@
+<%- include ("../partials/_dashHeads") %>
 
-<%- include ../partials/_dashHeads %>
 <style>
 .card {
     position: relative;
@@ -33,15 +33,15 @@ body {
     padding-left: 1.875rem;
 }
 </style>
+
+
 	<!-- Main Wrapper -->
 		<div class="main-wrapper">
 		
-			<!-- Header -->
-	<%- include ../partials/_dashHeader %>
-			<!-- /Header -->
-			
-			<!-- Sidebar -->
-				<%- include ../partials/_sideBar %>
+	<%- include ("../partials/newHeader") %>
+
+						<!-- Sidebar -->
+				<%- include ("../partials/_sideBar") %>
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -582,4 +582,4 @@ body {
 		</div>
 		<!-- /Main Wrapper -->
 
-        <%- include ../partials/_dashFooter %>
+        <%- include ("../partials/_dashFooter") %>

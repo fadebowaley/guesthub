@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { conn } = require("../config/dbb");
 
 const reviewSchema = Schema({
   rating: {
@@ -26,4 +27,4 @@ const reviewSchema = Schema({
   ],
 });
 
-module.exports = mongoose.model("Review", reviewSchema);
+module.exports = conn.model("Review", reviewSchema);

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt-nodejs");
 const Schema = mongoose.Schema;
+const { conn } = require("../config/dbb");
 
 const userSchema = Schema({
   username: {
@@ -31,6 +32,19 @@ const userSchema = Schema({
   resetPasswordToken: {
     type: String,
   },
+  emailVerified: {
+    type: Boolean,
+    default: false,
+  },
+  emailVerificationToken: {
+    type: String,
+  } ,
+  emailVerificationTokenExpiresAt: {
+   type: Date,
+  },  
+  emailVerifiedAt: {
+   type: Date,
+  },  
   resetPasswordExpires: {
     type: Date,
   },
@@ -53,9 +67,8 @@ userSchema.methods.validPassword = function (candidatePassword) {
   }
 };
 
-
 userSchema.methods.setPassword = function (password) {
   this.password = this.encryptPassword(password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = conn.model("User", userSchema);

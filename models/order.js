@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { conn } = require("../config/dbb");
 
 const orderSchema = Schema({
   user: {
@@ -58,4 +59,4 @@ const orderSchema = Schema({
   },
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+module.exports = conn.model("Order", orderSchema);

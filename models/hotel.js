@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { conn } = require("../config/dbb");
 
 const hotelSchema = Schema({
   name: {
@@ -59,4 +60,5 @@ const hotelSchema = Schema({
   // add any other relevant fields here
 });
 
-module.exports = mongoose.model("Hotel", hotelSchema);
+
+module.exports = conn.model("Hotel", hotelSchema);

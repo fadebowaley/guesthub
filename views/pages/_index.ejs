@@ -1,10 +1,11 @@
-<%- include ../partials/_head %>
+<%- include ("../partials/_head") %>
+
  
     <!--/head-->
     <body>
 
         <!-- header -->
-      <%- include ../partials/_header %>
+      <%- include ("../partials/_header") %>
         <!-- header-end -->
         
         <!-- main-area -->
@@ -19,9 +20,9 @@
                               
                                <div class="col-lg-7 col-md-7">
                                     <div class="slider-content s-slider-content mt-80 text-center">
-                                         <h2 data-animation="fadeInUp" data-delay=".4s">Welcome to Resort Experience</h2>
+                                         <h2 data-animation="fadeInUp" data-delay=".4s">Spiritual Serenity Awaits</h2>
                                                                            
-                                        <p data-animation="fadeInUp" data-delay=".6s">We are more than our name, we provide exceptional service for your comfort and stay.</p>
+                                        <p data-animation="fadeInUp" data-delay=".6s">Escape the chaos and discover the peace of mind you deserve. Unwind in tranquil surroundings and awaken your spirit with our soulful accommodations. Spiritual serenity awaits you</p>
                                         
                                           <div class="slider-btn mt-30 mb-105">     
                                              <a href="contact.html" class="btn ss-btn active mr-15" data-animation="fadeInLeft" data-delay=".4s">Book Now </a>
@@ -38,10 +39,11 @@
                         <div class="container">
                            <div class="row justify-content-center align-items-center">
                               
-                                <div class="col-lg-7 col-md-7">
+                                <div class="col-lg-7 col-md-7"> 
                                     <div class="slider-content s-slider-content mt-80 text-center">
-                                         <h2 data-animation="fadeInUp" data-delay=".4s">Enjoy A Luxury Experience</h2>
-                                        <p data-animation="fadeInUp" data-delay=".6s">Donec vitae libero non enim placerat eleifend aliquam erat volutpat. Curabitur diam ex, dapibus purus sapien, cursus sed nisl tristique, commodo gravida lectus non.</p>
+
+                                         <h2 data-animation="fadeInUp" data-delay=".4s">Experience Divine Hospitality</h2>
+                                        <p data-animation="fadeInUp" data-delay=".6s">Experience Divine Hospitality: Stay in Comfortable Guest Houses with Heavenly Amenities</p>
                                         
                                           <div class="slider-btn mt-30 mb-105">     
                                              <a href="contact.html" class="btn ss-btn active mr-15" data-animation="fadeInLeft" data-delay=".4s">Discover More </a>
@@ -63,55 +65,52 @@
 
              <!-- booking-area -->
             <div id="booking" class="booking-area p-relative">
-                <div class="container">
-                    <form action="#" class="contact-form" >
-							<div class="row align-items-center">
+                <div class="container">           
+                    <form action="/search/availability" class="contact-form" >
+				                  <div class="row align-items-center">
                                 <div class="col-lg-12"> 
                                     <ul>
                                         <li> 
                                             <div class="contact-field p-relative c-name">  
                                                <label><i class="fal fa-badge-check"></i> Check In Date</label>
-                                                     <input type="date" id="chackin" name="date">
+                                                     <input type="date" id="checkIn" name="checkin" required>
                                             </div>      
                                         </li>
                                         <li> 
                                             <div class="contact-field p-relative c-name">  
                                                  <label><i class="fal fa-times-octagon"></i> Check Out Date</label>
-                                                     <input type="date" id="chackout" name="date">
+                                                     <input type="date" id="checkout" name="checkout" required>
                                             </div>      
                                         </li>
                                          <li> 
                                             <div class="contact-field p-relative c-name">  
                                                  <label><i class="fal fa-users"></i> Adults</label>
-                                                <select name="adults" id="adu">
+                                                <select name="adults" id="adu" required>
                                                   <option value="sports-massage">Adults</option>
-                                                  <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
+                                                  <option value="1" selected >2</option>
+                                                    <option value="2">3</option>
+                                                     <option value="3">4</option>
+                                                  
                                                 </select>
                                             </div>      
                                         </li>
                                          <li> 
                                             <div class="contact-field p-relative c-name">  
                                                  <label><i class="fal fa-baby"></i> Child</label>
-                                                <select name="child" id="cld">
+                                                <select name="children" id="cld" required>
                                                   <option value="sports-massage">Child</option>
-                                                  <option value="1">1</option>
+                                                  <option value="1" selected>1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
+                                                                                           </select>
                                             </div>      
                                         </li>
                                          <li> 
                                             <div class="contact-field p-relative c-name">  
                                                 <label><i class="fal fa-concierge-bell"></i> Room</label>
-                                               <select name="room" id="rm">
+                                               <select name="roomNo" id="rm" required>
                                                   <option value="sports-massage">Room</option>
-                                                  <option value="1">1</option>
+                                                  <option value="1" selected >1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
@@ -122,7 +121,7 @@
                                         
                                         <li>
                                             <div class="slider-btn">    
-                                                <label><i class="fal fa-calendar-alt"></i></label>
+                                            <label><i class="fal fa-calendar-alt"></i></label>
                                             <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Check Availability</button>
                                         </div>     
                                         </li>
@@ -135,6 +134,80 @@
                 </div>
             </div>
             <!-- booking-area-end -->
+
+            <!-- room sections for display rooms dynamically-->
+            <section id="services" class="services-area pt-113 pb-150">    
+                        <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12">    
+                            <div class="section-title center-align mb-50 text-center">
+                                <h5>The pleasure of luxury</h5>
+                                <h2>Rooms & Suites</h2>
+                                <p>Proin consectetur non dolor vitae pulvinar. Pellentesque sollicitudin dolor eget neque viverra, sed interdum metus interdum. Cras lobortis pulvinar dolor, sit amet ullamcorper dolor iaculis vel</p>
+                            </div>
+                            <div class="center-align mb-50 text-center" >
+                                <% if(hotels.length <= 1 ) { %>
+                                <!-- All Hotels name  shows here if they are more than one -->
+                                  <!--display nothing-->
+                                <% } else  { %>
+                                    <% hotels.forEach((hotel) => { %>
+                                <a href="/hotels/<%= hotel._id %>/roomtypes" class="a.btn btn ss-btn active mr-15" data-animation="fadeInLeft" data-delay=".4s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;"><%= hotel.name %></a>
+                                     <% }); %>                                   
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hotelRooms" class="row services-active">                    
+                    <!--display by default-->
+                   <% if (hotels.length > 0) { %>    
+                    <% hotels[0].roomtypes.forEach((roomtype) => { %>                              
+                    <div id="roomType" class="col-xl-4 col-md-6">
+                        <div class="single-services mb-30">
+                            <div class="services-thumb">
+                                <a class="gallery-link popup-image" href="/images/img/gallery/room-img01.png">
+                                <img src="/images/img/gallery/room-img01.png" alt="img">
+                                </a>
+                            </div>
+                            <div class="services-content"> 
+                                <div class="day-book">
+                                    <ul>
+                                        <li>$ <%= roomtype.price %> / Night</li>
+
+                                        <li><a href="/bookings/new/<%= roomtype._id %>/reservation">Book Now</a></li>
+                                    </ul>
+                                </div>
+                                <h4><a href="/viewrooms"> <h4><%= roomtype.name %></h4></a></h4>    
+                                <p><%= roomtype.description %></p>
+                                <div class="icon">
+                                    <ul>
+                                        <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
+                                        <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
+                                        <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
+                                        <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
+                                        <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
+                                        <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                      <% }); %>
+                    <!--default should load -->
+                  <% } else { %>
+                    <div>
+                        <h2><i>  No Hotels available ! </i></h2>
+                    </div>
+                  <% } %>
+
+                    </div>       
+                        <!--/example of the room types -->
+                   
+
+                    </div>
+                </div>
+            </section>
+            <!--/ room sections for display rooms dynamically--> 
+
 
              <!-- about-area -->
             <section class="about-area about-p pt-120 pb-120 p-relative fix">
@@ -302,148 +375,7 @@
 
              <!-- room-area-->
 
-            <section id="services" class="services-area pt-113 pb-150">    
-                       
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-12">    
-                            <div class="section-title center-align mb-50 text-center">
-                                <h5>The pleasure of luxury</h5>
-                                <h2>Rooms & Suites</h2>
-                                <p>Proin consectetur non dolor vitae pulvinar. Pellentesque sollicitudin dolor eget neque viverra, sed interdum metus interdum. Cras lobortis pulvinar dolor, sit amet ullamcorper dolor iaculis vel</p>
-                            </div>
-                            <div class="center-align mb-50 text-center" >
-                                <a href="/" class="a.btn btn ss-btn active mr-15" data-animation="fadeInLeft" data-delay=".4s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">Shiloh Apartments </a>
-                                <a href="/" class="a.btn btn ss-btn active mr-15" data-animation="fadeInRight" data-delay=".3s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">Peace Courts Hotels</a>
-                                <a href="/" class="a.btn btn ss-btn active mr-15" data-animation="fadeInRight" data-delay=".2s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">White House Suites</a>
-                                <a href="/" class="a.btn btn ss-btn active mr-15" data-animation="fadeInRight" data-delay=".1s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">Overflow Hotels</a>
-                                <!-- <a href="/" class="btn ss-btn active mr-15" data-animation="fadeInRight" data-delay=".1s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010; padding: 10px; text-decoration: none; transition: background-color 0.3s ease-in-out;">
-                                    Overflow Hotels
-                                    </a> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row services-active">
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img01.png">
-                                    <img src="/images/img/gallery/room-img01.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$600/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Classic Balcony Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img02.png">
-                                    <img src="/images/img/gallery/room-img02.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$400/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Superior Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta ex, in imperdiet tortor feugiat at.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img03.png">
-                                    <img src="/images/img/gallery/room-img03.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$100/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Super Balcony Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img04.png">
-                                    <img src="/images/img/gallery/room-img04.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$300/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Delux Double Room</a></h4>    
-                                   <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- room-area-end -->    
+  
 
 
 
@@ -849,6 +781,41 @@
             </div>
             <!-- brand-area-end -->
         </main>
+        
+
+        <script>
+// Get the check-in and check-out date input fields
+const checkInInput = document.getElementById("checkIn");
+const checkOutInput = document.getElementById("checkout");
+
+// Get the current date
+const today = new Date().toISOString().split("T")[0];
+// Get the date for tomorrow
+const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+
+// Set the check-in value to today and the minimum value of check-in and check-out to today's date and tomorrow's date respectively
+checkInInput.setAttribute("value", today);
+checkInInput.setAttribute("min", today);
+checkOutInput.setAttribute("min", tomorrow);
+
+// Add an event listener to check-in input field
+checkInInput.addEventListener("change", function() {
+  // Get the value of check-in input field
+  const checkInValue = checkInInput.value;
+  // Set the minimum value of check-out to check-in value + 1 day
+  const checkOutDate = new Date(new Date(checkInValue).getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  checkOutInput.setAttribute("min", checkOutDate);
+});
+
+// Add an event listener to check-out input field
+checkOutInput.addEventListener("change", function() {
+  // Get the value of check-out input field
+  const checkOutValue = checkOutInput.value;
+  // Set the maximum value of check-in to check-out value
+  checkInInput.setAttribute("max", checkOutValue);
+});
+
+        </script>
         <!-- main-area-end -->
          <!-- footer -->
-   <%- include ../partials/_footer %>
+   <%- include ("../partials/_footer") %>

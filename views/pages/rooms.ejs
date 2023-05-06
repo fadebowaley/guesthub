@@ -1,9 +1,9 @@
-<%- include ../partials/_head %>
+<%- include ("../partials/_head") %>
  
     <!--/head-->
     <body>
         <!-- header -->
-      <%- include ../partials/_header %>
+      <%- include ("../partials/_header") %>
         <!-- header-end -->
 
         <!-- main-area -->
@@ -15,7 +15,7 @@
                         <div class="col-xl-12 col-lg-12">
                             <div class="breadcrumb-wrap text-center">
                                 <div class="breadcrumb-title">
-                                    <h2>Our Menu</h2>    
+                                    <h2><%= hotelName %></h2>    
                                     <div class="breadcrumb-wrap">
                               
                                 <nav aria-label="breadcrumb">
@@ -37,8 +37,10 @@
             <section id="services" class="services-area pt-120 pb-90">
               
                 <div class="container">
-                    
+
                     <div class="row">
+                         <% if (roomTypes.length > 0) { %>
+                       <%  roomTypes.forEach((roomtype) => { %> 
                         <div class="col-xl-4 col-md-6">
                             <div class="single-services ser-m mb-30">
                                 <div class="services-thumb">
@@ -68,151 +70,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-6">
-                           <div class="single-services ser-m mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img02.png">
-                                    <img src="/images/img/gallery/room-img02.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$400/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Superior Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta ex, in imperdiet tortor feugiat at.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services ser-m mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img03.png">
-                                    <img src="/images/img/gallery/room-img03.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$100/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Super Balcony Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                           <div class="single-services ser-m mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img04.png">
-                                    <img src="/images/img/gallery/room-img04.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$300/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Delux Double Room</a></h4>    
-                                   <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                           <div class="single-services ser-m mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img05.png">
-                                    <img src="/images/img/gallery/room-img05.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$400/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Superior Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta ex, in imperdiet tortor feugiat at.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
-                            <div class="single-services ser-m mb-30">
-                                <div class="services-thumb">
-									<a class="gallery-link popup-image" href="/images/img/gallery/room-img06.png">
-                                    <img src="/images/img/gallery/room-img06.png" alt="img">
-									</a>
-                                </div>
-                                <div class="services-content"> 
-                                    <div class="day-book">
-                                        <ul>
-                                            <li>$100/Night</li>
-                                            <li><a href="contact.html">Book Now</a></li>
-                                        </ul>
-                                    </div>
-                                    <h4><a href="single-rooms.html">Super Balcony Double Room</a></h4>    
-                                    <p>Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.</p>
-                                    <div class="icon">
-                                        <ul>
-                                            <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                            <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                     <% }); %>
+
+                     <% } else { %>
+                    <div>
+                        <h2><i>  No rooms available ! </i></h2>
+                    </div>
+                  <% } %>
                     </div>
                 </div>
             </section>
@@ -356,4 +220,4 @@
         <!-- main-area-end -->
                <!-- main-area-end -->
          <!-- footer -->
-   <%- include ../partials/_footer %>
+   <%- include ("../partials/_footer") %>

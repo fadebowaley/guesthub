@@ -1,111 +1,125 @@
-<%- include ../partials/_head %>
-<style>
-  .contact-field select {
-    height: calc(2.9em + 0.75rem + 2px);
-    border: 1px solid #777;
-  }
-
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    padding-left: 1rem;
-  }
-</style>
-<!--/head-->
-
-<body>
-  <!-- header -->
-  <%- include ../partials/_header %>
-  <!-- header-end -->
 
 
-  <section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
-    <div class="container">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-lg-8 order-1 offset-lg-2">
-          <div class="contact-bg02">
-            <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
-              <h2>Register</h2>
-              <!-- Flash message -->
-              <% if (errorMsg != null && errorMsg.length > 0) { %>
+<%- include ("../partials/_dashHeads") %>
 
-              <div id="flash-msg" class="alert alert-warning alert-dismissible text-white fade show" role="alert" style="background-color: #be9874;">
-                <%= errorMsg %>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <% } %>
-            </div>
 
-            <!-- Multistep form -->
-            <form action="/user/signup" method="POST" class="contact-form mt-30" id="register-form">
-              <!-- Step 1 -->
-              <div class="step" id="step-1">
-                <div class="row justify-content-center align-items-center">
-                  <div class="col-lg-4">
-                    <div class="contact-field p-relative c-name mb-20">
-                      <select id="title" name="title" required>
-                        <option value="" disabled selected>Select Title</option>
-                        <option value="Pastor">Pastor</option>
-                        <option value="Bishop">Bishop</option>
-                        <option value="Mr">Mr</option>
-                        <option value="Chief">Chief </option>
-                        <option value="Dr">Dr</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-lg-8">
-                    <div class="contact-field p-relative c-name mb-20">
-                      <input type="text" id="name" name="name" placeholder="Name" required>
-                    </div>
-                  </div>
-                </div>
-                <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s" type="button" id="next-1">Next</button>
-              </div>
+	<!-- Page Wrapper -->
+            <div class="page-wrapper">
 
-              <!-- Step 2 -->
-              <!-- Step 2: Add Room Types Data to Hotel -->
-<form id="step-2-form" style="display: none;">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-lg-8">
-      <h3>Add Room Types Data to Hotel</h3>
-    </div>
-    <div class="col-lg-4">
-      <div class="contact-field p-relative c-name mb-20">
-        <select id="room-type" name="room-type">
-          <option value="" disabled selected>Select Room Type</option>
-          <option value="Single Room">Single Room</option>
-          <option value="Double Room">Double Room</option>
-          <option value="Deluxe Room">Deluxe Room</option>
-          <option value="Suite">Suite</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="contact-field p-relative c-name mb-20">
-        <input type="number" id="num-rooms" name="num-rooms" placeholder="Number of Rooms" required>
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s" type="button" onclick="addRoomType()">Add Room Type</button>
-    </div>
-    <div class="col-lg-8">
-      <table id="room-types-table" class="table">
-        <thead>
-          <tr>
-            <th scope="col">Room Type</th>
-            <th scope="col">Number of Rooms</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-lg-8">
-      <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s" type="button" onclick="showStep3()">Next</button>
-    </div>
-  </div>
-</form>
-</form><section>
-   <%- include ../partials/_footer %>
+                	<!-- Header -->
+			<%- include ("../partials/newHeader") %>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+		<%- include ("../partials/_sideBar") %>
+			<!-- /Sidebar -->
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title"><%= pageName %></h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+									<li class="breadcrumb-item active"><%= pageName %></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					<!-- Row -->
+					<div class="row">
+						<div class="col-sm-12">
+						
+							<!-- Custom Boostrap Validation -->
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Create Hotel Data</h5>
+									<p class="card-text">Begin your process of creating Hotels data , Types of Rooms available and much more</p>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm">
+											<form class="needs-validation" novalidate="">
+												<div class="form-row">
+													<div class="col-md-4 mb-3">
+														<label for="validationCustom01">First name</label>
+														<input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required="">
+														<div class="valid-feedback">
+															Looks good!
+														</div>
+													</div>
+													<div class="col-md-4 mb-3">
+														<label for="validationCustom02">Last name</label>
+														<input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required="">
+														<div class="valid-feedback">
+															Looks good!
+														</div>
+													</div>
+													<div class="col-md-4 mb-3">
+														<label for="validationCustomUsername">Username</label>
+														<div class="input-group">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="inputGroupPrepend">@</span>
+															</div>
+															<input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required="">
+															<div class="invalid-feedback">
+																Please choose a username.
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="col-md-6 mb-3">
+														<label for="validationCustom03">City</label>
+														<input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+														<div class="invalid-feedback">
+															Please provide a valid city.
+														</div>
+													</div>
+													<div class="col-md-3 mb-3">
+														<label for="validationCustom04">State</label>
+														<input type="text" class="form-control" id="validationCustom04" placeholder="State" required="">
+														<div class="invalid-feedback">
+															Please provide a valid state.
+														</div>
+													</div>
+													<div class="col-md-3 mb-3">
+														<label for="validationCustom05">Zip</label>
+														<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required="">
+														<div class="invalid-feedback">
+															Please provide a valid zip.
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required="">
+														<label class="form-check-label" for="invalidCheck">
+															Agree to terms and conditions
+														</label>
+														<div class="invalid-feedback">
+															You must agree before submitting.
+														</div>
+													</div>
+												</div>
+												<button class="btn btn-primary" type="submit">Submit form</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Custom Boostrap Validation -->
+													
+						</div>
+					</div>
+					<!-- /Row -->
+				
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+
+
+              <%- include ("../partials/_dashFooter") %>

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Hotel = require("./hotel");
+const { conn } = require("../config/dbb");
 
 const roomSchema = Schema({
   roomID: {
@@ -11,8 +13,15 @@ const roomSchema = Schema({
     ref: "RoomType",
   },
   hotel: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: Hotel,
+  },
+  checkIn: {
+    type: Date,
+  },
+  checkOut: {
+    type: Date,
   },
   available: {
     type: Boolean,
@@ -24,6 +33,4 @@ const roomSchema = Schema({
   },
 });
 
-module.exports = mongoose.model("Room", roomSchema);
-
-
+module.exports = conn.model("Room", roomSchema);

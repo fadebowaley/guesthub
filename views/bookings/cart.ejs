@@ -1,0 +1,199 @@
+
+<%- include ("../partials/_head") %>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-XmB8enZBwPZpt0jsvDkgWlt/qi3Ib4evXzoN1v97Nc88ltOCQFPccLxTjRvIsz61tsC8s3k4yX9pwwfOJbVT/Q==" crossorigin="anonymous" />
+
+<style>
+.breadcrumb-area {
+background-size: cover;
+position: relative;
+min-height: 300px;
+background-color: rgb(0, 0, 0);
+background-repeat: no-repeat;
+}
+.contact-bg02 {
+background: #efe9dd;
+padding: 40px;
+text-align: center;
+}
+
+.pt-120 {
+padding-top: 53px;
+}
+.contact-field select, input, textarea{
+height: calc(2.9em + 0.75rem + 2px);
+border: 2px solid #777;
+padding-right:10px;
+
+
+}
+button, input, optgroup, select, textarea{
+padding-left: 1rem;
+
+}
+label{
+text-align: left;
+font-size: 16px;
+font-weight: 500;
+}
+
+/* Style the first two date fields */
+.col-lg-3:nth-of-type(1),
+.col-lg-3:nth-of-type(2) {
+border: 2px solid #881313;
+background-color: #d82121;
+}
+
+/* Style the labels */
+label {
+display: block;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+
+</style>
+
+<!--/head-->
+<body>
+<!-- header -->
+<%- include ("../partials/_header") %>
+<!-- header-end -->
+
+<!-- main-area -->
+
+<main>
+
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/images/img/bg/bdrc-bg.jpg)">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-xl-12 col-lg-12">
+<div class="breadcrumb-wrap text-center">
+<div class="breadcrumb-title">
+<h2>Bookings</h2>    
+<div class="breadcrumb-wrap">
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active" aria-current="page">About</li>
+</ol>
+</nav>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+<!-- breadcrumb-area-end -->	
+<!-- contact-area -->
+<section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
+<div class="container">             
+<div class="row justify-content-center align-items-center">	
+
+<div class="col-lg-8 order-1">
+<div class="contact-bg02">
+<div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+<table>
+<thead>
+<th>Sn</th>
+<th>Items</th>
+<th>Details</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</thead>
+    <tbody>
+<tr>
+    <td>1.</td>
+    <td>Deluxes Chapel Limited </td>
+    <td>Hotel and  Suites</td>
+    <td>2</td>
+    <td>26500</td>
+    <td>53000</td>
+</tr>
+    </tbody>
+</table>
+
+
+</div>                       
+</div>    
+</div> 
+
+
+<div class="col-lg-4 order-2">
+<div class="contact-bg02">
+<div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+<table>
+<thead>
+<th>Sn</th>
+<th>Items</th>
+<th>Details</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</thead>
+    <tbody>
+<tr>
+    <td>1.</td>
+    <td>Deluxes Chapel Limited </td>
+    <td>Hotel and  Suites</td>
+    <td>2</td>
+    <td>26500</td>
+    <td>53000</td>
+</tr>
+    </tbody>
+</table>
+
+
+</div>                       
+</div>    
+</div> 
+
+
+
+</div>
+
+
+</div>
+</div>
+</section>
+<!-- contact-area-end -->
+<!-- newslater-area -->
+<section class="newslater-area p-relative pt-120 pb-120" style="background-color: #f7f5f1;">
+<div class="animations-01"><img src="/images/img/bg/an-img-07.png" alt="contact-bg-an-05"></div>
+<div class="container">
+<div class="row justify-content-center align-items-center text-center">
+<div class="col-xl-9 col-lg-9">
+<div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+<h5>Newsletter</h5>
+<h2>
+Get Best Offers On The Hotel
+</h2>
+<p>With the subscription, enjoy your favourite Hotels without having to think about it</p>
+</div>
+<form name="ajax-form" id="contact-form4" action="#" method="post" class="contact-form newslater">
+<div class="form-group">
+<input class="form-control" id="email3" name="email" type="email" placeholder="Your Email Address" value="" required=""> 
+<button type="submit" class="btn btn-custom" id="send2">Subscribe Now</button>
+</div>
+<!-- /Form-email -->	
+</form>
+</div>
+
+</div>
+
+</div>
+</section>
+<!-- newslater-aread-end -->
+
+</main>
+
+<!-- main-area-end -->
+<!-- main-area-end -->
+<!-- footer -->
+<%- include ("../partials/_footer") %>

@@ -1,0 +1,438 @@
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  bookings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Booking",
+    },
+  ],
+  // add any other relevant fields here
+});
+
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
+
+//.2
+const mongoose = require("mongoose");
+
+const hotelSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  zip: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  website: {
+    type: String,
+    required: true,
+  },
+  rooms: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Room",
+    },
+  ],
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+  // add any other relevant fields here
+});
+
+const Hotel = mongoose.model("Hotel", hotelSchema);
+
+module.exports = Hotel;
+
+// cart
+const mongoose = require("mongoose");
+
+const cartSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  items: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Cart = mongoose.model("Cart", cartSchema);
+
+module.exports = Cart;
+
+// category
+const mongoose = require("mongoose");
+
+const categorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Category = mongoose.model("Category", categorySchema);
+
+module.exports = Category;
+
+
+//order 
+const mongoose = require("mongoose");
+
+const orderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  items: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  shippingAddress: {
+    type: String,
+    required: true,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
+  paymentResult: {
+    id: String,
+    status: String,
+    update_time: String,
+    email_address: String,
+  },
+  isPaid: {
+    type: Boolean,
+    default: false,
+  },
+  paidAt: {
+    type: Date,
+  },
+  isDelivered: {
+    type: Boolean,
+    default: false,
+  },
+  deliveredAt: {
+    type: Date,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Order = mongoose.model("Order", orderSchema);
+
+module.exports = Order;
+
+//Single room, Chalet, Double Bed, Flat
+
+
+
+// Create a new hotel
+const createHotel = async (hotelData) => {
+  try {
+    const response = await fetch('/hotels', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ hotel: hotelData })
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Edit an existing hotel
+const getHotelData = async (hotelId) => {
+  try {
+    const response = await fetch(`/hotels/${hotelId}/edit`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Update an existing hotel
+const updateHotel = async (hotelId, hotelData) => {
+  try {
+    const response = await fetch(`/hotels/${hotelId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ hotel: hotelData })
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Delete an existing hotel
+const deleteHotel = async (hotelId) => {
+  try {
+    const response = await fetch(`/hotel/delete/${hotelId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+
+const CronJob = require("cron").CronJob;
+
+new CronJob(
+  "0 0 12 * * *",
+  function () {
+    // run your function here every day at 12:00 PM Lagos time
+  },
+  null,
+  true,
+  "Africa/Lagos"
+);
+
+new CronJob(
+  "0 */30 * * * *",
+  function () {
+    // run your function here every 30 minutes
+  },
+  null,
+  true,
+  "Africa/Lagos"
+);
+
+new CronJob(
+  "0 0 0 * * *",
+  function () {
+    // run your function here every day at 12:00 AM Lagos time
+  },
+  null,
+  true,
+  "Africa/Lagos"
+);
+
+new CronJob(
+  "0 0 */1 * * *",
+  function () {
+    // run your function here every hour
+  },
+  null,
+  true,
+  "Africa/Lagos"
+);
+
+
+
+const { Worker } = require("worker_threads");
+const { sendResetPasswordEmail } = require("../middleware/email");
+const worker = new Worker("./worker/workers.js");
+
+worker.on("message", (message) => {
+  console.log(message);
+});
+
+worker.on("error", (error) => {
+  console.error(error);
+});
+
+worker.on("exit", (code) => {
+  if (code !== 0) {
+    console.error(`Worker stopped with exit code ${code}`);
+  }
+});
+
+const sendPasswordResetEmailInBackground = async (token, email) => {
+  try {
+    await sendResetPasswordEmail(token, email);
+  } catch (error) {
+    console.error("Error sending password reset email in background:", error);
+  }
+};
+
+module.exports = { sendPasswordResetEmailInBackground };
+
+const mongoose = require("mongoose");
+
+const connectDB = async () => {
+  try {
+    const uri = process.env.MONGO_URI;
+    await mongoose
+      .connect(uri, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        poolSize: 10,
+      })
+      .catch((error) => console.log(error));
+    const connection = mongoose.connection;
+    console.log("Server db connected successfully");
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+module.exports = connectDB;
+
+
+
+const { Worker } = require("worker_threads");
+const { createConnectionPool } = require("../config/db");
+const { sendResetPasswordEmail } = require("../middleware/email");
+
+const worker = new Worker("./worker/workers.js");
+
+worker.on("message", (message) => {
+  console.log(message);
+});
+
+worker.on("error", (error) => {
+  console.error(error);
+});
+
+worker.on("exit", (code) => {
+  if (code !== 0) {
+    console.error(`Worker stopped with exit code ${code}`);
+  }
+});
+
+const sendPasswordResetEmailInBackground = async (token, email) => {
+  const connection = await createConnectionPool(); // create a connection pool for database connections
+  const stream = sendResetPasswordEmail(token, email, connection).pipe(
+    connection.queryStream()
+  ); // use a file stream to send the email and a connection pool to manage the database connection
+
+  stream.on("error", (error) => {
+    console.error("Error sending password reset email in background:", error);
+  });
+
+  stream.on("end", () => {
+    connection.close(); // close the connection once the email has been sent
+  });
+};
+
+module.exports = { sendPasswordResetEmailInBackground };

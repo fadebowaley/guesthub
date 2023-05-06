@@ -1,15 +1,15 @@
 
-<%- include ../partials/_dashHeads %>
+<%- include ("../partials/_dashHeads") %>
 
 
 <div class="main-wrapper">
 		
 			<!-- Header -->
-			<%- include ../partials/_dashHeader %>
+			<%- include ("../partials/newHeader") %>
 			<!-- /Header -->
 			
 			<!-- Sidebar -->
-		<%- include ../partials/_sideBar %>
+		<%- include ("../partials/_sideBar") %>
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -26,7 +26,7 @@
 								</ul>
 							</div>
 							<div class="col-auto">
-								<a href="/admin/hotels/create" class="btn btn-primary mr-1">
+								<a href="/admin/hotels/new" class="btn btn-primary mr-1">
 									<i class="fas fa-plus"></i>
 								</a>
 								<a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
@@ -70,8 +70,8 @@
 													<th>#</th>
                                                     <th>Name</th>
                                                     <th>Ratings</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
+                                                    <th>Ready Rooms</th>
+                                                    <th>Occuppied</th>
                                                     <th>Website</th>
                                                     
 													<th class="text-right">Action</th>
@@ -106,8 +106,8 @@
 													</span>
 													</td>
 
-                                                        <td><%= hotel.email %></td>
-                                                        <td><%= hotel.phone %></td>                                                     
+                                                        <td><span class="badge bg-success-light"><%= hotelRoomsCounts.find(hrc => hrc.hotelName === hotel.name).availableRoomsCount %></td></span>
+                                                        <td><span class="badge bg-danger-light"> <%= hotelRoomsCounts.find(hrc => hrc.hotelName === hotel.name).unavailableRoomsCount %></td></span>
                                                         <td><span class="badge bg-success-light"><%= hotel.website %></span></td>
 													<td class="text-right">
 														<div class="dropdown dropdown-action">
@@ -115,7 +115,7 @@
 															<div class="dropdown-menu dropdown-menu-right">
 																<a class="dropdown-item" href="/admin/del/hotels/:id/<%= hotel._id %>/edit"><i class="far fa-edit mr-2"></i>Edit</a>
 																<a class="dropdown-item" href="/admin/hotels/del/<%= hotel._id %>"><i class="far fa-trash-alt mr-2"></i>Delete</a>
-																<a class="dropdown-item" href="view-estimate.html"><i class="far fa-eye mr-2"></i>View</a>
+																<a class="dropdown-item" href="/admin/hotels/<%= hotel._id %>/rooms"><i class="far fa-eye mr-2"></i>View</a>
 															</div>
 														</div>
 													</td>
@@ -137,4 +137,4 @@
 		</div>
 
 		
-         <%- include ../partials/_dashFooter %>
+         <%- include ("../partials/_dashFooter") %>

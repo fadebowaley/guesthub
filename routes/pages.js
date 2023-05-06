@@ -4,14 +4,11 @@ const router = express.Router();
 const {
   userContactUsValidationRules,
   validateContactUs,
-} = require("../config/validator");
+} = require("../middleware/validator");
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
-const { sendContactFormEmail } = require("../config/email");
-
-
-
+const { sendContactFormEmail } = require("../middleware/email");
 
 //GET: display about us page
 router.get("/about", (req, res) => {
@@ -20,13 +17,11 @@ router.get("/about", (req, res) => {
   });
 });
 
-
 router.get("/rooms", (req, res) => {
   res.render("pages/rooms", {
     pageName: "our Rooms",
   });
 });
-
 
 router.get("/room-details", (req, res) => {
   res.render("pages/roomDetails", {
@@ -34,19 +29,13 @@ router.get("/room-details", (req, res) => {
   });
 });
 
-
 router.get("/facilities", (req, res) => {
   res.render("pages/facilities", {
     pageName: "Our Facilities",
   });
 });
 
-
-
-
-
 // ---------------------------------------
-
 
 //GET: display about us page
 router.get("/about-us", (req, res) => {
@@ -55,8 +44,6 @@ router.get("/about-us", (req, res) => {
   });
 });
 
-
-
 //GET: display shipping policy page
 router.get("/shipping-policy", (req, res) => {
   res.render("pages/shipping-policy", {
@@ -64,19 +51,12 @@ router.get("/shipping-policy", (req, res) => {
   });
 });
 
-
-
 //GET: display careers page
 router.get("/careers", (req, res) => {
   res.render("pages/careers", {
     pageName: "Careers",
   });
 });
-
-
-
-
-
 
 //GET: display contact us page and form with csrf tokens
 router.get("/contact", (req, res) => {
@@ -89,7 +69,6 @@ router.get("/contact", (req, res) => {
     errorMsg,
   });
 });
-
 
 //POST: handle contact us form logic using nodemailer
 
@@ -106,8 +85,5 @@ router.post("/contact", async (req, res) => {
     res.redirect("/pages/contact");
   }
 });
-
-  
-
 
 module.exports = router;

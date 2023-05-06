@@ -1,36 +1,61 @@
 const express = require("express");
 const csrf = require("csurf");
-const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const Product = require("../models/product");
-const Category = require("../models/category");
+const Hotel = require("../models/hotel");
+const RoomType = require("../models/roomType");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
-const middleware = require("../middleware");
+const db = require("../config/dbb");
+const middleware = require("../middleware/confirm");
 const router = express.Router();
 
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
-// GET: home page
-// router.get("/", async (req, res) => {
-//   try {
-//     const products = await Product.find({})
-//       .sort("-createdAt")
-//       .populate("category");
-//     res.render("shop/home", { pageName: "Home", products });
-//   } catch (error) {
-//     console.log(error);
-//     res.redirect("/");
-//   }
-// });
 
-router.get("/", (req, res) => {
-  res.render("pages/_index", {
-    pageName: "Home Page",
-  });
+
+
+// Hotel front Page
+router.get("/", async (req, res) => {
+  try {
+    const hotels = await Hotel.find({}).populate("roomtypes");
+    const successMsg = req.flash("success")[0];
+    const errorMsg = req.flash("error")[0];
+    res.render("pages/_index", {
+      hotels, csrfToken: req.csrfToken(),
+    successMsg, errorMsg});
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+router.get("/activate-your-account", async (req, res, next) => {
+  try {   
+     const successMsg = req.flash("success")[0];
+     const errorMsg = req.flash("error")[0];
+      res.render("user/confirm", { successMsg, errorMsg, csrfToken: req.csrfToken() });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
 });
 
 
+//routes to display Hotel Data and all its associated routes
+router.get("/hotels/:id/roomtypes", middleware.emailVerified, async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id).populate("roomtypes");
+    const roomTypes = hotel.roomtypes;
+    res.render("pages/rooms", { roomTypes, hotelName: hotel.name });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+//Seqrching for available Hotels and rooms
 
 // GET: add a product to the shopping cart when "Add to cart" button is pressed
 router.get("/add-to-cart/:id", async (req, res) => {
@@ -226,62 +251,49 @@ router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
 });
 
 // POST: handle checkout logic and payment using Stripe
-router.post("/checkout", middleware.isLoggedIn, async (req, res) => {
-  if (!req.session.cart) {
-    return res.redirect("/shopping-cart");
-  }
-  const cart = await Cart.findById(req.session.cart._id);
-  stripe.charges.create(
-    {
-      amount: cart.totalCost * 100,
-      currency: "usd",
-      source: req.body.stripeToken,
-      description: "Test charge",
-    },
-    function (err, charge) {
-      if (err) {
-        req.flash("error", err.message);
-        console.log(err);
-        return res.redirect("/checkout");
-      }
-      const order = new Order({
-        user: req.user,
-        cart: {
-          totalQty: cart.totalQty,
-          totalCost: cart.totalCost,
-          items: cart.items,
-        },
-        address: req.body.address,
-        paymentId: charge.id,
-      });
-      order.save(async (err, newOrder) => {
-        if (err) {
-          console.log(err);
-          return res.redirect("/checkout");
-        }
-        await cart.save();
-        await Cart.findByIdAndDelete(cart._id);
-        req.flash("success", "Successfully purchased");
-        req.session.cart = null;
-        res.redirect("/user/profile");
-      });
-    }
-  );
-});
+// router.post("/checkout", middleware.isLoggedIn, async (req, res) => {
+//   if (!req.session.cart) {
+//     return res.redirect("/shopping-cart");
+//   }
+//   const cart = await Cart.findById(req.session.cart._id);
+//   stripe.charges.create(
+//     {
+//       amount: cart.totalCost * 100,
+//       currency: "usd",
+//       source: req.body.stripeToken,
+//       description: "Test charge",
+//     },
+//     function (err, charge) {
+//       if (err) {
+//         req.flash("error", err.message);
+//         console.log(err);
+//         return res.redirect("/checkout");
+//       }
+//       const order = new Order({
+//         user: req.user,
+//         cart: {
+//           totalQty: cart.totalQty,
+//           totalCost: cart.totalCost,
+//           items: cart.items,
+//         },
+//         address: req.body.address,
+//         paymentId: charge.id,
+//       });
+//       order.save(async (err, newOrder) => {
+//         if (err) {
+//           console.log(err);
+//           return res.redirect("/checkout");
+//         }
+//         await cart.save();
+//         await Cart.findByIdAndDelete(cart._id);
+//         req.flash("success", "Successfully purchased");
+//         req.session.cart = null;
+//         res.redirect("/user/profile");
+//       });
+//     }
+//   );
+// });
 
-// create products array to store the info of each product in the cart
-async function productsFromCart(cart) {
-  let products = []; // array of objects
-  for (const item of cart.items) {
-    let foundProduct = (
-      await Product.findById(item.productId).populate("category")
-    ).toObject();
-    foundProduct["qty"] = item.qty;
-    foundProduct["totalPrice"] = item.price;
-    products.push(foundProduct);
-  }
-  return products;
-}
 
 
 module.exports = router;

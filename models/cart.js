@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { conn } = require("../config/dbb");
 
 const cartSchema = new mongoose.Schema({
   items: [
@@ -44,4 +45,4 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+module.exports = conn.model("Cart", cartSchema);

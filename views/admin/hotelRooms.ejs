@@ -1,0 +1,166 @@
+
+<%- include ("../partials/_dashHeads") %>
+
+<style>
+	.feather {
+    width: 25px;
+    height: 25px;
+}
+</style>
+
+<div class="main-wrapper">
+		
+			<!-- Header -->
+			<%- include ("../partials/newHeader") %>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+		<%- include ("../partials/_sideBar") %>
+			<!-- /Sidebar -->
+			
+			<!-- Page Wrapper -->
+			<div class="page-wrapper">
+				<div class="content container-fluid">
+					<div class="page-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<h3 class="page-title"><%= hotel.name %></h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item active"><%= hotel.name %></li>
+								</ul>
+							</div>
+							<div class="col-auto">
+								<a href="/admin/hotels/new" class="btn btn-primary mr-1">
+									<i class="fas fa-plus"></i>
+								</a>
+								<a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
+									<i class="fas fa-filter"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- Search Filter -->
+				<% if (successMsg) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> <%= successMsg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+<% if (errorMsg) { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> <%= errorMsg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+					<!-- /Search Filter -->
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card card-table"> 
+								<div class="card-body">
+									
+									<div class="table-responsive">
+										<table class="table table-stripped table-hover datatable">
+											<thead class="thead-light">
+												<tr>
+													<th>Room#</th>
+                                                    <th>Room Type</th>
+                                                    <th>Max Adult</th>
+                                                    <th>CheckOut</th>
+                                                    <th>Status</th>
+                                                    
+													<th class="text-right">Action</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<% if (rooms.length > 0) { %>
+
+                                                <% rooms.forEach(room => { %>
+
+												<tr>
+									<td><span class="badge bg-success-light"><a href=""> #Room <%= room.roomID %></a></td>
+										<td><%= room.roomType.name %></td>
+										<td><span class="badge bg-success-light"><%= room.roomType.maxNumberAdult %></span></td>
+										<td> <%= room.checkOut.toLocaleString('en-US', {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}) %></td>
+										<td>
+										<% if (room.available) { %>
+											<i class="text-success " data-feather="user-check" data-feather-size="24" ></i> 
+											<% } else { %>
+												<i class="text-danger " data-feather="user-x" data-feather-size="36"></i> 
+										<% } %>
+										</td>
+
+													<td class="text-right">
+														<div class="dropdown dropdown-action">
+															<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+															<div class="dropdown-menu dropdown-menu-right">
+																<a class="dropdown-item" href="/admin/del/hotels/:id/<%= hotel._id %>/edit"><i class="far fa-edit mr-2"></i>Edit</a>
+																<a class="dropdown-item" href="/admin/hotels/del/<%= hotel._id %>"><i class="far fa-trash-alt mr-2"></i>Delete</a>
+																<a class="dropdown-item" href="view-estimate.html"><i class="far fa-eye mr-2"></i>View</a>
+															</div>
+														</div>
+													</td>
+												</tr>												
+											
+                                               <% }); %>         
+											   
+											   <% } else { %>
+  <p>No rooms found for <%= hotel.name %>.</p>
+<% } %>
+                                            </tbody>
+										</table>
+									</div>
+							   
+								</div>
+
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+    <a href="/admin/hotels/<%= hotel._id %>/rooms?page=<%= currentPage - 1 %>" class="btn btn-outline-secondary">
+      <i class="fa fa-angle-left"></i>
+    </a>
+  <% } %>
+
+  <% for (let i = 1; i <= totalPages; i++) { %>
+    <% if (i == currentPage) { %>
+      <a href="#" class="btn btn-primary"><%= i %></a>
+    <% } else { %>
+      <a href="/admin/hotels/<%= hotel._id %>/rooms?page=<%= i %>" class="btn btn-outline-primary"><%= i %></a>
+    <% } %>
+  <% } %>
+
+  <% if (currentPage < totalPages) { %>
+    <a href="/admin/hotels/<%= hotel._id %>/rooms?page=<%= currentPage + 1 %>" class="btn btn-outline-secondary">
+      <i class="fa fa-angle-right"></i>
+    </a>
+  <% } %>
+</div>
+
+
+
+
+
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Page Wrapper -->
+			
+		</div>
+
+		
+         <%- include ("../partials/_dashFooter") %>

@@ -1,4 +1,6 @@
+"use strict";
 require("dotenv").config();
+
 
 const createError = require("http-errors");
 const express = require("express");
@@ -9,22 +11,26 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
-const Category = require("./models/category");
-const connectDB = require("./config/db");
+const Hotel = require("./models/hotel");
+const {conn} = require("./config/dbb");
 var MongoStore = require("connect-mongo")(session);
-const methodOverride = require("method-override");
+
+//schedule cron
+// const CronJob = require("cron").CronJob;
+// const { checkOutRooms, updateRoomAvailability } = require("./worker/hotelCron");
+
+
+
+// mongodb configuration as a global variable
+// connectToDatabase();
+// connectDB();
 
 const app = express();
 require("./config/passport");
 
-// mongodb configuration
-connectDB();
-
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,7 +42,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
-      mongooseConnection: mongoose.connection,
+      mongooseConnection:conn,
     }),
     //session expires after 3 hours
     cookie: { maxAge: 60 * 1000 * 60 * 3 },
@@ -45,19 +51,14 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-// Use the method-override middleware
-app.use(methodOverride("_method"));
 
-
-// global variables across routes
+// Global variables across routes
 app.use(async (req, res, next) => {
   try {
     res.locals.currentUrl = req.originalUrl;
     res.locals.login = req.isAuthenticated();
     res.locals.session = req.session;
     res.locals.currentUser = req.user;
-    const categories = await Category.find({}).sort({ title: 1 }).exec();
-    res.locals.categories = categories;
     next();
   } catch (error) {
     console.log(error);
@@ -65,40 +66,22 @@ app.use(async (req, res, next) => {
   }
 });
 
-// add breadcrumbs
-get_breadcrumbs = function (url) {
-  var rtn = [{ name: "Home", url: "/" }],
-    acc = "", // accumulative url
-    arr = url.substring(1).split("/");
-
-  for (i = 0; i < arr.length; i++) {
-    acc = i != arr.length - 1 ? acc + "/" + arr[i] : null;
-    rtn[i + 1] = {
-      name: arr[i].charAt(0).toUpperCase() + arr[i].slice(1),
-      url: acc,
-    };
-  }
-  return rtn;
-};
-app.use(function (req, res, next) {
-  req.breadcrumbs = get_breadcrumbs(req.originalUrl);
-  next();
-});
-
 //routes config
 const indexRouter = require("./routes/index");
-const productsRouter = require("./routes/products");
 const usersRouter = require("./routes/user");
 const pagesRouter = require("./routes/pages");
 const adminRouter = require("./routes/admin");
 const roomRouter = require("./routes/room");
+const searchRouter = require("./routes/search");
+const bookRouter = require("./routes/bookings");
 
-app.use("/products", productsRouter);
+app.use("/", indexRouter);
 app.use("/rooms", roomRouter);
 app.use("/user", usersRouter);
 app.use("/pages", pagesRouter);
 app.use("/admin", adminRouter);
-app.use("/", indexRouter);
+app.use("/search", searchRouter);
+app.use("/bookings", bookRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -116,15 +99,55 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-let port = process.env.PORT;
+
+
+// new CronJob(
+//   "0 0 0 * * *",
+//   function () {
+//     updateRoomAvailability();
+//     // run your function here every day at 12:00 AM Lagos time
+//   },
+//   null,
+//   true,
+//   "Africa/Lagos"
+// );
+
+// updateRoomAvailability();
+// checkOutRooms();
+
+// new CronJob(
+//   "0 */2 * * * *",
+//   function () {
+//     updateRoomAvailability();
+//     checkOutRooms();
+//     // run your function here every 30 minutes
+//   },
+//   null,
+//   true,
+//   "Africa/Lagos"
+// );
+
+//Checkout guest every 12:00pm
+// new CronJob(
+//   "0 0 12 * * *",
+//   function () {
+//     checkOutRooms();
+//     // run your function here every day at 12:00 PM Lagos time
+//   },
+//   null,
+//   true,
+//   "Africa/Lagos"
+// );
+
+const port = process.env.PORT;
 app.set("port", port);
 app.listen(port, () => {
   console.log("Server running at port " + port);
-
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
-  console.log(
-    `The current heap size is approximately ${Math.round(used * 100) / 100} MB`
-  );
+  const max = process.memoryUsage().heapTotal / 1024 / 1024;
+  console.log(`Max heap size: ${max} MB  current Heap usage: ${used} MB`);
 });
+
+
 
 module.exports = app;
