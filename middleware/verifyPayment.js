@@ -1,6 +1,6 @@
 const https = require('https');
 
-const PAYSTACK_KEY = 'pk_test_22af20355bb0d194ea719cbc335b5222f345dde5';
+const PAYSTACK_KEY = process.env.PAYSTACK_KEY;
 
 const verifyTransaction = (reference) => {
   return new Promise((resolve, reject) => {

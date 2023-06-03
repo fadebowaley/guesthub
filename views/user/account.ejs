@@ -196,45 +196,50 @@
             <div class="col-lg-8 col-md-7">
               <div class="services-08-item mb-30">
 
-
-                
-
-                <div class="table-container services-08-thumb">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Sn</th>
-                        <th>Room Types</th>
-                        <th>Rooms</th>
-                        <th>No order</th>
-                        <th>Unit Price</th>
-                        <th>Total Price</th>
-                        <th>Payment ID</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% orders.forEach(function(order, index) { %>
-                      <tr>
-                        <td><%= index + 1 %></td>
-                        <td><%= order.cart.items[0].name %></td>
-                        <td style="text-align:center;"><%= order.cart.items[0].noRooms %></td>
-                        <td style="text-align:center;"><%= order.cart.items.length %></td>
-                        <td style="text-align:center;"><%= order.cart.items[0].price %></td>
-                        <td style="text-align:center;"><%= order.cart.totalCost %></td>
-                        <td><strong><%= order.paymentId %></strong></td>
-                        <td class="status">
-                          <% if (order.delivered) { %>
-                          <button class="status-btn successful"  ><i class="fas fa-eye"></i> Check In </button>
-                          <% } else { %>
-                          <button class="status-btn">Pending</button>
-                          <% } %>
-                        </td>
-                      </tr>
-                      <% }); %>
-                    </tbody>
-                  </table>
-                </div>
+<div class="table-container services-08-thumb">
+  <table>
+    <thead>
+      <tr>
+        <th>Sn</th>
+        <th>Room Types</th>
+        <th>Rooms</th>
+        <th>Days</th>
+        <th>Total Price</th>
+        <th>Hotel</th>
+        <th>Payment ID</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach((order) => { %>  
+        <% if (order) { %>                     
+          <% order.cart.items.forEach((item, index) => { %>
+            <tr>
+              <td><ul><li><i class="fas fa-file-invoice"></i></li></ul></td>
+              <td><%= item.name %></td>
+              <td style="text-align:center;"><%= item.noRooms %></td>
+              <td style="text-align:center;"><%= item.days %></td>
+              <td style="text-align:center;"><%= item.priceTotal %></td>
+              <td style="text-align:center;"><%= item.hotel  %></td>
+              <td><strong><%= order.paymentId %></strong></td>
+              <td class="status">
+                <% if (order.delivered) { %>
+                  <button class="status-btn successful">
+                    <i class="fas fa-eye"></i> Check In
+                  </button>
+                <% } else { %>
+                  <button class="status-btn">Pending</button>
+                <% } %>
+              </td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr><td colspan="8">No Order</td></tr>
+        <% } %>
+      <% }); %>                  
+    </tbody>
+  </table>
+</div>
 
 
               </div>
