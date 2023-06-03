@@ -14,20 +14,18 @@ function makeNewConnection(uri) {
     );
   });
 
+
   db.on("connected", function () {
-    mongoose.set("debug", function (col, method, query, doc) {
-    //   console.log(
-    //     `MongoDB :: ${this.conn.name} ${col}.${method}(${JSON.stringify(
-    //       query
-    //     )},${JSON.stringify(doc)})`
-    //   );
+    mongoose.set("debug", function (col, method, query, doc) {    
     });
     console.log(`MongoDB :: connected ${this.name}`);
   });
 
+
   db.on("disconnected", function () {
     console.log(`MongoDB :: disconnected ${this.name}`);
   });
+  
 
   return db;
 }

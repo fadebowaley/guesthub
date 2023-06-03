@@ -8,6 +8,34 @@ height: calc(2.9em + 0.75rem + 2px);
   button, input, optgroup, select, textarea{
      padding-left: 1rem;
   }
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.password-toggle-icon i {
+    font-size: 16px;
+    color: #999;
+}
+
+.password-toggle-icon.active i {
+    color: #333;
+}
+
+/* Success state */
+.password-success {
+  background-color: #c5f5c5;
+}
+
+/* Error state */
+.password-error {
+  background-color: #f8d7da;
+}
+
  </style>
     <!--/head-->
     <body>
@@ -36,7 +64,7 @@ height: calc(2.9em + 0.75rem + 2px);
 <div class="row justify-content-center align-items-center">
 <div class="col-lg-8">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-3">
       <div class="contact-field p-relative c-name mb-20" >
         <select id="title" name="title" required>
           <option value="" disabled selected >Select Title</option>
@@ -48,9 +76,14 @@ height: calc(2.9em + 0.75rem + 2px);
         </select>
       </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-5">
       <div class="contact-field p-relative c-name mb-20">      
-        <input type="text" id="name" name="name" placeholder="Name" required>
+        <input type="text" id="fname" name="firstname" placeholder="First Name" required>
+      </div>                               
+    </div>
+    <div class="col-lg-4">
+      <div class="contact-field p-relative c-name mb-20">      
+        <input type="text" id="lname" name="lastname" placeholder="Last Name" required>
       </div>                               
     </div>
   </div>
@@ -66,12 +99,16 @@ height: calc(2.9em + 0.75rem + 2px);
                 </div>                               
               </div>                                   
               <div class="col-lg-8">                                        
+                                        
                 <div class="contact-field p-relative c-message mb-30">                                  
-                  <input type="password" id="passsword" name="password" placeholder="Password" required>
+                  <input type="password" id="password" name="password" placeholder="Password" required>
+                  <span class="password-toggle-icon"><i class="fa fa-eye-slash"></i></span>
                 </div>
+
                 <div class="contact-field p-relative c-message mb-30">                                  
                   <input type="password" id="password2" name="password2" placeholder="Confirm Password" required>
                 </div>
+
                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s" type="submit">
                   <i class="fas fa-user-plus"></i> Register
@@ -90,6 +127,37 @@ height: calc(2.9em + 0.75rem + 2px);
   </div> 
 </section>
 
+<script>
+  const passwordInput = document.getElementById("password");
+const passwordToggleIcon = document.querySelector(".password-toggle-icon");
 
+// Show/hide password on eye icon click
+passwordToggleIcon.addEventListener("click", function() {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    this.classList.toggle("active");
+});
+
+
+// Check if password fields match
+const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("password2");
+
+
+confirmPasswordField.addEventListener('input', () => {
+  if (passwordField.value === confirmPasswordField.value) {
+    passwordField.classList.add('password-success');
+    confirmPasswordField.classList.add('password-success');
+    passwordField.classList.remove('password-error');
+    confirmPasswordField.classList.remove('password-error');
+  } else {
+    passwordField.classList.add('password-error');
+    confirmPasswordField.classList.add('password-error');
+    passwordField.classList.remove('password-success');
+    confirmPasswordField.classList.remove('password-success');
+  }
+});
+
+</script>
 
        <%- include ("../partials/_footer") %>

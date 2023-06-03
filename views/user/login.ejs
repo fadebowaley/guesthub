@@ -135,14 +135,15 @@
       
           <form action="/user/signin" method="POST" class="contact-form mt-30">
             <div class="row justify-content-center align-items-center">
+                                            		
               <div class="col-lg-8">
                 <div class="contact-field p-relative c-name mb-20">                                    
-                  <input type="email" id="email" name="email" placeholder="Email Address" required>
+                  <input type="text" id="username" name="identifier" placeholder="Email or Username" required>
                 </div>                               
               </div>                                		
               <div class="col-lg-8">                                        
                 <div class="contact-field p-relative c-message mb-30">                                  
-                  <input type="password" id="firstn" name="password" placeholder="Password" required>
+                  <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />            
             <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s" type="submit">

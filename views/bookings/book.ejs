@@ -37,12 +37,7 @@ label{
     font-weight: 500;
 }
 
-/* Style the first two date fields */
-.col-lg-3:nth-of-type(1),
-.col-lg-3:nth-of-type(2) {
-  border: 2px solid #881313;
-  background-color: #d82121;
-}
+
 
 /* Style the labels */
 label {
@@ -70,7 +65,7 @@ label {
                         <div class="col-xl-12 col-lg-12">
                             <div class="breadcrumb-wrap text-center">
                                 <div class="breadcrumb-title">
-                                    <h2>Bookings</h2>    
+                                    <h2><%= pageName %></h2>    
                                     <div class="breadcrumb-wrap">
                               
                                 <nav aria-label="breadcrumb">
@@ -96,19 +91,19 @@ label {
                          <div class="col-lg-4 order-1">      
                              <div class="single-services mb-30">
                             <div class="services-thumb">
-                                <a class="gallery-link popup-image" href="/images/img/gallery/room-img01.png">
-                                <img src="/images/img/gallery/room-img01b.png" alt="img">
+                                <a class="gallery-link popup-image" href="<%= room.image %>">
+                                <img src="<%= room.image %>" alt="img" width="328" height="246%">
                                 </a>
                             </div>
                             <div class="services-content"> 
                                 <div class="day-book">
                                     <ul>
-                                        <li> $800 / Night </li>
+                                        <li id="roomPrice">$ <%= room.price %> / Night </li>
 
                                         <!-- <li><a href="/payment">Book Now</a></li> -->
                                     </ul>
                                 </div>
-                                <h4><a href="/viewrooms"> <h4>Deluxe Charlet</h4></a></h4> 
+                                <h4><a href="/viewrooms"> <h4><%= room.name%></h4></a></h4> 
                                 <!-- <p>Free toiletries Bathrobe Safety deposit box Toilet Sofa Bath or shower Towels Linen Socket near the bed Tile/marble floor Desk Children's high chair Seating Area Private entrance TV Slippers Refrigerator Ironing facilities Satellite channels</p> -->
                                 
                                     <div class="icon">
@@ -163,45 +158,8 @@ label {
 <form action="/pages/contact" method="POST" class="contact-form mt-30">
 
 
-<div class="row">
-<div class="col-lg-2">
-<div class="contact-field p-relative c-name mb-20" >
-<select id="title" name="title" required>
-<option value="" disabled selected >Title</option>
-<option value="Pastor">Pastor</option>
-<option value="Bishop">Bishop</option>
-<option value="Mr">Mr</option>
-<option value="Chief">Chief </option>
-<option value="Dr">Dr</option>
-</select>
-</div>
-</div>
-<div class="col-lg-5">
-<div class="contact-field p-relative c-name mb-20">      
-<input type="text" id="name" name="name" placeholder="First Name" required>
-</div>                               
-</div>
-<div class="col-lg-5">
-<div class="contact-field p-relative c-name mb-20">      
-<input type="text" id="name" name="name" placeholder="Last Name" required>
-</div>                               
-</div>
-</div>
 
 <div class="row">
-
-<div class="col-lg-6 col-md-6">                               
-<div class="contact-field p-relative c-subject mb-20">                                   
-<input type="text" id="email" name="email" placeholder="Email" required>
-</div>
-</div>	
-
-<div class="col-lg-6 col-md-6">
-<div class="contact-field p-relative c-name mb-20">                                    
-<input type="text" id="firstname" name="name" placeholder="Phone Number" required>
-</div>                               
-</div>
-
 <div class="col-lg-3 col-md-6">
 <label> Check-In Date</label>
 <div class="contact-field p-relative c-subject mb-20 date">
@@ -219,9 +177,9 @@ label {
 <div class="col-lg-2 col-md-6">   
   <label> <br> </label>
 <div class="contact-field p-relative c-name mb-20" >
-<select id="title" name="title" required>
+<select id="rooms" name="rooms" required>
 <option value="" disabled selected >Rooms</option>
-<option value="1">1</option>
+<option value="1" selected>1</option>
 <option value="2">2</option>
 <option value="3">3</option>
 <option value="4">4</option>
@@ -230,103 +188,10 @@ label {
 </div>
 </div>
 
-<div class="col-lg-4 col-md-6">   
-  <label> <br> </label>
-<div class="contact-field p-relative c-name mb-20" >
-<select id="title" name="title" required>
-<option value="" disabled selected >Select Purpose</option>
-<option value="Vacation">Vacation</option>
-<option value="Retreats">Retreats</option>
-<option value="Holiday">Holiday</option>
-<option value="Special Programmes">Special Programmes </option>
-<option value="Church Service">Church Service</option>
-</select>
-</div>
-</div>
-
-
-
-<div class="col-lg-5 col-md-6 ">
-<div class="contact-field p-relative c-message mb-30">                                  
-<input type="text" id="checkout" name="checkIn" placeholder="Contact Address"  required>
-</div>
-</div>
-<div class="col-lg-4 col-md-6 ">
-<div class="contact-field p-relative c-message mb-30">                                  
-<input type="text" id="checkout" name="checkIn" placeholder="City"  required>
-</div>
-</div>
-
-<div class="col-lg-3 col-md-6 ">
-<div class="contact-field p-relative c-message mb-30">
-<select id="states" name="states">
-  <option value="" selected>Select a state</option>
-  <option value="NA">Others</option>
-  <option value="Abia">Abia</option>
-  <option value="Abia">Abia</option>
-  <option value="Adamawa">Adamawa</option>
-  <option value="Akwa Ibom">Akwa Ibom</option>
-  <option value="Anambra">Anambra</option>
-  <option value="Bauchi">Bauchi</option>
-  <option value="Bayelsa">Bayelsa</option>
-  <option value="Benue">Benue</option>
-  <option value="Borno">Borno</option>
-  <option value="Cross River">Cross River</option>
-  <option value="Delta">Delta</option>
-  <option value="Ebonyi">Ebonyi</option>
-  <option value="Edo">Edo</option>
-  <option value="Ekiti">Ekiti</option>
-  <option value="Enugu">Enugu</option>
-  <option value="FCT">Federal Capital Territory</option>
-  <option value="Gombe">Gombe</option>
-  <option value="Imo">Imo</option>
-  <option value="Jigawa">Jigawa</option>
-  <option value="Kaduna">Kaduna</option>
-  <option value="Kano">Kano</option>
-  <option value="Katsina">Katsina</option>
-  <option value="Kebbi">Kebbi</option>
-  <option value="Kogi">Kogi</option>
-  <option value="Kwara">Kwara</option>
-  <option value="Lagos">Lagos</option>
-  <option value="Nasarawa">Nasarawa</option>
-  <option value="Niger">Niger</option>
-  <option value="Ogun">Ogun</option>
-  <option value="Ondo">Ondo</option>
-  <option value="Osun">Osun</option>
-  <option value="Oyo">Oyo</option>
-  <option value="Plateau">Plateau</option>
-  <option value="Rivers">Rivers</option>
-  <option value="Sokoto">Sokoto</option>
-  <option value="Taraba">Taraba</option>
-  <option value="Yobe">Yobe</option>
-  <option value="Zamfara">Zamfara</option>
-</select> 
-</div>
-</div>
 
 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
 
 <div class="row">
-<div class="col-lg-4 col-md-6 ">
-<div class="contact-field p-relative c-message mb-30">
-<select id="states" name="states">
-  <option value="" selected>Select a Country</option>
-  <option value="NA">Others</option>
-  <option value="Abia">Nigeria</option>
-  <option value="Abia">United Kingdom</option>
-  <option value="Adamawa">United States of America</option>
-  <option value="Akwa Ibom">United Arab Emirates</option>
-  <option value="Anambra">Canada</option>
-  <option value="Bauchi">Ghana</option>
-  <option value="Bayelsa">Cameroon</option>
-  <option value="Benue">South Africa</option>
-  <option value="Borno">Australia</option>
-  <option value="Cross River">Togo</option> 
-</select> 
-</div>
-</div>
-
-
 <div class="col-lg-4 col-md-6 offset-1 ">
 <div class="slider-btn">                                          
 <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">
@@ -335,10 +200,9 @@ label {
 
 </div> 
 </div>
-
 <div class="col-lg-2 col-md-6 ">
 <div class="slider-btn">                                          
-<input type="text" id="amount" name="amount" value="$ 400,958.00" disabled style="font-size:18px;font-weight:600; text-align:initial;  border:none;">
+<input type="text" id="amount" name="amount" value="" disabled style="font-size:18px;font-weight:600; text-align:initial;  border:none;">
 </div> 
 </div>
 
@@ -420,6 +284,36 @@ checkOutInput.addEventListener("change", function() {
   // Set the maximum value of check-in to check-out value
   checkInInput.setAttribute("max", checkOutValue);
 });
+
+
+// Get the input fields and output element
+const rooms = document.getElementById('rooms');
+const amount = document.getElementById('amount');
+
+const roomPrice = document.getElementById('roomPrice');
+// Get the text content of the element
+const roomPriceText = roomPrice.textContent.trim();
+
+// Extract the price value from the text
+const priceValue = roomPriceText.replace('$', '').replace('/ Night', '').trim();
+
+
+
+// Add event listeners to the input fields
+checkInInput.addEventListener('input', calculateTotalCost);
+checkOutInput.addEventListener('input', calculateTotalCost);
+rooms.addEventListener('input', calculateTotalCost);
+
+
+// Define the calculateTotalCost function
+function calculateTotalCost() {
+  const checkInDate = new Date(checkInInput.value);
+  const checkOutDate = new Date(checkOutInput.value);
+  const numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+  const totalPrice = numberOfDays * parseInt(priceValue) * parseInt(rooms.value);
+  amount.value = ` ₦ ${totalPrice.toFixed(2)}`;
+}
+
 
         </script>
          <!-- main-area-end -->

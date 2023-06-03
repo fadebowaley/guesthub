@@ -1,0 +1,352 @@
+<%- include ("../partials/_head") %>
+ 
+    <!--/head-->
+    <style>
+
+        .breadcrumb-area {
+    background-size: cover;
+    position: relative;
+    min-height: 275px;
+    background-repeat: no-repeat;
+    background-color: #000;
+}
+    </style>
+    <body>
+        <!-- header -->
+      <%- include ("../partials/_header") %>
+        <!-- /header -->
+
+ <!-- main-area -->
+        <main>
+            <!-- breadcrumb-area -->
+            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/images/img/bg/bdrc-bg.jpg);">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="breadcrumb-wrap text-center">
+                                <div class="breadcrumb-title">
+                                    <h2><%= room.hotel.name %></h2>    
+                                    <div class="breadcrumb-wrap">
+                              
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><%= room.hotel.name %></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+
+                          
+   
+
+			<!-- service-details-area -->
+            <div class="about-area5 about-p p-relative">
+                <div class="container pt-120 pb-40">
+                    <div class="row">
+                        <span id="message" class="col-sm-12 col-md-12 col-lg-8 offset-2 m-2">
+
+                        </span>
+                     <!-- #right side -->
+                        <div class="col-sm-12 col-md-12 col-lg-4 order-2">
+                           <aside class="sidebar services-sidebar">
+                        
+                        <!-- Category Widget -->
+                        <div class="sidebar-widget categories">
+                            <div class="widget-content">
+                                <h2 class="widget-title">  Book A Room  </h2>
+                                <!-- Services Category -->
+                                  <!-- booking-area -->
+                                <div class="booking">
+                                     <div class="contact-bg"> 
+                                        <form action="//bookings/reserve/<%= room._id %>" id="bookingForm" method="post" class="contact-form mt-30">
+                                            <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="contact-field p-relative c-name mb-20">                                    
+                                                   <label><i class="fal fa-badge-check"></i> Check In Date</label>
+                                                             <input type="date" id="checkIn" name="checkIn" required>
+                                                </div>                               
+                                            </div>
+
+                                            <div class="col-lg-12">                               
+                                                <div class="contact-field p-relative c-subject mb-20">                                   
+                                                   <label><i class="fal fa-times-octagon"></i> Check Out Date</label>
+                                                             <input type="date" id="checkOut" name="checkOut" required>
+                                                </div>
+                                            </div>		
+                                            <div class="col-lg-12">                               
+                                                <div class="contact-field p-relative c-subject mb-20">                                   
+                                                     <label><i class="fal fa-users"></i> Adults</label>
+                                                        <select name="adultNumber" id="adultNumber" required>
+                                                          <option value="sports-massage">Adults</option>
+                                                          <option value="1" selected>1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                </div>
+                                            </div>	
+                                            <div class="col-lg-12">                               
+                                                <div class="contact-field p-relative c-option mb-20">                                   
+                                                    <label><i class="fal fa-concierge-bell"></i> Room</label>
+                                                       <select name="roomNumber" id="roomNumber" required>
+                                                          <option value="sports-massage">Room</option>
+                                                          <option value="1" selected>1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="slider-btn mt-15">                                          
+                                                            <span id="amountTotal" class="a.btn btn ss-btn active mr-15" 
+                                                            data-animation="fadeInLeft" data-delay=".4s" tabindex="-1" 
+                                                            style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">
+                                                             00.00 </span>				
+                                                            <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">
+                                                                <span>Book Now</span></button>				
+                                                        </div>                             
+                                            </div>
+                                            </div>
+                                    </form>                            
+                                    </div>  
+                                </div>
+                                <!-- booking-area-end -->	
+                            </div>
+                        </div>
+                        <!--Service Contact-->
+                        <div class="service-detail-contact wow fadeup-animation" data-wow-delay="1.1s">
+                            <h3 class="h3-title">If You Need Any Help Contact With Us</h3>
+                            <a href="javascript:void(0);" title="Call now">+234 81450 451008</a>
+                        </div>
+
+                    </aside>
+                        </div>
+                        <!-- #right side end -->
+                       
+                        
+					<div class="col-lg-8 col-md-12 col-sm-12 order-1">
+                           <div class="service-detail">
+                      
+                          <!-- Two Column -->
+                            <div class="two-column">
+                            <div class="row">
+
+                            <div class="image-column col-xl-6 col-lg-12 col-md-12">
+                            <figure class="image"><img src="<%= room.detailedImage[1] %>" alt=""></figure>
+                                    
+                            <div class="content-box">
+                            <div class="row align-items-center mb-50">
+
+                                <div class="col-lg-6 col-md-6">
+                                  <%= room.hotel.name %>
+                                    <div id="price" class="price">                              
+                                        <h4><%= room.name %></h4>
+                                        <span>$ <%= room.price %>/Night</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6 text-right">
+                                  <!-- ratings-->
+                                <div class="review text-right">
+                                <div class="stars">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="rating">(4.0)</div>
+                                </div>
+                                <!-- ratings-->
+                             
+
+                                </div>
+                            <p><%= room.description %>                                 
+                            </p>                           
+                           
+                            </div>
+                            </div>
+                            </div>
+                            <div class="text-column col-xl-6 col-lg-12 col-md-12">
+                            <figure class="image"><img src="<%= room.detailedImage[0] %>" alt=""></figure>
+                                         
+                            <!-- <h4>Room Feature.</h4> -->
+                             <ul class="room-features d-flex align-items-center">
+  <% room.features.forEach(function(feature) { %>
+    <% if (feature.value === 0) { %>
+      <li>
+        <% if (feature.name === "TV") { %>
+          <i class="fal fa-tv-retro"></i>
+        <% } else if (feature.name === "Free Wifi") { %>
+          <i class="fal fa-wifi"></i>
+        <% } else if (feature.name === "Air Condition") { %>
+          <i class="fal fa-air-conditioner"></i>
+        <% } else if (feature.name === "Heater") { %>
+          <i class="fal fa-dumpster-fire"></i>
+        <% } else if (feature.name === "Phone") { %>
+          <i class="fal fa-phone-rotary"></i>
+        <% } else if (feature.name === "Laundry") { %>
+          <i class="fal fa-dryer-alt"></i>
+        <% } else if (feature.name === "Adults") { %>
+          <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+        <% } else if (feature.name === "Size") { %>
+          <i class="fal fa-square"></i> <%= feature.name %>  <%= feature.value %> m²
+        <% } else if (feature.name === "Bed Type") { %>
+          <i class="fal fa-bed"></i> <%= feature.name %>  <%= feature.value %> Bed
+        <% } %>
+        <%= feature.name %>
+      </li>
+<% } else if (feature.value > 0) { %>
+  <li>
+    <% if (feature.name === "Adults") { %>
+      <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+    <% } else if (feature.name === "Size") { %>
+      <i class="fal fa-square"></i> <%= feature.name %>: <%= feature.value %> m²
+    <% } else if (feature.name === "Bed Type") { %>
+      <i class="fal fa-bed"></i> <%= feature.name %>: <% if (feature.value === 1) { %>
+        One Bed
+      <% } else if (feature.value === 2) { %>
+        Two Beds
+      <% } else { %>
+        Bunk 
+      <% } %>
+    <% } %>
+  </li>
+<% } %>
+
+  <% }) %>
+                            </ul> 
+                            </div>                                                                       
+                            </div>
+                        </div>                 
+                        </div>
+                        </div>                     
+                    </div>
+                </div>
+            </div>
+            <!-- service-details-area-end -->
+            
+            
+        </main>
+        <!-- main-area-end -->
+<script>
+//Declare all variables
+// Get the check-in and check-out date input fields
+const checkInInput = document.getElementById("checkIn");
+const checkOutInput = document.getElementById("checkOut");
+const amountPrice = document.getElementById("amountTotal");
+const rooms = document.getElementById('roomNumber');
+const roomNumber = document.getElementById('roomNumber');
+const adultNumber = document.getElementById('adultNumber');
+
+// Get the current date
+const today = new Date().toISOString().split("T")[0];
+// Get the date for tomorrow
+const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+
+// Set the check-in value to today and the minimum value of check-in and check-out to today's date and tomorrow's date respectively
+checkInInput.setAttribute("value", today);
+checkInInput.setAttribute("min", today);
+checkOutInput.setAttribute("min", tomorrow);
+
+// Add an event listener to check-in input field
+checkInInput.addEventListener("change", function() {
+  // Get the value of check-in input field
+  const checkInValue = checkInInput.value;
+  // Set the minimum value of check-out to check-in value + 1 day
+  const checkOutDate = new Date(new Date(checkInValue).getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  checkOutInput.setAttribute("min", checkOutDate);
+});
+
+// Add an event listener to check-out input field
+checkOutInput.addEventListener("change", function() {
+  // Get the value of check-out input field
+  const checkOutValue = checkOutInput.value;
+  // Set the maximum value of check-in to check-out value
+  checkInInput.setAttribute("max", checkOutValue);
+});
+
+
+// Add event listeners to the input fields
+checkInInput.addEventListener('input', calculateTotalCost);
+checkOutInput.addEventListener('input', calculateTotalCost);
+rooms.addEventListener('input', calculateTotalCost);
+
+
+// Define the calculateTotalCost function
+function calculateTotalCost() {
+  const checkInDate = new Date(checkInInput.value);
+  const checkOutDate = new Date(checkOutInput.value);
+  const numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+  const totalPrice = numberOfDays * parseInt(<%= room.price %>) * parseInt(rooms.value);
+  amountPrice.innerText = `₦ ${totalPrice.toFixed(2)} `
+
+}
+
+const form = document.querySelector('.contact-form');
+form.addEventListener('submit', async (event) => {
+
+  event.preventDefault(); // prevent the default form submission behavior
+  const checkInDate = new Date(checkInInput.value);
+  const checkOutDate = new Date(checkOutInput.value);
+  const numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+
+  console.log(checkOutInput.value);
+  // get the form data
+  const bookingData = {
+    checkIn: checkInInput.value,
+    checkOut: checkOutInput.value,
+    numberOfDays,
+    adultNumber: adultNumber.value,
+    roomNumber:roomNumber.value,
+    _csrf: '<%= csrfToken %>'
+  };
+
+  try {
+    const response = await fetch('/bookings/reserve/<%= room._id %>', { // send an AJAX request to the server
+      method: 'POST',
+      body: JSON.stringify(bookingData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= csrfToken %>' // include the CSRF token in the request headers
+      },
+        });
+
+    if (response.ok) { // handle the response
+      const data = await response.json();
+      const message = document.getElementById("message");
+      const datas = ` <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ${data['success']} click here to  <strong> <a href="${data['redirectUrl']}" >view Cart </a></strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`
+    message.innerHTML = datas;
+    window.scrollTo({
+    top: 0,
+    behavior: 'smooth'});
+
+    document.getElementById("bookingForm").reset();
+
+      console.log(data); // log the data to the console
+    } else {
+      console.error('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+
+</script>
+
+        <%- include ("../partials/_footer") %>

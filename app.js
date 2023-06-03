@@ -1,7 +1,7 @@
 "use strict";
 require("dotenv").config();
 
-
+const cors = require('cors');
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -10,8 +10,10 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
+const LocalStrategy = require('passport-local').Strategy;
 const flash = require("connect-flash");
-const Hotel = require("./models/hotel");
+const Cart = require("./models/cart");
+const User = require("./models/user");
 const {conn} = require("./config/dbb");
 var MongoStore = require("connect-mongo")(session);
 
@@ -21,9 +23,6 @@ var MongoStore = require("connect-mongo")(session);
 
 
 
-// mongodb configuration as a global variable
-// connectToDatabase();
-// connectDB();
 
 const app = express();
 require("./config/passport");
@@ -32,6 +31,8 @@ require("./config/passport");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(logger("dev"));
+app.use(cors());
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -48,9 +49,59 @@ app.use(
     cookie: { maxAge: 60 * 1000 * 60 * 3 },
   })
 );
-app.use(flash());
+
+
+passport.use('local.signup', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, email, password, done) => {
+    try {
+        const { title, firstname, lastname, phone } = req.body; // get the firstname and lastname fields from the request body
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return done(null, false, { message: 'Email already exists' });
+        }
+      const user = new User({
+            title,
+            firstname,
+            lastname,
+            email, 
+            phone,
+            password
+        });
+      user.setPassword(password);
+        await user.save();
+        return done(null, user);
+    } catch (err) {
+        return done(err);
+    }
+}));
+
+
+passport.use("local.signin", new LocalStrategy({
+  usernameField: "identifier", // use a custom field to accept either email or username
+  passwordField: "password",
+}, async (identifier, password, done) => {
+  try {
+    const user = await User.findOne({ $or: [{ email: identifier }, { username: identifier }] });
+    if (!user) {
+      return done(null, false, { message: "Invalid email or username" });
+    }
+    const isMatch = await user.validPassword(password);
+    if (!isMatch) {
+      return done(null, false, { message: "Incorrect password" });
+    }
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+}));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Global variables across routes
 app.use(async (req, res, next) => {
@@ -59,6 +110,20 @@ app.use(async (req, res, next) => {
     res.locals.login = req.isAuthenticated();
     res.locals.session = req.session;
     res.locals.currentUser = req.user;
+
+    //update cart items numbers on the bubbles
+    let cartItemsCount = 0;
+    if (req.user) {
+      const cart = await Cart.findOne({ user: req.user._id }).lean();
+      //console.log(cart);
+      if (cart) {
+        cartItemsCount = cart.items.reduce((acc, item) => acc + item.idNo, 0);
+        console.log(cartItemsCount);
+      }
+    } else if (req.session.cart) {
+      cartItemsCount = req.session.cart.items.reduce((acc, item) => acc + item.idNo, 0);
+    }
+    res.locals.cartItemsCount = cartItemsCount;   
     next();
   } catch (error) {
     console.log(error);
@@ -75,6 +140,8 @@ const roomRouter = require("./routes/room");
 const searchRouter = require("./routes/search");
 const bookRouter = require("./routes/bookings");
 
+
+//use the  routes  configurations declared 
 app.use("/", indexRouter);
 app.use("/rooms", roomRouter);
 app.use("/user", usersRouter);
@@ -82,6 +149,9 @@ app.use("/pages", pagesRouter);
 app.use("/admin", adminRouter);
 app.use("/search", searchRouter);
 app.use("/bookings", bookRouter);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -93,6 +163,8 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
+
+
 
   // render the error page
   res.status(err.status || 500);

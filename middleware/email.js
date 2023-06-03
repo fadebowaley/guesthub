@@ -1,6 +1,22 @@
 const nodemailer = require("nodemailer");
 const path = require("path");
 const ejs = require("ejs");
+const User = require("../models/user");
+const verifyTransaction = require("./verifyPayment")
+
+
+
+//fecth user data from the Database
+const fetchUserData = async (userID) => {
+  try {
+    // Fetch user data from the database by iD
+    const user = await User.findById(userID); 
+    return user;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
 
 
 
@@ -17,13 +33,13 @@ const transporter = nodemailer.createTransport({
 
 
 
-const sendVerificationEmail = async (token, email) => {
+const sendVerificationEmail = async (token, email, username) => {
   try {
     const templatePath = path.join(
       __dirname,
       "../views/emails/activate.ejs"
     );
-    const html = await ejs.renderFile(templatePath, { token });
+    const html = await ejs.renderFile(templatePath, { token, username });
 
     await transporter.sendMail({
       from: process.env.DEFAULT_SENDER,
@@ -51,8 +67,7 @@ const sendResetPasswordEmail = async (token, email) => {
       subject: "Password Reset",
       html: html,
     });
-
-    return db;
+  
   } catch (error) {
     console.error("Error sending password reset email:", error);
     throw error;
@@ -60,51 +75,54 @@ const sendResetPasswordEmail = async (token, email) => {
 };
 
 
-const sendOrderCompletionEmail = async (email, orderNumber) => {
+const sendOrderCompletion = async ( order ) => {
   try {
-    // send mail with defined transport object
+    const templatePath = path.join(
+      __dirname,
+      "../views/emails/checkin.ejs"
+    );
+
+    // Extract relevant data from the order
+    const { cart, paymentId, user } = order;
+    const { totalQty, totalCost, items } = cart;
+    const userData = await fetchUserData(user);
+
+    //Testing for vat:
+    const vatRate = 0.075;
+    const vatAmount = (totalCost * vatRate);    
+    const grandTotal = (vatAmount + totalCost);
+
+
+    //verify payment reference
+    console.log(paymentId);
+    // const transactionDetails = await verifyTransaction(paymentId);
+    // console.log(transactionDetails);
+
+
+     const html = await ejs.renderFile(templatePath, {
+      userData,
+      totalQty,
+      grandTotal,
+      items,
+      paymentId,
+      vatAmount,
+     }); 
+    
     await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: email,
+      from: process.env.ORDER_SENDER,
+      to: userData.email,
       subject: "Order Completed",
-      text: `Your order with order number ${orderNumber} has been completed.`,
+      html: html,
     });
+  
+    console.log("Order completion email sent successfully.");
+
   } catch (error) {
-    console.log(error);
+       console.error("Error sending order completion email:", error);
+    throw error;
   }
 };
 
-
-
-const sendUserSignupEmail = async (email) => {
-  try {
-    // send mail with defined transport object
-    await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: email,
-      subject: "Thank you for signing up",
-      text: "Welcome to our website! We're excited to have you as a new user.",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-
-const sendPromotionalEmail = async (email) => {
-  try {
-    // send mail with defined transport object
-    await transporter.sendMail({
-      from: process.env.ADMIN_EMAIL,
-      to: email,
-      subject: "New promotion",
-      text: "We have a new promotion just for you! Check it out now.",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 
 const sendContactFormEmail = async (name, email, phone, subject, message) => {
@@ -130,11 +148,12 @@ const sendContactFormEmail = async (name, email, phone, subject, message) => {
 
 
 
+
 module.exports = {
   sendResetPasswordEmail,
-  sendOrderCompletionEmail,
-  sendUserSignupEmail,
-  sendPromotionalEmail,
   sendContactFormEmail,
   sendVerificationEmail,
+  sendOrderCompletion,
 };
+
+

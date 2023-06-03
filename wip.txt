@@ -436,3 +436,6 @@ const sendPasswordResetEmailInBackground = async (token, email) => {
 };
 
 module.exports = { sendPasswordResetEmailInBackground };
+
+
+//disable cors

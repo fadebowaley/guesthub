@@ -29,6 +29,9 @@ const {
   sendPasswordResetEmailInBackground,
   sendVerificationEmailInBackground,
 } = require("../worker/workers");
+const { allowedNodeEnvironmentFlags } = require("process");
+
+
 
 //send a verification email
 async function sendVerificationEmail(email) {
@@ -37,6 +40,7 @@ async function sendVerificationEmail(email) {
   if (!user) {
     throw new Error("User does not exist");
   }
+  
   // Generate a new token and save it to the user's record in the database
   const token = generateToken();
   user.emailVerificationToken = token;
@@ -46,8 +50,11 @@ async function sendVerificationEmail(email) {
   await user.save();
 
   // Send the verification email to the user
-  await sendVerificationEmailInBackground(token, email);
+  await sendVerificationEmailInBackground(token, email, user.username);
 }
+
+
+
 
 // Get password request for rest
 router.get("/request-password", middleware.isNotLoggedIn, (req, res) => {
@@ -61,6 +68,34 @@ router.get("/request-password", middleware.isNotLoggedIn, (req, res) => {
   });
 });
 
+//Get function for verification success Page
+router.get("/verification-success",  (req, res) => {
+  const errorMsg = req.flash("error")[0];
+  const successMsg = req.flash("success")[0];
+  res.render("user/verified", {
+    csrfToken: req.csrfToken(),
+    errorMsg,
+    successMsg,
+    pageName: "Verified Completed",
+  });
+});
+
+router.get("/activate-your-account", async (req, res, next) => {
+  try {
+    const successMsg = req.flash("success")[0];
+    const errorMsg = req.flash("error")[0];
+    res.render("user/confirm", {
+      successMsg,
+      errorMsg,
+      csrfToken: req.csrfToken(),
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// forgot password functions
 router.post("/forgot", async (req, res, next) => {
   const email = req.body.email;
   try {
@@ -87,7 +122,8 @@ router.post("/forgot", async (req, res, next) => {
   }
 });
 
-//Reset token from the email
+
+//Get Reset token from the email
 router.get("/reset/:token", async (req, res, next) => {
   try {
     // Find user with matching reset token
@@ -113,6 +149,7 @@ router.get("/reset/:token", async (req, res, next) => {
   }
 });
 
+//post reset token code and verify
 router.post("/reset/:token", async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -152,6 +189,7 @@ router.get("/register", middleware.isNotLoggedIn, (req, res) => {
   });
 });
 
+
 // Resend verification email
 router.get(
   "/resend-verification-email",
@@ -161,45 +199,18 @@ router.get(
       // Send verification email to the logged-in user's email
       await sendVerificationEmail(req.user.email);
       req.flash("success", "Verification email has been resent.");
-      res.redirect("/activate-your-account");
+      res.redirect("/user/activate-your-account");
     } catch (err) {
       console.log(err);
       req.flash(
         "error",
         "Unable to resend verification email. Please try again later."
       );
-      res.redirect("/activate-your-account");
+      res.redirect("/user/activate-your-account");
     }
   }
 );
 
-// Confirm and verify email address
-router.get("/verify/:token", async (req, res, next) => {
-  try {
-    // Find user with matching reset token
-    const user = await User.findOne({
-      emailVerificationToken: req.params.token,
-      emailVerificationTokenExpiresAt: { $gt: Date.now() },
-    });
-
-    // If no user found, token is invalid or has expired
-    if (!user) {
-      req.flash("error", "Activation link is invalid or has expired.");
-      return res.redirect("/resend-verification-email");
-    }
-
-    // update users and save
-    user.emailVerifiedAt = Date.now();
-    user.emailVerified = true;
-   // Token expires in 24 hours
-    await user.save();
-
-
-  } catch (error) {
-    console.error("Error resetting password:", error);
-    next(error);
-  }
-});
 
 router.post(
   "/signup",
@@ -207,18 +218,26 @@ router.post(
     middleware.isNotLoggedIn,
     userSignUpValidationRules(),
     validateSignup,
+    middleware.emailVerified,
     passport.authenticate("local.signup", {
-      successRedirect: "/activate-your-account",
+      successRedirect: "/user/activate-your-account",
       failureRedirect: "/user/register",
       failureFlash: true,
+      successFlash: true,
     }),
   ],
   async (req, res) => {
     try {
       // generate a verification token
       if (req.user.email && !req.user.emailVerified) {
-        sendVerificationEmail(req.user.email);
+        await sendVerificationEmail(req.user.email);
+        req.flash(
+          "success",
+          "A verification email has been sent to your email address. Please verify your email before logging in."
+        );
+        res.redirect("/user/activate-your-account");
       }
+      
       //if there is cart session, save it to the user's cart in db
       if (req.session.cart) {
         const cart = await new Cart(req.session.cart);
@@ -253,13 +272,22 @@ router.get("/verify/:token", async (req, res, next) => {
       req.flash("error", "Invalid verification token");
       return res.redirect("/user/login");
     }
+
+    if (user.emailVerified) {
+      req.flash("success", "Your Account is already verified. Thank you !");
+      return res.redirect("/user/verification-success");
+    }
+    if (!user.emailVerified && user.emailVerificationTokenExpiresAt < Date.now()) {
+      req.flash("error", "Your Token has expired please get a new token.");
+      return res.redirect("/user/resend-verification-email");
+    }
     // Set the user's email as verified and remove the verification token
     user.emailVerified = true;
     user.emailVerificationToken = undefined;
     user.emailVerifiedAt = Date.now();
     await user.save();
     req.flash("success", "Email verification successful! You can now log in.");
-    return res.redirect("/user/login");
+    return res.redirect("/user/verification-success");
   } catch (error) {
     console.error("Error verifying email:", error);
     next(error);
@@ -276,45 +304,6 @@ router.get("/login", middleware.isNotLoggedIn, async (req, res) => {
   });
 });
 
-// POST: handle the signin logic
-
-// router.post(
-//   "/signin",
-//   [
-//     middleware.isNotLoggedIn,
-//     userSignInValidationRules(),
-//     validateSignin,
-//     passport.authenticate("local.signin", {
-//       failureRedirect: "/user/login",
-//       failureFlash: true,
-//     }),
-//   ],
-//   async (req, res) => {
-//     try {
-//       // cart logic when the user logs in
-//       const cart = await Cart.findOneAndUpdate(
-//         { user: req.user._id },
-//         req.session.cart,
-//         { upsert: true, new: true }
-//       );
-//       req.session.cart = cart || req.session.cart;
-
-//       // redirect to appropriate URL based on user role
-//       if (req.user.role === "admin") {
-//         res.redirect("/admin/dashboard");
-//       } else if (req.session.oldUrl) {
-//         res.redirect(req.session.oldUrl);
-//         req.session.oldUrl = null;
-//       } else {
-//         res.redirect("/user/profile");
-//       }
-//     } catch (err) {
-//       console.log(err);
-//       req.flash("error", err.message);
-//       res.redirect("/");
-//     }
-//   }
-// );
 
 router.post(
   "/signin",
@@ -326,12 +315,12 @@ router.post(
       failureRedirect: "/user/login",
       failureFlash: true,
     }),
-    middleware.emailVerified, // Only authenticate user if email is verified
+    // middleware.emailVerified, // Only authenticate user if email is verified
   ],
   async (req, res) => {
     try {
-      const user = await User.findOne({ email: req.body.email });
-
+      const user = await User.findOne({ username: req.body.username });
+      console.log(user)
       // cart logic when the user logs in
       const cart = await Cart.findOneAndUpdate(
         { user: req.user._id },
@@ -351,7 +340,7 @@ router.post(
       }
     } catch (err) {
       console.log(err);
-      req.flash("error", err.message);
+      req.flash("error", "this is error: " + err.message);
       res.redirect("/");
     }
   }
@@ -377,23 +366,61 @@ router.get("/profile", middleware.isLoggedIn, async (req, res) => {
 });
 
 // GET: display user's profile
+// router.get("/account", middleware.isLoggedIn, async (req, res) => {
+//   const successMsg = req.flash("success")[0];
+//   const errorMsg = req.flash("error")[0];
+//   try {
+//     // find all orders of this user
+//     allOrders = await Order.find({ user: req.user });
+//     res.render("user/account", {
+//       orders: allOrders,
+//       errorMsg,
+//       successMsg,
+//       pageName: "User Profile",
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.redirect("/");
+//   }
+// });
+
 router.get("/account", middleware.isLoggedIn, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   try {
-    // find all orders of this user
-    allOrders = await Order.find({ user: req.user });
+    // Find all orders of the current user
+    const userId = req.user._id; // Assuming you have access to the current user's ID
+    
+    const allOrders = await Order.find({ user: userId });
+
+    //const orderTest = await Order.find({ user: userId });
+    
+    // Extract relevant data from the order
+    // console.log(allOrders);
+
+    // console.log(allOrder);
+    // console.log(typeof (allOrders));
+
+    const OrderedItems = allOrders.map(obj => { obj.cart });
+
+    
+    console.log(OrderedItems);
+   
+
+    
     res.render("user/account", {
       orders: allOrders,
       errorMsg,
       successMsg,
       pageName: "User Profile",
     });
+  
   } catch (err) {
     console.log(err);
     return res.redirect("/");
   }
 });
+
 
 // GET: logout
 router.get("/logout", middleware.isLoggedIn, (req, res) => {
@@ -404,4 +431,70 @@ router.get("/logout", middleware.isLoggedIn, (req, res) => {
   });
 });
 
+
+
+
+
 module.exports = router;
+
+
+/***
+ *
+ * [
+  {
+    cart: { totalQty: 2, totalCost: 4000, items: [Array] },
+    delivered: true,
+    _id: 6470aa20c538d2020f962631,
+    user: 6467bb077c6f470a1bcc6932,
+    paymentId: '646107008',
+    createdAt: 2023-05-26T12:46:24.393Z,
+    __v: 0
+  },
+  {
+    cart: { totalQty: 1, totalCost: 1200, items: [Array] },
+    delivered: true,
+    _id: 6470cedea04b5a0377c34971,
+    user: 6467bb077c6f470a1bcc6932,
+    paymentId: '461078006',
+    createdAt: 2023-05-26T15:23:10.074Z,
+    __v: 0
+  },
+  {
+    cart: { totalQty: 1, totalCost: 800, items: [Array] },
+    delivered: true,
+    _id: 64750a7b718ed701287e9cfa,
+    user: 6467bb077c6f470a1bcc6932,
+    paymentId: '165291998',
+    createdAt: 2023-05-29T20:26:35.403Z,
+    __v: 0
+  },
+  {
+    cart: { totalQty: 1, totalCost: 800, items: [Array] },
+    delivered: true,
+    _id: 64750b5715ffd701439b89c6,
+    user: 6467bb077c6f470a1bcc6932,
+    paymentId: '49107640',
+    createdAt: 2023-05-29T20:30:15.071Z,
+    __v: 0
+  },
+  {
+    cart: { totalQty: 1, totalCost: 800, items: [Array] },
+    delivered: true,
+    _id: 64775b057ba416010b19e44d,
+    user: 6467bb077c6f470a1bcc6932,
+    paymentId: '364161648',
+    createdAt: 2023-05-31T14:34:45.799Z,
+    __v: 0
+  }
+]
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */

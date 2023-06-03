@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 const { conn } = require("../config/dbb");
 
 const guestSchema = new Schema({
+  
+  title: {
+    type: String,
+    required: true,
+  },
   first_name: {
     type: String,
     required: true,
@@ -14,19 +19,41 @@ const guestSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
+  },
+  
+  city: {
+    type:String,
+  },
+  residential: {
+    type: String
   },
   phone_number: {
     type: String,
-    required: false,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  paymentRef: {
+    type: String,
+    required: true,
+  },
+  created: {
+    type: Date,
+    default: Date.now,
   },
   reservations: [
     {
       room_id: {
         type: Schema.Types.ObjectId,
         ref: "Room",
-        required: true,
+        required: false,
       },
       check_in_date: {
         type: Date,
@@ -46,12 +73,59 @@ const guestSchema = new Schema({
         required: true,
       },
       hotel: {
-        type: Schema.Types.ObjectId,
-        ref: "Hotel",
+        type: String,
         required: true,
       },
     },
   ],
+
+//Other checkIn Data
+  nationality: {
+    type: String,
+    
+  },
+  identification: {
+    type: String,
+    
+  },
+  religion: {
+    type: String,
+   
+  },
+  denomination: {
+    type: String
+  },
+  purpose: {
+    type: String
+  },
+  occupation: {
+    type: String
+  },
+  organization: {
+    type: String
+  },
+  cityOrg: {
+    type: String
+  },
+  stateOrg: {
+    type: String
+  },
+  countryOrg: {
+    type: String
+  },
+  nextOfKin: {
+    type: String
+  },
+  nokAddress: {
+    type: String
+  },
+  nokTel: {
+    type: String
+  },
+  nokOccupation: {
+    type: String
+  }
+
 });
 
 module.exports =conn.model("Guest", guestSchema);

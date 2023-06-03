@@ -1,0 +1,475 @@
+<%- include ("../partials/_head") %>
+
+ <style>
+  
+
+
+  .contact-field select{
+height: calc(2.9em + 0.75rem + 2px);
+     border: 1px solid #777;
+
+  }
+  button, input, optgroup, select, textarea{
+     padding-left: 1rem;
+  }
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.password-toggle-icon i {
+    font-size: 16px;
+    color: #999;
+}
+
+.password-toggle-icon.active i {
+    color: #333;
+}
+
+/* Success state */
+.password-success {
+  background-color: #c5f5c5;
+}
+
+/* Error state */
+.password-error {
+  background-color: #f8d7da;
+}
+
+::placeholder, title {
+    font-size: 17px; /* Adjust the font size as needed */
+    color:#0000;
+   
+   
+}
+ </style>
+    <!--/head-->
+    <body>
+        <!-- header -->
+      <%- include ("../partials/_header") %>
+        <!-- header-end -->
+
+
+<section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
+  <div class="container">             
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-12 order-1 offset-lg-2">
+        <div class="contact-bg02">
+          <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+            <h2><i class="fas fa-user-plus"> </i> Check-In Form </h2>
+  <!-- Flash message -->
+     <% if(errorMsg !=null && errorMsg.length>0) {%>
+
+  <div id="flash-msg" class="alert alert-warning alert-dismissible text-white fade show" role="alert" style="background-color: #be9874;">
+    <%=errorMsg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<%}%>
+</div> 
+
+<form action="/user/signup" method="POST" class="contact-form mt-30">
+<div class="row justify-content-center align-items-center">
+<div class="row">
+<div class="col-lg-2">
+<div class="contact-field p-relative c-name mb-20" >
+<select id="title" name="title" required>
+<option  value="" disabled selected >Title</option>
+<option value="Pastor">Pastor</option>
+<option value="Bishop">Bishop</option>
+<option value="Mr">Mr</option>
+<option value="Chief">Chief </option>
+<option value="Dr">Dr</option>
+</select>
+</div>
+</div>
+<div class="col-lg-5">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="name" name="name" placeholder="First Name" required>
+</div>                               
+</div>
+<div class="col-lg-5">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="name" name="name" placeholder="Last Name" required>
+</div>                               
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-lg-6 col-md-6">                               
+<div class="contact-field p-relative c-subject mb-20">                                   
+<input type="text" id="email" name="email" placeholder="Email" required>
+</div>
+</div>	
+
+<div class="col-lg-6 col-md-6">
+<div class="contact-field p-relative c-name mb-20">                                    
+<input type="text" id="firstname" name="name" placeholder="Phone Number" required>
+</div>                               
+</div>
+
+ <div class="col-lg-3 col-md-6">
+    <label> <br> </label>
+<div class="contact-field p-relative c-subject mb-20 date">
+<input type="text" id="nationality" name="nationality" placeholder="your Nationality" required>
+</div>
+</div>	
+
+<div class="col-lg-3 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="identification" name="identification" required>
+<option value="" disabled selected >Mode of Identification</option>
+<option value="International Passport" >International Passport</option>
+<option value="Driver Licence">Driver Licence</option>
+<option value="National ID">National ID</option>
+<option value="Voters Card">Voters Card</option>
+<option value="Others">Others</option>
+</select>
+</div>
+</div> 
+
+<div class="col-lg-3 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="religion" name="religion">
+  <option value="christianity" selected disabled>Religion</option>
+  <option value="christianity">Christianity</option>
+  <option value="islam">Islam</option>
+  <option value="traditional">Traditional African Religions</option>
+  <option value="other">Other</option>
+</select>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="denomination" name="denomination">
+      <option value="" selected disabled>Denominations</option>
+  <option value="catholic">Catholic</option>
+  <option value="pentecostal">Pentecostal</option>
+  <option value="anglican">Anglican</option>
+  <option value="baptist">Baptist</option>
+  <option value="methodist">Methodist</option>
+  <option value="presbyterian">Presbyterian</option>
+  <option value="lutheran">Lutheran</option>
+  <option value="apostolic">Apostolic</option>
+  <option value="redeemed">Redeemed Christian Church of God</option>
+  <option value="other">Other</option>
+</select>
+</div>
+</div>
+
+
+ <div class="col-lg-3 col-md-6">
+<label> Check-In Date</label>
+<div class="contact-field p-relative c-subject mb-20 date">
+<input type="date" id="checkIn" name="checkIn" placeholder="Check-in" required>
+</div>
+</div>	
+
+<div class="col-lg-3 col-md-6">    
+  <label> Check-Out Date</label>                           
+<div class="contact-field p-relative c-subject mb-20 date">                                   
+<input type="date" id="checkout" name="checkIn" placeholder="checkOut"  required>
+</div>
+</div> 
+
+<div class="col-lg-3 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="title" name="title" required>
+<option value="" disabled selected >Select Purpose</option>
+  <option value="Business">Business Trip</option>
+  <option value="Vacation">Vacation</option>
+  <option value="Conference">Conference/Event</option>
+<option value="Retreats">Retreats</option>
+<option value="Holiday">Holiday</option>
+<option value="Special Programmes">Special Programmes </option>
+<option value="Church Service">Church Service</option>
+</select>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+    <label> <br> </label>
+<div class="contact-field p-relative c-subject mb-20 date">
+<input type="text" id="occupation" name="occupation" placeholder="Occupation" required>
+</div>
+</div>	
+
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="organisation" name="organizaztion" placeholder="Organization/Church Name"  required>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="checkout" name="checkIn" placeholder="City[Organization]"  required>
+</div>
+</div>
+
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a state</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Abia</option>
+  <option value="Abia">Abia</option>
+  <option value="Adamawa">Adamawa</option>
+  <option value="Akwa Ibom">Akwa Ibom</option>
+  <option value="Anambra">Anambra</option>
+  <option value="Bauchi">Bauchi</option>
+  <option value="Bayelsa">Bayelsa</option>
+  <option value="Benue">Benue</option>
+  <option value="Borno">Borno</option>
+  <option value="Cross River">Cross River</option>
+  <option value="Delta">Delta</option>
+  <option value="Ebonyi">Ebonyi</option>
+  <option value="Edo">Edo</option>
+  <option value="Ekiti">Ekiti</option>
+  <option value="Enugu">Enugu</option>
+  <option value="FCT">Federal Capital Territory</option>
+  <option value="Gombe">Gombe</option>
+  <option value="Imo">Imo</option>
+  <option value="Jigawa">Jigawa</option>
+  <option value="Kaduna">Kaduna</option>
+  <option value="Kano">Kano</option>
+  <option value="Katsina">Katsina</option>
+  <option value="Kebbi">Kebbi</option>
+  <option value="Kogi">Kogi</option>
+  <option value="Kwara">Kwara</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nasarawa">Nasarawa</option>
+  <option value="Niger">Niger</option>
+  <option value="Ogun">Ogun</option>
+  <option value="Ondo">Ondo</option>
+  <option value="Osun">Osun</option>
+  <option value="Oyo">Oyo</option>
+  <option value="Plateau">Plateau</option>
+  <option value="Rivers">Rivers</option>
+  <option value="Sokoto">Sokoto</option>
+  <option value="Taraba">Taraba</option>
+  <option value="Yobe">Yobe</option>
+  <option value="Zamfara">Zamfara</option>
+</select> 
+</div>
+</div>
+
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a Country</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Nigeria</option>
+  <option value="Abia">United Kingdom</option>
+  <option value="Adamawa">United States of America</option>
+  <option value="Akwa Ibom">United Arab Emirates</option>
+  <option value="Anambra">Canada</option>
+  <option value="Bauchi">Ghana</option>
+  <option value="Bayelsa">Cameroon</option>
+  <option value="Benue">South Africa</option>
+  <option value="Borno">Australia</option>
+  <option value="Cross River">Togo</option> 
+</select> 
+</div>
+
+
+
+
+
+<div class="col-lg-2 col-md-6 ">
+<div class="slider-btn">                                          
+<input type="text" id="amount" name="amount" value="" disabled style="font-size:18px;font-weight:600; text-align:initial;  border:none;">
+</div> 
+</div>
+
+</div>
+
+
+
+  <div style="text-align: left;">
+      <h4>
+        Next Of Kin
+      </h4></div>
+ 
+
+
+<div class="col-lg-4 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nok" name="nok" placeholder="Next Of Kin Name"  required>
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nokOccupation" name="nokOccupation" placeholder="Next Of Kin Occupation"  required>
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nokTel" name="nokTel" placeholder="Phone Number"  required>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nokAddress" name="nokAddress" placeholder="Next Of Kin Address"  required>
+</div>
+</div>
+
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a state</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Abia</option>
+  <option value="Abia">Abia</option>
+  <option value="Adamawa">Adamawa</option>
+  <option value="Akwa Ibom">Akwa Ibom</option>
+  <option value="Anambra">Anambra</option>
+  <option value="Bauchi">Bauchi</option>
+  <option value="Bayelsa">Bayelsa</option>
+  <option value="Benue">Benue</option>
+  <option value="Borno">Borno</option>
+  <option value="Cross River">Cross River</option>
+  <option value="Delta">Delta</option>
+  <option value="Ebonyi">Ebonyi</option>
+  <option value="Edo">Edo</option>
+  <option value="Ekiti">Ekiti</option>
+  <option value="Enugu">Enugu</option>
+  <option value="FCT">Federal Capital Territory</option>
+  <option value="Gombe">Gombe</option>
+  <option value="Imo">Imo</option>
+  <option value="Jigawa">Jigawa</option>
+  <option value="Kaduna">Kaduna</option>
+  <option value="Kano">Kano</option>
+  <option value="Katsina">Katsina</option>
+  <option value="Kebbi">Kebbi</option>
+  <option value="Kogi">Kogi</option>
+  <option value="Kwara">Kwara</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nasarawa">Nasarawa</option>
+  <option value="Niger">Niger</option>
+  <option value="Ogun">Ogun</option>
+  <option value="Ondo">Ondo</option>
+  <option value="Osun">Osun</option>
+  <option value="Oyo">Oyo</option>
+  <option value="Plateau">Plateau</option>
+  <option value="Rivers">Rivers</option>
+  <option value="Sokoto">Sokoto</option>
+  <option value="Taraba">Taraba</option>
+  <option value="Yobe">Yobe</option>
+  <option value="Zamfara">Zamfara</option>
+</select> 
+</div>
+</div>
+
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a Country</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Nigeria</option>
+  <option value="Abia">United Kingdom</option>
+  <option value="Adamawa">United States of America</option>
+  <option value="Akwa Ibom">United Arab Emirates</option>
+  <option value="Anambra">Canada</option>
+  <option value="Bauchi">Ghana</option>
+  <option value="Bayelsa">Cameroon</option>
+  <option value="Benue">South Africa</option>
+  <option value="Borno">Australia</option>
+  <option value="Cross River">Togo</option> 
+</select> 
+</div>
+
+
+
+
+
+<div class="col-lg-2 col-md-6 ">
+<div class="slider-btn">                                          
+    <input type="text" id="crsf" name="amount" value="" disabled style="font-size:18px;font-weight:600; text-align:initial;  border:none;">
+</div> 
+</div>
+
+</div>
+
+<input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
+<div class="col-lg-3 col-md-6">
+    <button class="btn ss-btn btn-large" data-animation="fadeInRight" data-delay=".8s" type="submit">
+        <i class="fas fa-user-plus"></i>  Check In
+    </button>    
+</div>
+
+</div>
+</div>
+
+
+             
+
+
+
+
+</div>
+</div>
+
+
+            
+          </form>
+        
+      
+        </div>    
+      </div>
+    </div>
+  
+  </div> 
+</section>
+
+<script>
+  const passwordInput = document.getElementById("password");
+const passwordToggleIcon = document.querySelector(".password-toggle-icon");
+
+// Show/hide password on eye icon click
+passwordToggleIcon.addEventListener("click", function() {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    this.classList.toggle("active");
+});
+
+
+// Check if password fields match
+const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("password2");
+
+
+confirmPasswordField.addEventListener('input', () => {
+  if (passwordField.value === confirmPasswordField.value) {
+    passwordField.classList.add('password-success');
+    confirmPasswordField.classList.add('password-success');
+    passwordField.classList.remove('password-error');
+    confirmPasswordField.classList.remove('password-error');
+  } else {
+    passwordField.classList.add('password-error');
+    confirmPasswordField.classList.add('password-error');
+    passwordField.classList.remove('password-success');
+    confirmPasswordField.classList.remove('password-success');
+  }
+});
+
+</script>
+
+       <%- include ("../partials/_footer") %>

@@ -21,19 +21,21 @@ middlewareObject.isAdmin = (req, res, next) => {
 middlewareObject.emailVerified  = (req, res, next) => {
   if (req.isAuthenticated() && !req.user.emailVerified) {
     req.flash("success", "please activate your account by checking email:" + req.user.email);
+    //check if user.email not verifies
     console.log('please verify your account first')
-    return res.redirect("/activate-your-account");
+    return res.redirect("/user/activate-your-account");
   }
   next();
 }
 
 
 
-//check if user is Login as User
+//check if user is Login as User 
 middlewareObject.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+  req.flash('Please you need to login to make reservations');
   res.redirect("/user/login");
 };
 

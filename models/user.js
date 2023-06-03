@@ -4,10 +4,6 @@ const Schema = mongoose.Schema;
 const { conn } = require("../config/dbb");
 
 const userSchema = Schema({
-  username: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
@@ -19,6 +15,12 @@ const userSchema = Schema({
     required: false,
   },
   title: {
+    type: String,
+  },
+  firstname: {
+    type: String,
+  },
+  lastname: {
     type: String,
   },
   role: {
@@ -52,6 +54,13 @@ const userSchema = Schema({
     type: Date,
     default: Date.now,
   },
+username: {
+    type: String,
+    default: function () {
+      return `${this.firstname.toLowerCase()}${this.lastname.toLowerCase()}${Math.floor(Math.random() * 10000)}`;
+    }
+  },
+
 });
 
 // encrypt the password before storing
@@ -66,6 +75,8 @@ userSchema.methods.validPassword = function (candidatePassword) {
     return false;
   }
 };
+
+
 
 userSchema.methods.setPassword = function (password) {
   this.password = this.encryptPassword(password);

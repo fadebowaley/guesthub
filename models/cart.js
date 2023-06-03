@@ -1,30 +1,52 @@
 const mongoose = require("mongoose");
-const { conn } = require("../config/dbb");
+const Schema = mongoose.Schema;
+const { conn } = require("../config/dbb"); 
 
-const cartSchema = new mongoose.Schema({
+const cartSchema = Schema({
   items: [
     {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+      roomTypeId: {
+        type: Schema.Types.ObjectId,
+        ref: "RoomType",
       },
-      qty: {
+     noRooms: {
         type: Number,
         default: 0,
+      },
+     days: {
+        type: Number,
+        default: 0,
+      },
+     idNo: {
+        type: Number,
+        default: 1,
+      },
+     checkIn: {
+        type: Date,       
+      },
+     checkOut: {
+        type: Date,        
       },
       price: {
         type: Number,
         default: 0,
       },
-      title: {
+      priceTotal: {
+        type: Number,
+        default: 0,
+      },
+      name: {
         type: String,
       },
-      productCode: {
+      hotel: {
+        type: String,
+      },
+      roomCode: {
         type: String,
       },
     },
   ],
-  totalQty: {
+  totalRoom: {
     type: Number,
     default: 0,
     required: true,
@@ -35,7 +57,7 @@ const cartSchema = new mongoose.Schema({
     required: true,
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: false,
   },

@@ -1,0 +1,456 @@
+
+<%- include ("../partials/_head") %>
+
+
+
+<style>
+    .breadcrumb-area {
+    background-size: cover;
+    position: relative;
+    min-height: 300px;
+    background-color: rgb(0, 0, 0);
+    background-repeat: no-repeat;
+}
+.contact-bg02 {
+    background: #efe9dd;
+    padding: 40px;
+    text-align: center;
+}
+
+.pt-120 {
+    padding-top: 53px;
+}
+  .contact-field select, input, textarea{
+height: calc(2.9em + 0.75rem + 2px);
+     border: 2px solid #777;
+     padding-right:10px;
+    
+
+  }
+  button, input, optgroup, select, textarea{
+     padding-left: 1rem;
+     
+  }
+label{
+  text-align: left;
+  font-size: 16px;
+    font-weight: 500;
+}
+
+/* Style the first two date fields */
+.col-lg-3:nth-of-type(1),
+.col-lg-3:nth-of-type(2) {
+  border: 2px solid #881313;
+  background-color: #d82121;
+}
+
+/* Style the labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+</style>
+
+    <!--/head-->
+    <body>
+        <!-- header -->
+      <%- include ("../partials/_header") %>
+        <!-- header-end -->
+
+        <!-- main-area -->
+
+ <main>
+            
+            <!-- breadcrumb-area -->
+            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/images/img/bg/bdrc-bg.jpg)">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="breadcrumb-wrap text-center">
+                                <div class="breadcrumb-title">
+                                    <h2><%= pageName %></h2>    
+                                    <div class="breadcrumb-wrap">
+                              
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">About</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->	
+            <!-- contact-area -->
+            <section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
+                <div class="container">             
+					<div class="row justify-content-center align-items-center">	
+
+                         <div class="col-lg-4 order-1">      
+                             <div class="single-services mb-30">
+                            <div class="services-thumb">
+                                <a class="gallery-link popup-image" href="<%= room.image %>">
+                                <img src="<%= room.image %>" alt="img" width="328" height="246%">
+                                </a>
+                            </div>
+                            <div class="services-content"> 
+                                <div class="day-book">
+                                    <ul>
+                                        <li id="roomPrice">$ <%= room.price %> / Night </li>
+
+                                        <!-- <li><a href="/payment">Book Now</a></li> -->
+                                    </ul>
+                                </div>
+                                <h4><a href="/viewrooms"> <h4><%= room.name%></h4></a></h4> 
+                                <!-- <p>Free toiletries Bathrobe Safety deposit box Toilet Sofa Bath or shower Towels Linen Socket near the bed Tile/marble floor Desk Children's high chair Seating Area Private entrance TV Slippers Refrigerator Ironing facilities Satellite channels</p> -->
+                                
+                                    <div class="icon">
+                                    <ul>
+                                    <li>
+                                    <span class="text-warning">												
+                                    <i class="fa fa-star fa-2x"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+									                  </span>
+                                    </li>
+                                        <li>1 medium sized Bed <img src="/images/img/icon/sve-icon1.png" alt="img"></li>
+                                        <li>Free Wifi <img src="/images/img/icon/sve-icon2.png" alt="img"></li>
+                                        <li>Private Bathroom <img src="/images/img/icon/sve-icon3.png" alt="img"></li>
+                                        <li>Flat Screen TV <img src="/images/img/icon/sve-icon4.png" alt="img"></li>
+                                        <li>Air Conditioning <img src="/images/img/icon/sve-icon5.png" alt="img"></li>
+                                        <li>Dry Cleaning <img src="/images/img/icon/sve-icon6.png" alt="img"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>                       
+                           					
+                        </div>
+
+
+                        <div class="col-lg-8 order-2">
+                            <div class="contact-bg02">
+                                <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+                                <!-- <h2>
+                                  Get In Touch
+                                </h2> -->
+                                 <!-- Error flash message -->
+                                 <!-- Error flash message -->
+<% if (successMsg) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= successMsg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+<% if (errorMsg && errorMsg.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <% errorMsg.forEach(function(error) { %>
+      <p><%= error %></p>
+    <% }) %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+</div>     
+
+<form action="/pages/contact" method="POST" class="contact-form mt-30">
+<div class="row">
+<div class="col-lg-2">
+<div class="contact-field p-relative c-name mb-20" >
+<select id="title" name="title" required>
+<option value="" disabled selected >Title</option>
+<option value="Pastor">Pastor</option>
+<option value="Bishop">Bishop</option>
+<option value="Mr">Mr</option>
+<option value="Chief">Chief </option>
+<option value="Dr">Dr</option>
+</select>
+</div>
+</div>
+<div class="col-lg-5">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="name" name="name" placeholder="First Name" required>
+</div>                               
+</div>
+<div class="col-lg-5">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="name" name="name" placeholder="Last Name" required>
+</div>                               
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-lg-6 col-md-6">                               
+<div class="contact-field p-relative c-subject mb-20">                                   
+<input type="text" id="email" name="email" placeholder="Email" required>
+</div>
+</div>	
+
+<div class="col-lg-6 col-md-6">
+<div class="contact-field p-relative c-name mb-20">                                    
+<input type="text" id="firstname" name="name" placeholder="Phone Number" required>
+</div>                               
+</div>
+
+<!-- <div class="col-lg-3 col-md-6">
+<label> Check-In Date</label>
+<div class="contact-field p-relative c-subject mb-20 date">
+<input type="date" id="checkIn" name="checkIn" placeholder="Check-in" required>
+</div>
+</div>	
+
+<div class="col-lg-3 col-md-6">    
+  <label> Check-Out Date</label>                           
+<div class="contact-field p-relative c-subject mb-20 date">                                   
+<input type="date" id="checkout" name="checkIn" placeholder="checkOut"  required>
+</div>
+</div> -->
+
+<div class="col-lg-2 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="rooms" name="rooms" required>
+<option value="" disabled selected >Rooms</option>
+<option value="1" selected>1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6">   
+  <label> <br> </label>
+<div class="contact-field p-relative c-name mb-20" >
+<select id="title" name="title" required>
+<option value="" disabled selected >Select Purpose</option>
+<option value="Vacation">Vacation</option>
+<option value="Retreats">Retreats</option>
+<option value="Holiday">Holiday</option>
+<option value="Special Programmes">Special Programmes </option>
+<option value="Church Service">Church Service</option>
+</select>
+</div>
+</div>
+
+
+
+<div class="col-lg-5 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="checkout" name="checkIn" placeholder="Contact Address"  required>
+</div>
+</div>
+<div class="col-lg-4 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="checkout" name="checkIn" placeholder="City"  required>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a state</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Abia</option>
+  <option value="Abia">Abia</option>
+  <option value="Adamawa">Adamawa</option>
+  <option value="Akwa Ibom">Akwa Ibom</option>
+  <option value="Anambra">Anambra</option>
+  <option value="Bauchi">Bauchi</option>
+  <option value="Bayelsa">Bayelsa</option>
+  <option value="Benue">Benue</option>
+  <option value="Borno">Borno</option>
+  <option value="Cross River">Cross River</option>
+  <option value="Delta">Delta</option>
+  <option value="Ebonyi">Ebonyi</option>
+  <option value="Edo">Edo</option>
+  <option value="Ekiti">Ekiti</option>
+  <option value="Enugu">Enugu</option>
+  <option value="FCT">Federal Capital Territory</option>
+  <option value="Gombe">Gombe</option>
+  <option value="Imo">Imo</option>
+  <option value="Jigawa">Jigawa</option>
+  <option value="Kaduna">Kaduna</option>
+  <option value="Kano">Kano</option>
+  <option value="Katsina">Katsina</option>
+  <option value="Kebbi">Kebbi</option>
+  <option value="Kogi">Kogi</option>
+  <option value="Kwara">Kwara</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nasarawa">Nasarawa</option>
+  <option value="Niger">Niger</option>
+  <option value="Ogun">Ogun</option>
+  <option value="Ondo">Ondo</option>
+  <option value="Osun">Osun</option>
+  <option value="Oyo">Oyo</option>
+  <option value="Plateau">Plateau</option>
+  <option value="Rivers">Rivers</option>
+  <option value="Sokoto">Sokoto</option>
+  <option value="Taraba">Taraba</option>
+  <option value="Yobe">Yobe</option>
+  <option value="Zamfara">Zamfara</option>
+</select> 
+</div>
+</div>
+
+<input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
+<div class="row">
+<div class="col-lg-4 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="states" name="states">
+  <option value="" selected>Select a Country</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Nigeria</option>
+  <option value="Abia">United Kingdom</option>
+  <option value="Adamawa">United States of America</option>
+  <option value="Akwa Ibom">United Arab Emirates</option>
+  <option value="Anambra">Canada</option>
+  <option value="Bauchi">Ghana</option>
+  <option value="Bayelsa">Cameroon</option>
+  <option value="Benue">South Africa</option>
+  <option value="Borno">Australia</option>
+  <option value="Cross River">Togo</option> 
+</select> 
+</div>
+</div>
+
+
+<div class="col-lg-4 col-md-6 offset-1 ">
+<div class="slider-btn">                                          
+<button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">
+<span>Book Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+</button>				
+
+</div> 
+</div>
+
+<div class="col-lg-2 col-md-6 ">
+<div class="slider-btn">                                          
+<input type="text" id="amount" name="amount" value="" disabled style="font-size:18px;font-weight:600; text-align:initial;  border:none;">
+</div> 
+</div>
+
+</div>
+</div>
+
+</div>
+
+</form>                            
+</div>    
+</div>    
+</div>
+
+                        
+					</div>
+                    
+                </div>
+               
+            </section>
+            <!-- contact-area-end -->
+          <!-- newslater-area -->
+            <section class="newslater-area p-relative pt-120 pb-120" style="background-color: #f7f5f1;">
+                <div class="animations-01"><img src="/images/img/bg/an-img-07.png" alt="contact-bg-an-05"></div>
+                <div class="container">
+                    <div class="row justify-content-center align-items-center text-center">
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+                                 <h5>Newsletter</h5>
+                                <h2>
+                                    Get Best Offers On The Hotel
+                                </h2>
+                                <p>With the subscription, enjoy your favourite Hotels without having to think about it</p>
+                            </div>
+                            <form name="ajax-form" id="contact-form4" action="#" method="post" class="contact-form newslater">
+                               <div class="form-group">
+                                  <input class="form-control" id="email3" name="email" type="email" placeholder="Your Email Address" value="" required=""> 
+                                  <button type="submit" class="btn btn-custom" id="send2">Subscribe Now</button>
+                               </div>
+                               <!-- /Form-email -->	
+                            </form>
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+            </section>
+            <!-- newslater-aread-end -->
+             
+        </main>
+
+        <script>
+// Get the check-in and check-out date input fields
+const checkInInput = document.getElementById("checkIn");
+const checkOutInput = document.getElementById("checkout");
+
+// Get the current date
+const today = new Date().toISOString().split("T")[0];
+// Get the date for tomorrow
+const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+
+// Set the check-in value to today and the minimum value of check-in and check-out to today's date and tomorrow's date respectively
+checkInInput.setAttribute("value", today);
+checkInInput.setAttribute("min", today);
+checkOutInput.setAttribute("min", tomorrow);
+
+// Add an event listener to check-in input field
+checkInInput.addEventListener("change", function() {
+  // Get the value of check-in input field
+  const checkInValue = checkInInput.value;
+  // Set the minimum value of check-out to check-in value + 1 day
+  const checkOutDate = new Date(new Date(checkInValue).getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  checkOutInput.setAttribute("min", checkOutDate);
+});
+
+// Add an event listener to check-out input field
+checkOutInput.addEventListener("change", function() {
+  // Get the value of check-out input field
+  const checkOutValue = checkOutInput.value;
+  // Set the maximum value of check-in to check-out value
+  checkInInput.setAttribute("max", checkOutValue);
+});
+
+
+// Get the input fields and output element
+const rooms = document.getElementById('rooms');
+const amount = document.getElementById('amount');
+
+const roomPrice = document.getElementById('roomPrice');
+// Get the text content of the element
+const roomPriceText = roomPrice.textContent.trim();
+
+// Extract the price value from the text
+const priceValue = roomPriceText.replace('$', '').replace('/ Night', '').trim();
+
+
+
+// Add event listeners to the input fields
+checkInInput.addEventListener('input', calculateTotalCost);
+checkOutInput.addEventListener('input', calculateTotalCost);
+rooms.addEventListener('input', calculateTotalCost);
+
+
+// Define the calculateTotalCost function
+function calculateTotalCost() {
+  const checkInDate = new Date(checkInInput.value);
+  const checkOutDate = new Date(checkOutInput.value);
+  const numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+  const totalPrice = numberOfDays * parseInt(priceValue) * parseInt(rooms.value);
+  amount.value = ` ₦ ${totalPrice.toFixed(2)}`;
+}
+
+
+        </script>
+         <!-- main-area-end -->
+               <!-- main-area-end -->
+         <!-- footer -->
+            <%- include ("../partials/_footer") %>

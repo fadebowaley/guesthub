@@ -7,7 +7,8 @@ const User = require("../models/user");
 const Review = require("../models/review");
 const Room = require("../models/room");
 const bcrypt = require("bcrypt-nodejs");
-const connectDB = require("./../config/db");
+const { conn } = require("../config/dbb");
+// const connectDB = require("./../config/db");
 const fs = require("fs/promises");
 
 //Hotel Dummy Data
@@ -108,16 +109,22 @@ const typeR = [
   {
     name: "Classic Balcony Room",
     image: "/images/img/gallery/room-img01.png",
-    description:
-      "Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.",
+    description: "Understated seaside elegance, traditional grace, complemented by warm homely touches and pops exquisitely designed resort set in a peaceful enclave just out of Hua Hin town.",
     price: 600,
-    features: [
-      "/images/img/icon/sve-icon1.png",
-      "/images/img/icon/sve-icon2.png",
-      "/images/img/icon/sve-icon3.png",
-      "/images/img/icon/sve-icon4.png",
-      "/images/img/icon/sve-icon5.png",
-      "/images/img/icon/sve-icon6.png",
+   features: [
+      { name: "TV", value: 0 },
+      { name: "Free Wifi", value:-1 },
+      { name: "Air Condition", value:-1 },
+      { name: "Heater", value: 0 },
+      { name: "Phone", value: 0 },
+      { name: "Laundry", value:-1 },
+      { name: "Adults", value: 2 },
+      { name: "Size", value: 24 }, //"24m²"
+      { name: "Bed Type", value: 1 }
+    ],
+    detailedImage: [
+     "/images/img/bg/single-room-img03.png",
+      "/images/img/bg/single-room-img02.png",
     ],
     maxNumberAdult:2,
     maxNumberChildren:1,
@@ -125,16 +132,22 @@ const typeR = [
   {
     name: "Superior Double Room",
     image: "/images/img/gallery/room-img02.png",
-    description:
-      "Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta ex, in imperdiet tortor feugiat at.",
+    description: "Understated seaside elegance, traditional grace, complemented by warm homely touches and pops exquisitely designed resort set in a peaceful enclave just out of Hua Hin town.",
     price: 400,
     features: [
-      "/images/img/icon/sve-icon1.png",
-      "/images/img/icon/sve-icon2.png",
-      "/images/img/icon/sve-icon3.png",
-      "/images/img/icon/sve-icon4.png",
-      "/images/img/icon/sve-icon5.png",
-      "/images/img/icon/sve-icon6.png",
+      { name: "TV", value: 0 },
+      { name: "Free Wifi", value:-1 },
+      { name: "Air Condition", value:-1 },
+      { name: "Heater", value: 0 },
+      { name: "Phone", value: 0 },
+      { name: "Laundry", value:-1 },
+      { name: "Adults", value: 2 },
+      { name: "Size", value: 24 }, //"24m²"
+      { name: "Bed Type", value: 1 }
+    ],
+    detailedImage: [
+     "/images/img/bg/single-room-img03.png",
+      "/images/img/bg/single-room-img02.png",
     ],
     maxNumberAdult:2,
     maxNumberChildren:4,
@@ -142,16 +155,22 @@ const typeR = [
   {
     name: "Super Balcony Double Room",
     image: "/images/img/gallery/room-img03.png",
-    description:
-      "Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.",
+    description: "Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.",
     price: 100,
-    features: [
-      "/images/img/icon/sve-icon1.png",
-      "/images/img/icon/sve-icon2.png",
-      "/images/img/icon/sve-icon3.png",
-      "/images/img/icon/sve-icon4.png",
-      "/images/img/icon/sve-icon5.png",
-      "/images/img/icon/sve-icon6.png",
+   features: [
+      { name: "TV", value: 0 },
+      { name: "Free Wifi", value:-1 },
+      { name: "Air Condition", value:-1 },
+      { name: "Heater", value: 0 },
+      { name: "Phone", value: 0 },
+      { name: "Laundry", value:-1 },
+      { name: "Adults", value: 2 },
+      { name: "Size", value: 24 }, //"24m²"
+      { name: "Bed Type", value: 1 }
+    ],
+       detailedImage: [
+       "/images/img/bg/single-room-img03.png",
+      "/images/img/bg/single-room-img02.png",
     ],
     maxNumberAdult:4,
     maxNumberChildren:4,
@@ -159,16 +178,22 @@ const typeR = [
   {
     name: "Double Deluxe Room",
     image: "/images/img/gallery/room-img04.png",
-    description:
-      "Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.",
+    description:"Aenean vehicula ligula eu rhoncus porttitor. Duis vel lacinia quam. Nunc rutrum porta place ullam ipsum. Morbi imperdiet, orci et dapibus.",
     price: 200,
-    features: [
-      "/images/img/icon/sve-icon1.png",
-      "/images/img/icon/sve-icon2.png",
-      "/images/img/icon/sve-icon3.png",
-      "/images/img/icon/sve-icon4.png",
-      "/images/img/icon/sve-icon5.png",
-      "/images/img/icon/sve-icon6.png",
+   features: [
+      { name: "TV", value: 0 },
+      { name: "Free Wifi", value:-1 },
+      { name: "Air Condition", value:-1 },
+      { name: "Heater", value: 0 },
+      { name: "Phone", value: 0 },
+      { name: "Laundry", value:-1 },
+      { name: "Adults", value: 2 },
+      { name: "Size", value: 24 }, //"24m²"
+      { name: "Bed Type", value: 1 }
+    ],
+      detailedImage: [
+      "/images/img/bg/single-room-img03.png",
+      "/images/img/bg/single-room-img02.png",
     ],
     maxNumberAdult:3,
     maxNumberChildren:3,
@@ -359,35 +384,73 @@ const seedRoomType = async () => {
   }
 };
 
+// const seedRoomType = async () => {
+//   try {
+//     console.log("Deleting all room types...");
+//     await RoomType.deleteMany({}); // delete all existing room types
 
-const closeConnection = async () => {
-  try {
-    await mongoose.connection.close();
-    console.log("Database connection closed successfully!");
-  } catch (error) {
-    console.error("Error closing database connection:", error);
-    process.exit(1);
-  }
-};
+//     console.log("All room types deleted successfully!");
+
+//     const hotels = await Hotel.find(); // get all hotels
+//     const hotelRoomTypes = hotels.flatMap((hotel) => {
+//       // create room types for each hotel
+//       return typeR.map((roomType) => {
+//         const newRoomType = new RoomType({
+//           // create a new RoomType object with the data
+//           name: roomType.name,
+//           image: roomType.image,
+//           description: roomType.description,
+//           price: roomType.price,
+//           features: roomType.features,
+//           detailedImage: roomType.detailedImage,
+//           maxNumberAdult: roomType.maxNumberAdult,
+//           maxNumberChildren: roomType.maxNumberChildren,
+//           hotel: hotel._id // add the hotel id to the room type object
+//         });
+//         hotel.roomtypes.push(newRoomType._id); // add the room type id to the hotel's room types array
+//         return newRoomType;
+//       });
+//     });
+
+//     await RoomType.insertMany(hotelRoomTypes); // insert all new room types to the database
+//     await hotels.forEach(async (hotel) => await hotel.save()); // save the updated hotel data to the database
+
+//     console.log("All room types seeded successfully!");
+//   } catch (error) {
+//     console.error("Error seeding room types:", error);
+//     process.exit(1);
+//   }
+// };
+
+// const closeConnection = async () => {
+//   try {
+//     await mongoose.connection.close();
+//     console.log("Database connection closed successfully!");
+//   } catch (error) {
+//     console.error("Error closing database connection:", error);
+//     process.exit(1);
+//   }
+// };
 
 const dbSeed = async () => {
   try {
     // connect Database
-    await connectDB();
-    // await seedUsers();
+    await seedUsers();
     await seedHotels();
-    await seedReviews();
     await seedRoomType();
+    await seedReviews();
     await seedRoom();
 
     console.log("Data seeded successfully . . . ");
     await fs.writeFile("seeded.txt", "true");
     console.log("flag set successfully");
-    await closeConnection();
+    // await closeConnection();
   } catch (error) {
     console.error("Error seeding database:", error);
     process.exit(1);
   }
 };
+
+
 
 module.exports = dbSeed;

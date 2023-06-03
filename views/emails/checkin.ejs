@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Order Confirmation</title>
+    <style>
+      .reservation-details {
+        max-width: 100vw;
+        padding: 32px;
+      }
+
+      .reservation-details h1 {
+        color: #3d4852;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .reservation-details p {
+        font-size: 12px;
+        line-height: 1;
+        margin-top: 0;
+      }
+
+      .reservation-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 32px;
+      }
+
+      .reservation-table th,
+      .reservation-table td {
+        border-bottom: 1px solid #edf2f7;
+        padding: 10px;
+      }
+
+      .reservation-table th {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      background-color: #ffffff;
+      color: #718096;
+      height: 100%;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+      width: 100%!important;
+    ">
+      <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        background-color: #edf2f7;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      ">
+        <tbody>
+          <tr>
+            <td align="center" style="
+              box-sizing: border-box;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            ">
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
+                box-sizing: border-box;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                margin: 0;
+                padding: 0;
+                width: 100%;
+              ">
+                <tbody>
+                  <tr>
+                    <td style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      padding: 25px 0;
+                      text-align: center;
+                    ">
+                      <h1 style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                        color: #3d4852;
+                        font-size: 18px;
+                        font-weight: bold;
+                      ">Order Confirmation #<%= paymentId %></h1>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="100%" cellpadding="0" cellspacing="0" style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      background-color: #edf2f7;
+                      border-bottom: 1px solid #edf2f7;
+                      border-top: 1px solid #edf2f7;
+                      margin: 0;
+                      padding: 0;
+                      width: 100%;
+                    ">
+                      <table align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                        background-color: #ffffff;
+                        border-color: #e8e5ef;
+                        border-radius: 2px;
+                        border-width: 1px;
+                        margin: 0 auto;
+                        padding: 0;
+                        width: 570px;
+                      ">
+                        <tbody>
+                          <tr>
+                            <td style="
+                              box-sizing: border-box;
+                              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                              max-width: 100vw;
+                              padding: 32px;
+                            ">
+                              <h1 style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                                color: #3d4852;
+                                font-size: 18px;
+                                font-weight: bold;
+                              ">Thank you for your  booking !</h1>
+                              <p style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                                font-size: 16px;
+                                line-height: 1.5;
+                                margin-top: 0;
+                              ">Dear <%= userData.firstname %>,</p>
+                              <p style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                                font-size: 16px;
+                                line-height: 1.5;
+                                margin-top: 0;
+                              ">Your room booking has been confirmed. Below are the details of your reservation:</p>
+                              <table class="reservation-table">
+  <thead>
+    <tr>
+      <th>Check-in</th>
+      <th>Apartment</th>
+      <th>Room Type</th>
+      <th>Rooms </th>
+      <th>Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(function(item) { %>
+    <tr>
+<td style="text-align:center;"><%= item.checkIn.toLocaleString('en-US', {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}) %> </td>
+<td><%= item.hotel %></td>
+<td><%= item.name %></td>
+<td><%= item.noRooms %></td>
+<td><%= item.priceTotal %></td>
+    </tr>
+    <% }); %>
+     <tr style="height: 15px;"></tr> <!-- Adding space between the rows -->
+
+
+     <tr class="vat-row">
+      <td colspan="4" class="align-right"><strong>VAT (Value Added Tax):</strong></td>
+      <td>NGN <%= vatAmount.toFixed(2) %></td>
+    </tr>
+
+   
+      <tr class="total-row">
+      <td colspan="4" class="align-right"><strong>Grand Total: </strong></td>
+      <td style="font-size:16px;"><strong>NGN <%= grandTotal.toFixed(2) %> </strong></td>
+    </tr>
+  </tbody>
+</table>
+                          <tr style="text-align:center;">
+                            <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
+                              <a href="#" class="m_7262147444846740512button" rel="noopener" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748" target="_blank" data-saferedirecturl="#"> Click here Check In </a>
+                              <p style="
+           box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                                font-size: 16px;
+                                line-height: 1.5;
+                                margin-top: 32px; text-align:center;
+                              ">If you have any questions or need further assistance, please don't hesitate to contact our customer support.</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      padding: 25px 0;
+                      text-align: center;
+                    ">
+                      <p style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                        font-size: 14px;
+                        line-height: 1.5;
+                        margin-top: 0;
+                        color: #a0aec0;
+                      ">Hotelhub • 123 Hotel Street • City, State • 12345</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

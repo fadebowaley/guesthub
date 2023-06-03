@@ -24,14 +24,25 @@ const RoomTypeSchema = Schema({
     type: Number,
     required: true,
   },
+  detailedImage: [
+    {
+      type: String
+    }
+  ],
   maxNumberAdult: {
     type: Number,
     required: true,
   },
-  features: {
-    type: [String],
-    required: true,
-  },
+   features: [
+    {
+       name: {
+         type: String, required: true
+       },
+       value: {
+         type: Number, default: 0
+       }, // 0 means available -1 means unavailable
+    },
+  ],
   hotel: {
   type: Schema.Types.ObjectId,
   required: true,
@@ -41,3 +52,5 @@ const RoomTypeSchema = Schema({
 
 
 module.exports = conn.model("RoomType", RoomTypeSchema);
+
+

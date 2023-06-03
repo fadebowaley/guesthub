@@ -1,16 +1,105 @@
-<%- include ("../partials/_head") %>
+<%- include("../partials/_head") %>
+
 <style>
-.breadcrumb-area {
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+  }
+
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 70%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .modal-content {
+    margin-top: 30px;
+  }
+
+  .table-container {
+    height: 300px;
+    overflow-y: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th,
+  td.status {
+    text-align: right;
+  }
+
+  td.lefty {
+    text-align: left;
+  }
+
+  th {
+    background-color: #ffffff;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .status-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #f50808;
+  }
+
+  .successful {
+    background-color: #01781f;
+  }
+
+  .breadcrumb-area {
     background-size: cover;
     position: relative;
     min-height: 20px;
-}
- .services-08-thumb {
+  }
+
+  .services-08-thumb {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .avatar {
     display: flex;
     justify-content: center;
@@ -23,185 +112,279 @@
     padding: 5px;
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
   }
-  
+
   .avatar img {
     width: 100%;
     height: auto;
     border-radius: 50%;
   }
-  
+
   .name {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
   }
-  
+
   .contact {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
   }
-  
+
   .contact i {
     margin-right: 5px;
   }
-  
+
   .contact span {
     font-size: 16px;
   }
-.services-08-thumb img { 
+
+  .services-08-thumb img {
     margin-bottom: 4px;
-}
+  }
 </style>
-   <body>
-        <!-- header -->
-      <%- include ("../partials/_header") %>
-        <!-- header-end -->
 
-       <main>
+<body>
+  <!-- header -->
+  <%- include("../partials/_header") %>
+  <!-- header-end -->
 
-
-
-
-
-            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url/images/img/bg/bdrc-bg.jpg);">    <div class="container">
+  <main>
+    <section class="breadcrumb-area d-flex align-items-center" style="background-image: url(/images/img/bg/bdrc-bg.jpg);">
+      <div class="container">
         <div class="row align-items-center">
-            <div class="col-xl-12 col-lg-12">
-                
-            </div>
-        </div>       
-    </div>
-</section>
-
-
-            <!-- breadcrumb-area-end -->
-
-<section id="service-details2" class="pt-120 pb-90 p-relative">
-  <div class="animations-01"><img src="/images/img/bg/an-img-01.png" alt="an-img-01"></div>
-  <div class="container">
-    <div class="row align-items-center">
-     
-    <!-- container -->
-      <div class="row">
-        <!-- <div class="col-lg-4 col-md-6">
-          <div class="services-08-item mb-30">
-            <div class="services-icon2">
-              <img src="/images/img/icon/fe-icon01.png" alt="img">
-            </div>
-            <div class="services-08-thumb">
-              <img src="/images/img/icon/fe-icon01.png" alt="img">
-            </div>
-            <div class="services-08-content">
-              <h3><a href="single-service.html"> Qulity Room</a></h3>
-              <p>Nullam molestie lacus sit amet velit fermentum feugiat. Mauris auctor eget nunc sit amet.</p>
-              <a href="single-service.html">Read More <i class="fal fa-long-arrow-right"></i></a>
-            </div>
-          </div>
-        </div> -->
- <div class="col-lg-4 col-md-6">
-  <div class="services-08-item mb-30">
-    <div class="services-icon2">
-      <i class="fas fa-bed"></i>
-    </div>
-    <div class="services-08-thumb">
-      <div class="avatar">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="Avatar">
-      </div>
-      <h3 class="name">Ademola Adebowale</h3>
-      <div class="contact">
-        <i class="fas fa-envelope"></i>
-        <span>Email: ademola@example.com</span>
-      </div>
-      <div class="contact">
-        <i class="fas fa-phone"></i>
-        <span>Phone: +1 555 1234567</span>
-      </div>
-    </div>
-  
-  </div>
-</div>
-
-
-        <div class="col-lg-7 col-md-6">            
-          <div class="services-08-item mb-30">
-            <div class="services-icon2">
-            <h3><a href="single-service.html">Privet Beach</a></h3>
-
-              <img src="/images/img/icon/fe-icon04.png" alt="img">
-            </div>
-            <div class="services-08-thumb">
-              <img src="/images/img/icon/fe-icon04.png" alt="img">
-            </div>
-            <div class="services-08-content">
-              <h3><a href="single-service.html">Privet Beach</a></h3>
-              <p>Nullam molestie lacus sit amet velit fermentum feugiat. Mauris auctor eget nunc sit amet.</p>
-              <a href="single-service.html">Read More <i class="fal fa-long-arrow-right"></i></a>
-            </div>
-          </div>           
-        </div> 
-      </div>
-  <!-- /container -->
-
-   <!-- container -->
-      <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div class="services-08-item mb-30">
-            <div class="services-icon2">
-              <img src="/images/img/icon/fe-icon01.png" alt="img">
-            </div>
-            <div class="services-08-thumb">
-              <img src="/images/img/icon/fe-icon01.png" alt="img">
-            </div>
-            <div class="services-08-content">
-              <h3><a href="single-service.html"> Qulity Room</a></h3>
-              <p>Nullam molestie lacus sit amet velit fermentum feugiat. Mauris auctor eget nunc sit amet.</p>
-              <a href="single-service.html">Read More <i class="fal fa-long-arrow-right"></i></a>
-            </div>
+          <div class="col-xl-12 col-lg-12">
           </div>
         </div>
-        <div class="col-lg-7 col-md-6">            
-          <div class="services-08-item mb-30">
-            <div class="services-icon2">
-              <img src="/images/img/icon/fe-icon04.png" alt="img">
-            </div>
-            <div class="services-08-thumb">
-              <img src="/images/img/icon/fe-icon04.png" alt="img">
-            </div>
-            <div class="services-08-content">
-              <h3><a href="single-service.html">Privet Beach</a></h3>
-              <p>Nullam molestie lacus sit amet velit fermentum feugiat. Mauris auctor eget nunc sit amet.</p>
-              <a href="single-service.html">Read More <i class="fal fa-long-arrow-right"></i></a>
-            </div>
-          </div>           
-        </div> 
       </div>
-  <!-- /container -->
-    </div>
-  </div>
-</section>
+    </section>
+
+    <!-- breadcrumb-area-end -->
+
+    <section id="service-details2" class="pt-120 pb-90 p-relative">
+      <div class="animations-01">
+        <img src="/images/img/bg/an-img-01.png" alt="an-img-01">
+      </div>
+      <div class="container">
+        <div class="row align-items-center">
+
+          <!-- container -->
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="services-08-item mb-30">
+                <div class="services-icon2">
+                  <i class="fas fa-bed"></i>
+                </div>
+                <div class="services-08-thumb">
+                  <div class="avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="Avatar">
+                  </div>
+                  <h3 class="name"><%= currentUser.firstname %> <%= currentUser.lastname %></h3>
+                  <div class="contact">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email: <%= currentUser.email %></span>
+                  </div>
+                  <div class="contact">
+                    <i class="fas fa-phone"></i>
+                    <span>Phone: <%= currentUser.phone ? currentUser.phone : 'XXX-XXXX-XXX' %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-8 col-md-7">
+              <div class="services-08-item mb-30">
 
 
+                
+
+                <div class="table-container services-08-thumb">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sn</th>
+                        <th>Room Types</th>
+                        <th>Rooms</th>
+                        <th>No order</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                        <th>Payment ID</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% orders.forEach(function(order, index) { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= order.cart.items[0].name %></td>
+                        <td style="text-align:center;"><%= order.cart.items[0].noRooms %></td>
+                        <td style="text-align:center;"><%= order.cart.items.length %></td>
+                        <td style="text-align:center;"><%= order.cart.items[0].price %></td>
+                        <td style="text-align:center;"><%= order.cart.totalCost %></td>
+                        <td><strong><%= order.paymentId %></strong></td>
+                        <td class="status">
+                          <% if (order.delivered) { %>
+                          <button class="status-btn successful"  ><i class="fas fa-eye"></i> Check In </button>
+                          <% } else { %>
+                          <button class="status-btn">Pending</button>
+                          <% } %>
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
 
 
+              </div>
+            </div>
+          </div>
+          <!-- /container -->
 
-<script>
-const bubble = document.querySelector(".bubble");
-const bubbleBox = document.querySelector(".bubble-box");
-const colorOptions = document.querySelectorAll(".color-option");
+          
 
-bubble.addEventListener("click", () => {
-  bubbleBox.classList.toggle("active");
-});
+        </div>
+      </div>
+    </section>
 
-colorOptions.forEach((colorOption) => {
-  colorOption.addEventListener("click", () => {
-    const color = colorOption.style.backgroundColor;
-    document.body.style.backgroundColor = color;
-  });
-});
+  </main>
 
-</script>
+  <!-- JavaScript -->
+  
+ <footer class="footer-bg footer-p">
+         <div class="footer-top  pt-90 pb-40" style="background-color: #644222; background-image: url(/images/img/bg/footer-bg.png);">
+                <div class="container">
+                    <div class="row justify-content-between">                       
+                          
+                          <div class="col-xl-4 col-lg-4 col-sm-6">
+                            <div class="footer-widget mb-30">
+                                <div class="f-widget-title mb-30">
+                                   <img src="/images/img/logo/logo.png" alt="img">
+                                </div>
+                                <div class="f-contact">
+                                    <ul>
+                                    <li>
+                                        <i class="icon fal fa-phone"></i>
+                                        <span>1800-121-3637<br>+91-7052-101-786</span>
+                                    </li>
+                                   <li><i class="icon fal fa-envelope"></i>
+                                        <span>
+                                            <a href="mailto:info@example.com">info@example.com</a>
+                                       <br>
+                                       <a href="mailto:help@example.com">help@example.com</a>
+                                       </span>
+                                    </li>
+                                    <li>
+                                        <i class="icon fal fa-map-marker-check"></i>
+                                        <span>1247/Plot No. 39, 15th Phase,<br> LHB Colony, Kanpur</span>
+                                    </li>
+                                    
+                                </ul>
+                                    
+                                    </div>
+                            </div>
+                        </div>
+						<div class="col-xl-2 col-lg-2 col-sm-6">
+                            <div class="footer-widget mb-30">
+                                <div class="f-widget-title">
+                                    <h2>Our Links</h2>
+                                </div>
+                                <div class="footer-link">
+                                    <ul>                                        
+                                        <li><a href="/">Home</a></li>
+                                        <li><a href="/"> About Us</a></li>
+                                        <li><a href="services.html"> Services </a></li>
+                                        <li><a href="contact.html"> Contact Us</a></li>
+                                        <li><a href="blog.html">Blog </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-sm-6">
+                            <div class="footer-widget mb-30">
+                                <div class="f-widget-title">
+                                    <h2>Our Services</h2>
+                                </div>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="faq.html">FAQ</a></li>
+                                        <li><a href="#">Support</a></li>
+                                        <li><a href="#">Privacy</a></li>
+                                        <li><a href="#">Term & Conditions</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="col-xl-4 col-lg-4 col-sm-6">
+                            <div class="footer-widget mb-30">
+                                <div class="f-widget-title">
+                                  <h2>Subscribe To Our Newsletter</h2>
+                                </div>
+                                <div class="footer-link">
+                                 <div class="subricbe p-relative" data-animation="fadeInDown" data-delay=".4s" >
+                                            <form action="news-mail.php" method="post" class="contact-form ">
+                                             <input type="text" id="email2" name="email2"  class="header-input" placeholder="Your Email..." required>
+                                            <button class="btn header-btn"> <i class="fas fa-location-arrow"></i> </button>
+                                            </form>
+                                        </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-wrap">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6">                         
+                           Copyright &copy; Riorelax 2022 . All rights reserved.         
+                        </div>
+                        <div class="col-lg-6 col-md-6 text-right text-xl-right">                       
+                           <div class="footer-social">                                    
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </div>        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer-end -->
 
-      </main>
-  <%- include ("../partials/_footer") %>
+<!-- GET /stylesheets/css/bootstrap.min.css.map 404 115.574 ms - 1672
+GET /stylesheets/js/popper.min.js.map 404 150.107 ms - 1672
+GET /stylesheets/js/bootstrap.min.js.map 404 176.254 ms - 1672 -->
+		<!-- JS here -->
+        <script src="/stylesheets/js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="/stylesheets/js/vendor/jquery-3.6.0.min.js"></script>
+        <script src="/stylesheets/js/popper.min.js"></script>
+        <script src="/stylesheets/js/bootstrap.min.js"></script>
+        <script src="/stylesheets/js/slick.min.js"></script>
+        <script src="/stylesheets/js/ajax-form.js"></script>
+        <script src="/stylesheets/js/paroller.js"></script>
+        <script src="/stylesheets/js/wow.min.js"></script>
+        <script src="/stylesheets/js/js_isotope.pkgd.min.js"></script>
+        <script src="/stylesheets/js/imagesloaded.min.js"></script>
+        <script src="/stylesheets/js/parallax.min.js"></script>
+        <script src="/stylesheets/js/jquery.waypoints.min.js"></script>
+        <script src="/stylesheets/js/jquery.counterup.min.js"></script>
+        <script src="/stylesheets/js/jquery.scrollUp.min.js"></script>
+        <script src="/stylesheets/js/jquery.meanmenu.min.js"></script>
+        <script src="/stylesheets/js/parallax-scroll.js"></script>
+        <script src="/stylesheets/js/jquery.magnific-popup.min.js"></script>
+        <script src="/stylesheets/js/element-in-view.js"></script>
+        <script src="/stylesheets/js/main.js"></script>
+
+        <!-- Slimscroll JS -->
+		<script src="/stylesheets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		
+		<!-- Datatables JS -->
+		<script src="/stylesheets/plugins/datatables/jquery.dataTables.min.js"></script>
+		<script src="/stylesheets/plugins/datatables/datatables.min.js"></script>
+    </body>
+</html>

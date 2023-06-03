@@ -2,9 +2,19 @@
 <%- include ("../partials/_head") %>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-XmB8enZBwPZpt0jsvDkgWlt/qi3Ib4evXzoN1v97Nc88ltOCQFPccLxTjRvIsz61tsC8s3k4yX9pwwfOJbVT/Q==" crossorigin="anonymous" />
 
 <style>
+  .contact-field select, input, textarea {
+    height: calc(2.9em + 0.75rem + 2px);
+    border: 2px solid #777;
+    padding-right: 10px;
+    background-color: #f9f9f7;
+}
+
+.feat {
+    margin-right: 10px;
+    color: #be9874;
+}
 .breadcrumb-area {
 background-size: cover;
 position: relative;
@@ -12,47 +22,131 @@ min-height: 300px;
 background-color: rgb(0, 0, 0);
 background-repeat: no-repeat;
 }
-.contact-bg02 {
-background: #efe9dd;
-padding: 40px;
-text-align: center;
+
+::placeholder{
+  font-size:16px;
 }
+ .room-features li {
+    display: flex;
+    align-items: center;
+    min-width: 12%;
+    border: 2px solid #eee;
+    padding: 5px 5px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #101010;
+    font-family: 'Jost', sans-serif;
+}
+  
+  .room-features li i {
+    margin-right: 10px;
+    color: #be9874;
+  }
 
 .pt-120 {
 padding-top: 53px;
 }
-.contact-field select, input, textarea{
+
+body{margin-top:20px;
+    background:#eee;
+}
+h3 {
+    font-size: 16px;
+}
+.text-navy {
+    color: #1ab394;
+}
+.cart-product-imitation {
+  text-align: center;
+
+  height: 80px;
+  width: 80px;
+  background-color: #f8f8f9;
+}
+.product-imitation.xl {
+  padding: 120px 0;
+}
+.product-desc {
+  
+  position: relative;
+}
+.ecommerce .tag-list {
+  padding: 0;
+}
+.ecommerce .fa-star {
+  color: #d1dade;
+}
+.ecommerce .fa-star.active {
+  color: #f8ac59;
+}
+.ecommerce .note-editor {
+  border: 1px solid #e7eaec;
+}
+table.shoping-cart-table {
+  margin-bottom: 0;
+}
+table.shoping-cart-table tr td {
+  border: none;
+  text-align: right;
+}
+table.shoping-cart-table tr td.desc,
+table.shoping-cart-table tr td:first-child {
+  text-align: left;
+}
+table.shoping-cart-table tr td:last-child {
+  width: 80px;
+}
+.cart {
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 0;
+  padding: 0;
+}
+.cart.collapsed .cart-content {
+  display: none;
+}
+.cart:after,
+.cart:before {
+  display: table;
+}
+.cart-title {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #ffffff;
+  border-color: #4a2204;
+  border-style: solid solid none;
+  border-width: 3px 0 0;
+  color: inherit;
+  margin-bottom: 0;
+  padding: 14px 15px 7px;
+  min-height: 48px;
+}
+.cart-content {
+  background-color: #ffffff;
+  color: inherit;
+  padding: 10px 20px 20px 20px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: none;
+  border-width: 1px 0;
+}
+p.desc {
+    margin-bottom: 2px;
+}
+
+  .contact-field select, input, textarea{
 height: calc(2.9em + 0.75rem + 2px);
-border: 2px solid #777;
-padding-right:10px;
+     border: 2px solid #777;
+     padding-right:10px;
+    
 
-
-}
-button, input, optgroup, select, textarea{
-padding-left: 1rem;
-
-}
-label{
-text-align: left;
-font-size: 16px;
-font-weight: 500;
-}
-
-/* Style the first two date fields */
-.col-lg-3:nth-of-type(1),
-.col-lg-3:nth-of-type(2) {
-border: 2px solid #881313;
-background-color: #d82121;
-}
-
-/* Style the labels */
-label {
-display: block;
-font-weight: bold;
-margin-bottom: 5px;
-}
-
-
+  }
+  button, input, optgroup, select, textarea{
+     padding-left: 1rem;
+     
+  }
 </style>
 
 <!--/head-->
@@ -74,7 +168,6 @@ margin-bottom: 5px;
 <div class="breadcrumb-title">
 <h2>Bookings</h2>    
 <div class="breadcrumb-wrap">
-
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb">
 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -85,115 +178,354 @@ margin-bottom: 5px;
 </div>
 </div>
 </div>
-
 </div>
 </div>
 </section>
 <!-- breadcrumb-area-end -->	
-<!-- contact-area -->
-<section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
-<div class="container">             
-<div class="row justify-content-center align-items-center">	
 
-<div class="col-lg-8 order-1">
-<div class="contact-bg02">
-<div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
-<table>
-<thead>
-<th>Sn</th>
-<th>Items</th>
-<th>Details</th>
-<th>Qty</th>
-<th>Price</th>
-<th>Total</th>
-</thead>
-    <tbody>
-<tr>
-    <td>1.</td>
-    <td>Deluxes Chapel Limited </td>
-    <td>Hotel and  Suites</td>
-    <td>2</td>
-    <td>26500</td>
-    <td>53000</td>
-</tr>
-    </tbody>
-</table>
-
-
-</div>                       
-</div>    
-</div> 
-
-
-<div class="col-lg-4 order-2">
-<div class="contact-bg02">
-<div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
-<table>
-<thead>
-<th>Sn</th>
-<th>Items</th>
-<th>Details</th>
-<th>Qty</th>
-<th>Price</th>
-<th>Total</th>
-</thead>
-    <tbody>
-<tr>
-    <td>1.</td>
-    <td>Deluxes Chapel Limited </td>
-    <td>Hotel and  Suites</td>
-    <td>2</td>
-    <td>26500</td>
-    <td>53000</td>
-</tr>
-    </tbody>
-</table>
-
-
-</div>                       
-</div>    
-</div> 
-
-
-
-</div>
-
-
-</div>
-</div>
-</section>
-<!-- contact-area-end -->
 <!-- newslater-area -->
 <section class="newslater-area p-relative pt-120 pb-120" style="background-color: #f7f5f1;">
 <div class="animations-01"><img src="/images/img/bg/an-img-07.png" alt="contact-bg-an-05"></div>
 <div class="container">
 <div class="row justify-content-center align-items-center text-center">
-<div class="col-xl-9 col-lg-9">
+<div class="col-xl-12 col-lg-12">
 <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
-<h5>Newsletter</h5>
-<h2>
-Get Best Offers On The Hotel
-</h2>
+<h4> Get Best Offers On The Hotel </h4>
 <p>With the subscription, enjoy your favourite Hotels without having to think about it</p>
+
+
+
+
+
+<div class="row">
+
+<!-- Reservation Details Container -->
+
+  <div class="col-xl-7 col-md-7 col-lg-7">
+
+<div class="cart">
+<!--header for cart-->
+<div class="cart-title">
+<a href="/bookings/clear"> <button class="pull-right" 
+style="background-color: #4a2204; color: white; font-size: 14px; border-radius: 15%; margin-left:12px; margin-top: -4px; border: 1px solid #4a2204;">Clear all</button></a>
+<span class="pull-right " >(<strong><%= cartItemsCount %></strong>) items</span>
+<h5 class="pull-left">Items in your cart</h5>
 </div>
-<form name="ajax-form" id="contact-form4" action="#" method="post" class="contact-form newslater">
-<div class="form-group">
-<input class="form-control" id="email3" name="email" type="email" placeholder="Your Email Address" value="" required=""> 
-<button type="submit" class="btn btn-custom" id="send2">Subscribe Now</button>
+    <!--/header for cart-->
+<div class="cart-content">
+<div class="table-responsive">
+                        <table class="table shoping-cart-table">
+                            <thead>
+                                <th width="90">Rooms</th>
+                                <th>Details</th>
+                                <th>Days</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </thead>
+                            <tbody>
+                                <% if (cart.items.length > 0) { %>
+                                <% cart.items.forEach((item) => { %>
+                            
+                                  <tr>
+                                <td width="90">
+                                    <div class="cart-product-imitation">
+                                      <i class="fal fa-hotel fa-4x feat"></i>
+                                      
+                                    </div>
+                                </td>
+                                <td class="desc">
+                                    <h4>
+                                    <span class="text-navy">
+                                    <%= item.name %>
+                                    </span>
+                                  </h4>    
+                                  <!-- <a href="#" class="text-muted"><i class="fa fa-house text-info"></i></a> -->
+                                <ul class="room-features d-flex align-items-center">
+                                    <li><i class="fal fa-hotel"></i><b> <%= item.hotel %> </b> </li>
+                                    <li><i class="fal fa-user"></i> Rooms : <b> <%= item.noRooms %></b> </li>
+                                </ul>                            
+                                <ul class="room-features d-flex align-items-center">
+                                    <li><i class="fal fa-clock"></i><%= item.checkIn.toDateString().slice(0, -5) %>  </li>
+                                    <li><i class="fal fa-clock"></i><%= item.checkOut.toDateString().slice(0, -5) %> </li>
+                                </ul>                                
+                                     <div class="m-t-sm">
+                                        <a href="/bookings/remove/<%= item._id%>?_csrf=<%= csrfToken %>" class="text-muted"><i class="fa fa-trash text-danger"></i> Remove item</a>
+                                    </div>
+                                </td>
+                                <td> <%= item.days %>  </td>
+                                <td> <%= item.price %> </td>                             
+                                <td> <%= item.priceTotal %> </td>
+                                  </tr>
+                            <% }); %>
+                                    <% } else { %>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Your cart is empty</td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                  
+                       
+<div class="cart-content">
+<a href="/"><button class="btn btn-white pull-left"><i class="fa fa-arrow-left"></i> Continue shopping</button></a>
+<span id="amountTotal" class="a.btn btn ss-btn active mr-15 pull-right" data-animation="fadeInLeft" data-delay=".4s" tabindex="-1" style="animation-delay: 0.4s; border: 2px solid #644222; color: #101010;">
+NGN  <%= cart.totalCost %> </span>
+</div>     
+</div> 
+
+</div>  
 </div>
-<!-- /Form-email -->	
-</form>
+</div>    
+  
+<div class="col-xl-5 col-md-5 offset-md-2 col-lg-5 offset-lg-0">
+  <%  if(cartItemsCount > 0 )  { %>
+<div class="cart">
+<!--header for cart-->
+<div class="cart-title">
+<span class="pull-right">(<strong>contact</strong>) info</span>
+<h5 class="pull-left">Guest Details</h5>
+</div>
+
+<!--/header for cart-->
+
+<div class="cart-content">
+<form id="paymentForm" class="contact-form mt-30">
+<div class="row">
+
+<div class="col-lg-3">
+<div class="contact-field p-relative c-name mb-20" >
+   <select id="title" name="title" required>
+      <option value="" disabled selected>Title</option>
+      <option value="Pastor" <% if (currentUser && currentUser.title === "Pastor") { %>selected<% } %>>Pastor</option>
+      <option value="Bishop" <% if (currentUser && currentUser.title === "Bishop") { %>selected<% } %>>Bishop</option>
+      <option value="Mr" <% if (currentUser && currentUser.title === "Mr") { %>selected<% } %>>Mr</option>
+      <option value="Chief" <% if (currentUser && currentUser.title === "Chief") { %>selected<% } %>>Chief</option>
+      <option value="Dr" <% if (currentUser && currentUser.title === "Dr") { %>selected<% } %>>Dr</option>
+    </select>
+</div>
+</div>
+
+<div class="col-lg-5">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="firstname" name="firstname" value="<%= currentUser && currentUser.firstname ? currentUser.firstname : '' %>" placeholder="First Name" required>
+</div>                               
+</div>
+
+<div class="col-lg-4">
+<div class="contact-field p-relative c-name mb-20">      
+<input type="text" id="lastname" name="lastname" value="<%= currentUser && currentUser.lastname ? currentUser.lastname : '' %>" placeholder="Last Name" required>
+</div>                               
 </div>
 
 </div>
 
+<div class="row">
+
+<div class="col-lg-6 col-md-6">                               
+<div class="contact-field p-relative c-subject mb-20">                                   
+<input type="text" id="email" value="<%= currentUser && currentUser.email ? currentUser.email : '' %>" name="email" placeholder="Contact Email" required>
 </div>
+</div>	
+
+<div class="col-lg-6 col-md-6">
+<div class="contact-field p-relative c-name mb-20">                                    
+<input type="text" id="phoneNumber" name="phoneNumber" value="<%= currentUser && currentUser.phone ? currentUser.phone : '' %>" placeholder="Phone Number" required>
+</div>                               
+</div>
+
+<div class="col-lg-12">
+    <div class="contact-field p-relative c-name mb-20">                                    
+        <textarea id="residential"     name="residential" placeholder="Residential Address" required  rows="2" ></textarea>
+    </div>  
+</div>
+
+<div class="col-lg-6 col-md-6">    
+<div class="contact-field p-relative c-name mb-20" >
+<input type="text" id="city" name="city" placeholder="City" required>
+
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="state" name="states">
+  <option value="" selected>Select a state</option>
+  <option value="NA">Others</option>
+  <option value="Abia">Abia</option>
+  <option value="Abia">Abia</option>
+  <option value="Adamawa">Adamawa</option>
+  <option value="Akwa Ibom">Akwa Ibom</option>
+  <option value="Anambra">Anambra</option>
+  <option value="Bauchi">Bauchi</option>
+  <option value="Bayelsa">Bayelsa</option>
+  <option value="Benue">Benue</option>
+  <option value="Borno">Borno</option>
+  <option value="Cross River">Cross River</option>
+  <option value="Delta">Delta</option>
+  <option value="Ebonyi">Ebonyi</option>
+  <option value="Edo">Edo</option>
+  <option value="Ekiti">Ekiti</option>
+  <option value="Enugu">Enugu</option>
+  <option value="FCT" selected>Federal Capital Territory</option>
+  <option value="Gombe">Gombe</option>
+  <option value="Imo">Imo</option>
+  <option value="Jigawa">Jigawa</option>
+  <option value="Kaduna">Kaduna</option>
+  <option value="Kano">Kano</option>
+  <option value="Katsina">Katsina</option>
+  <option value="Kebbi">Kebbi</option>
+  <option value="Kogi">Kogi</option>
+  <option value="Kwara">Kwara</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nasarawa">Nasarawa</option>
+  <option value="Niger">Niger</option>
+  <option value="Ogun">Ogun</option>
+  <option value="Ondo">Ondo</option>
+  <option value="Osun">Osun</option>
+  <option value="Oyo">Oyo</option>
+  <option value="Plateau">Plateau</option>
+  <option value="Rivers">Rivers</option>
+  <option value="Sokoto">Sokoto</option>
+  <option value="Taraba">Taraba</option>
+  <option value="Yobe">Yobe</option>
+  <option value="Zamfara">Zamfara</option>
+</select> 
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">
+<select id="country" name="states">
+  <option value="" >Select a Country</option>
+  <option value="NA">Others</option>
+  <option value="Nigeria" selected>Nigeria</option>
+  <option value="United Kingdom">United Kingdom</option>
+  <option value="United States of America">United States of America</option>
+  <option value="United Arab Emirates">United Arab Emirates</option>
+  <option value="Canada">Canada</option>
+  <option value="Ghana">Ghana</option>
+  <option value="Cameroon">Cameroon</option>
+  <option value="South Africa">South Africa</option>
+  <option value="Australia">Australia</option>
+  <option value="Togo">Togo</option> 
+</select>
+
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6">
+<button type="submit" onclick="payWithPaystack" class="btn btn-primary"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
+</div>
+
+</div>                    
+</form> 
+
+</div>
+</div>
+<% } else { %>
+
+  <p> No Items in th Cart</p>
+  <% } %>
+</div>
+
+</div>
+</div>
+
+
+
+
+<!--payment form-->
 </section>
 <!-- newslater-aread-end -->
 
 </main>
 
-<!-- main-area-end -->
-<!-- main-area-end -->
-<!-- footer -->
+<script src="https://js.paystack.co/v1/inline.js"></script> 
+
+<script>
+
+const paymentForm = document.getElementById('paymentForm');
+paymentForm.addEventListener("submit", payWithPaystack, false);
+function payWithPaystack(e) {
+  e.preventDefault();
+  
+  let handler = PaystackPop.setup({
+    key: '<%= pay %>',  // Paystack payment API
+    currency: 'NGN',
+    email: '<%= currentUser.email %>' ,
+    amount: '<%= cart.totalCost %>' * 100,
+    ref: ''+Math.floor((Math.random() * 1000000000) + 3 
+    ), 
+    metadata: {
+      title: document.getElementById('title').value,
+      first_name: document.getElementById('firstname').value ,
+      last_name:  document.getElementById('lastname').value,
+      email: '<%= currentUser.email %>',    
+    // Add more metadata fields if required
+  },
+   //channels: ['card'], // Only display the card payment channel
+
+
+    onClose: function(){
+       window.location.href = '/'; 
+     // alert('Window closed.');
+    },
+    
+
+    callback: function(response){
+      let message = 'Payment complete! Reference: ' + response.reference;
+      let reservationDetails = {
+      cartId: '<%= cart._id %>',
+      title: document.getElementById('title').value,
+      first_name: document.getElementById('firstname').value ,
+      last_name:  document.getElementById('lastname').value,
+      email: '<%= currentUser.email %>',
+      phoneNumber: ('<%= currentUser.phone %>' || document.getElementById('phoneNumber').value),
+      residential: document.getElementById('residential').value,
+      city: document.getElementById('city').value,
+      state: document.getElementById('state').value,
+      country: document.getElementById('country').value,
+      paymentRef: response.reference,
+      _csrf: '<%= csrfToken %>'
+        };
+     
+      saveReservation(reservationDetails);
+    // Show reservation details
+      }
+    });
+
+
+    handler.openIframe();
+}
+
+  // Function to save the reservation details to the server
+ async function saveReservation(data) {
+  try {
+    const response = await fetch(`/bookings/proceed/<%= cart._id %>`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= csrfToken %>'
+      }
+    });
+    
+    const jsonResponse = await response.json();
+    // Access the JSON response and perform necessary actions
+    console.log('Reservation saved successfully:', jsonResponse);
+    // Check if a redirect URL is present in the JSON response
+    if (jsonResponse.redirectUrl) {
+      // Redirect to the specified URL
+      window.location.href = jsonResponse.redirectUrl;
+    }
+    // Perform action or handle response here
+ 
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+
+</script>
+
 <%- include ("../partials/_footer") %>

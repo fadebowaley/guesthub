@@ -1,8 +1,10 @@
 const { check, validationResult } = require("express-validator");
 
+
 const userSignUpValidationRules = () => {
   return [
-    check("name", "Name is required").not().isEmpty(),
+    check("firstname", "Name is required").not().isEmpty(),
+    check("lastname", "Name is required").not().isEmpty(),
     check("email", "Invalid email").not().isEmpty().isEmail(),
     check("password", "Please enter a password with 4 or more characters")
       .not()
@@ -13,7 +15,7 @@ const userSignUpValidationRules = () => {
 
 const userSignInValidationRules = () => {
   return [
-    check("email", "Invalid email").not().isEmpty().isEmail(),
+    check("identifier", "Username or Email cannot be empty").not().isEmpty(),
     check("password", "Invalid password").not().isEmpty().isLength({ min: 4 }),
   ];
 };
@@ -71,6 +73,7 @@ const validateContactUs = (req, res, next) => {
   }
   next();
 };
+
 
 module.exports = {
   userSignUpValidationRules,

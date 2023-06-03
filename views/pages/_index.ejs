@@ -1,5 +1,38 @@
 <%- include ("../partials/_head") %>
+<style>
+  .room-features li {
+    display: flex;
+    align-items: center;
+    min-width: 22%;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #101010;
+    font-family: 'Jost', sans-serif;
+  }
+  
+  .room-features li i {
+    margin-right: 10px;
+    color: #be9874;
+  }
 
+  .review {
+  display: flex;
+  align-items: center;
+}
+
+.stars {
+  color: #f7c54a;
+}
+
+.rating {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+</style>
  
     <!--/head-->
     <body>
@@ -176,17 +209,70 @@
                                         <li><a href="/bookings/new/<%= roomtype._id %>/reservation">Book Now</a></li>
                                     </ul>
                                 </div>
-                                <h4><a href="/viewrooms"> <h4><%= roomtype.name %></h4></a></h4>    
-                                <p><%= roomtype.description %></p>
-                                <div class="icon">
-                                    <ul>
-                                        <li><img src="/images/img/icon/sve-icon1.png" alt="img"></li>
-                                        <li><img src="/images/img/icon/sve-icon2.png" alt="img"></li>
-                                        <li><img src="/images/img/icon/sve-icon3.png" alt="img"></li>
-                                        <li><img src="/images/img/icon/sve-icon4.png" alt="img"></li>
-                                        <li><img src="/images/img/icon/sve-icon5.png" alt="img"></li>
-                                        <li><img src="/images/img/icon/sve-icon6.png" alt="img"></li>
-                                    </ul>
+                                <h4><a href="/viewrooms"> <h4><%= roomtype.name %></h4></a></h4>
+                                
+                                <!-- ratings-->
+                                <div class="review">
+                                <div class="stars">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="rating">(4.0)</div>
+                                </div>
+                                <!-- ratings-->
+
+
+                                <p><%= roomtype.description %></p>                                
+                                <div class="icon content-box">                                   
+                                           <hr>
+ <ul class="room-features  align-items-center">
+  <% roomtype.features.forEach(function(feature) { %>
+    <% if (feature.value === 0) { %>
+      <li>
+        <% if (feature.name === "TV") { %>
+          <i class="fal fa-tv-retro"></i>
+        <% } else if (feature.name === "Free Wifi") { %>
+          <i class="fal fa-wifi"></i>
+        <% } else if (feature.name === "Air Condition") { %>
+          <i class="fal fa-air-conditioner"></i>
+        <% } else if (feature.name === "Heater") { %>
+          <i class="fal fa-dumpster-fire"></i>
+        <% } else if (feature.name === "Phone") { %>
+          <i class="fal fa-phone-rotary"></i>
+        <% } else if (feature.name === "Laundry") { %>
+          <i class="fal fa-dryer-alt"></i>
+        <% } else if (feature.name === "Adults") { %>
+          <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+        <% } else if (feature.name === "Size") { %>
+          <i class="fal fa-square"></i> <%= feature.name %>  <%= feature.value %> m²
+        <% } else if (feature.name === "Bed Type") { %>
+          <i class="fal fa-bed"></i> <%= feature.name %>  <%= feature.value %> Bed
+        <% } %>
+        <%= feature.name %>
+      </li>
+<% } else if (feature.value > 0) { %>
+  <li>
+    <% if (feature.name === "Adults") { %>
+      <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+    <% } else if (feature.name === "Size") { %>
+      <i class="fal fa-square"></i> <%= feature.name %>: <%= feature.value %> m²
+    <% } else if (feature.name === "Bed Type") { %>
+      <i class="fal fa-bed"></i> <%= feature.name %>: <% if (feature.value === 1) { %>
+        One Bed
+      <% } else if (feature.value === 2) { %>
+        Two Beds
+      <% } else { %>
+        Bunk 
+      <% } %>
+    <% } %>
+  </li>
+<% } %>
+
+  <% }) %>
+</ul>
                                 </div>
                             </div>
                         </div>

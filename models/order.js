@@ -20,31 +20,49 @@ const orderSchema = Schema({
     },
     items: [
       {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
+        roomTypeId: {
+          type: Schema.Types.ObjectId,
+          ref: "RoomType",
         },
-        qty: {
+        noRooms: {
           type: Number,
           default: 0,
+        },
+        days: {
+          type: Number,
+          default: 0,
+        },
+        idNo: {
+          type: Number,
+          default: 1,
+        },
+        checkIn: {
+          type: Date,
+        },
+        checkOut: {
+          type: Date,
         },
         price: {
           type: Number,
           default: 0,
         },
-        title: {
+        priceTotal: {
+          type: Number,
+          default: 0,
+        },
+        name: {
           type: String,
         },
-        productCode: {
+        hotel: {
+          type: String,
+        },
+        roomCode: {
           type: String,
         },
       },
     ],
   },
-  address: {
-    type: String,
-    required: true,
-  },
+  
   paymentId: {
     type: String,
     required: true,
@@ -53,7 +71,7 @@ const orderSchema = Schema({
     type: Date,
     default: Date.now,
   },
-  Delivered: {
+  delivered: {
     type: Boolean,
     default: false,
   },

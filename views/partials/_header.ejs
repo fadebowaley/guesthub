@@ -94,11 +94,17 @@
 <!--User Dashboard Link -->
 <div class="d-flex justify-content-between">
 <div class="box mr-2" data-toggle="tooltip" data-placement="bottom" title="Profile">
-<a href="/user/profile"><i class="fa fa-user  x "></i></a>
+<a href="/user/account"><i class="fa fa-user  x "></i></a>
 </div>
-<div class="box mr-2" data-toggle="tooltip" data-placement="bottom" title="Cart">
-<a href="/cart"><i class="fas fa-shopping-cart  x"></i></a>
+<div class="box mr-2 position-relative" data-toggle="tooltip" data-placement="bottom" title="Cart">
+  <a href="/bookings/cart"><i class="fas fa-shopping-cart x"></i></a>
+  <% if (typeof cartItemsCount !== "undefined" && cartItemsCount > 0) { %>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      <%= cartItemsCount %><!-- Replace this number with the actual number of items in the cart -->
+    </span>
+  <% } %>
 </div>
+
 <div class="box" data-toggle="tooltip" data-placement="bottom" title="Logout">
 <a href="/user/logout"><i class="fas fa-sign-out-alt  x "></i></a>
 </div>
