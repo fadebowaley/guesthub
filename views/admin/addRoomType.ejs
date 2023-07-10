@@ -1,0 +1,732 @@
+
+
+<%- include ("../partials/_dashHeads") %>
+
+<style>
+  /* Custom CSS for image input */
+
+  .error {
+  border: 2px solid red;
+  background-color: #ffecec;
+}
+
+.delete-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+  }
+
+  .delete-button {
+    width: 20px;
+    height: 20px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+
+  .formRoom {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #e2f7f9;
+  }
+
+  .formRoom::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+
+  .formRoom:nth-child(3n+1)::before {
+    background-color: #fff6cf;
+  }
+
+  .formRoom:nth-child(3n+2)::before {
+    background-color: #f3facd;
+  }
+
+  .formRoom:nth-child(3n)::before {
+    background-color: #d3f4f7;
+  }
+
+  .custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Upload";
+  }
+
+    /* Custom CSS for image input */
+  .custom-file-label::after {
+    background-color: #644222;
+    border: 1px solid #644222;
+    color: #fff;
+  }
+
+  .custom-file-label:hover::after {
+    background-color: #000;
+    border-color: #000;
+  }
+</style>
+
+	<!-- Page Wrapper -->
+            <div class="page-wrapper">
+
+                	<!-- Header -->
+			<%- include ("../partials/newHeader") %>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+		<%- include ("../partials/_sideBar") %>
+			<!-- /Sidebar -->
+<div class="content container-fluid">
+
+<!-- Page Header -->
+<div class="page-header">
+<div class="row">
+<div class="col-sm-12">
+	<h3 class="page-title"><%= hotel.name %></h3>
+	<ul class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/admin/roomtypes/<%= hotel._id%>"> <i data-feather="corner-up-left"></i> rooms Types</a></li>
+		<li class="breadcrumb-item active"><%= hotel.name %></li>
+	</ul>
+</div>
+</div>
+</div>
+<!-- /Page Header -->
+
+<!-- Row -->
+<div class="row">
+  <div class="col-sm-12">			
+    <!-- Custom Bootstrap Validation -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Create Room Type for <strong><%= hotel.name %></strong></h5>
+        <p class="card-text">This form can create room types for your Hotels or Guest Houses</p>
+      </div>
+	  
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm">
+
+<form enctype="multipart/form-data" class="needs-validation was-validated" novalidate=""  method="POST" >
+  <div id="formContainer">
+
+<div class="formRoom" data-form-id="form_0">
+  <div class="delete-container">
+    <button class="btn btn-danger btn-sm delete-button">X</button>
+  </div>
+
+
+<!--
+<div class="col-md-6 mb-3">
+<label for="validationCustom03">City</label>
+<input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+<div class="invalid-feedback">
+  Please provide a valid city.
+</div>
+</div>
+
+-->
+
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="roomName">Room Name</label>
+      <input type="text" class="form-control" value="Deluxe Bromax 3" id="field_form_0_1" name="roomName" placeholder="Room Name" required="" >
+      <div class="invalid-feedback">
+        Please provide the Room Name.
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <label for="roomPrice">Room Price</label>
+      <input type="number" class="form-control" value="45000" id="field_form_0_2" placeholder="Room Price" required="" name="roomPrice">
+      <div class="invalid-feedback">
+        Please provide the Room Price.
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="maxNumberAdult">Max Adults</label>
+      <select class="form-control" id="field_form_0_3" required="" name="maxNumberAdult">
+        <option value="" selected="" disabled="">Select Adult</option>
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    <div class="invalid-feedback">
+        Please provide Max Adult.
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="maxNumberchildren">Max Children</label>
+      <select class="form-control" id="field_form_0_4" name="maxNumberChildren" required="">
+        <option value="" selected="" disabled="">Select Children</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+        <option value="5">5</option>
+      </select>
+    <div class="invalid-feedback">
+        Please provide the Max Children.
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="noOfBeds">No of Beds</label>
+      <select class="form-control" id="field_form_0_5" name="noOfBeds" required="">
+        <option value="" selected="" disabled="">Select No Of Beds</option>
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <div class="invalid-feedback">
+        Please provide No Of Beds.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="roomDescription">Room Description</label>
+      <textarea class="form-control" id="field_form_0_6" name="roomDescription" placeholder="Room Description" required="">
+        The best room suitable for families and friends, affordable and great
+      </textarea>
+    <div class="invalid-feedback">
+        Please provide the Room Description.
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <label>Room Features</label>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_1" 
+          name="TV" checked>
+          <label class="form-check-label" for="tvFeature">
+            TV
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_2" 
+          name="Free Wifi" checked>
+          <label class="form-check-label" for="freeWifiFeature">
+            Free Wifi
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_3" 
+          name="Air Condition">
+          <label class="form-check-label" for="airConditionFeature">
+            Air Condition
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_4" 
+          name="Heater" checked>
+          <label class="form-check-label" for="heaterFeature">
+            Heater
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_5" 
+          name="Phone">
+          <label class="form-check-label" for="phoneFeature">
+            Local Phone
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_6" 
+          name="Laundry">
+          <label class="form-check-label" for="laundryFeature">
+            Laundry
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_7" 
+          name="readingTable">
+          <label class="form-check-label" for="sizeFeature">
+            Reading Table
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="checkbox_form_0_8" 
+          name="upholsteryChair">
+          <label class="form-check-label" for="bedTypeFeature">
+            Upholstery Chair
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="detailedImage1">Frontpage Image</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="file_form_0_1" name="roomImage" required="">
+        <label class="custom-file-label" for="detailedImage1">Choose file</label>
+        <div class="invalid-feedback">
+        Please provide the Front Image.
+      </div>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="roomImage">Room Interior</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="file_form_0_2" name="detailedImage1" required="">
+        <label class="custom-file-label" for="roomImage">Choose file</label>
+        <div class="invalid-feedback">
+        Please provide the Room Interior Image.
+      </div>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <label for="detailedImage2">Room interior 2</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="file_form_0_3" name="detailedImage2" required="">
+        <label class="custom-file-label" for="detailedImage2">Choose file</label>
+        <div class="invalid-feedback">
+        Please provide the Room Interior Image 2.
+      </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>  
+  </div>
+</form>
+
+
+			 <button class="btn btn-success btn-sm " type="button" onclick="duplicateForm()">
+            <i class="fa fa-plus"></i> 
+			 </button>
+			 <button class="btn btn-danger btn-sm " type="button" onclick="deleteLastForm()">
+            <i class="fa fa-trash"></i> 
+			 </button>
+			<button  id="createRoomBtn" class="btn btn-primary btn-lg float-right" type="submit">Create RoomType</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Custom Bootstrap Validation -->
+  </div>
+</div>
+
+</div>
+
+<!-- /Row -->
+</div>			
+</div>
+<!-- /Page Wrapper -->
+
+<script>
+
+
+let formIdCounter = 1;
+
+function duplicateForm() {
+  const formContainer = document.getElementById('formContainer');
+  const formRoom = document.querySelector('.formRoom');
+  const clonedFormRoom = formRoom.cloneNode(true);
+
+  // Assign a unique ID to the duplicated form
+  const uniqueFormId = `form_${formIdCounter++}`;
+  clonedFormRoom.dataset.formId = uniqueFormId;
+
+  // Get all form controls in the cloned form
+  const clonedFormControls = clonedFormRoom.querySelectorAll('.form-control');
+
+  // Assign unique IDs to the form controls
+  clonedFormControls.forEach((control, index) => {
+    const uniqueControlId = `field_${uniqueFormId}_${index + 1}`;
+    control.id = uniqueControlId;
+
+  });
+
+  // Get all checkboxes in the cloned form
+  const clonedCheckboxes = clonedFormRoom.querySelectorAll('input[type="checkbox"]');
+
+  // Assign unique IDs to the checkboxes
+  clonedCheckboxes.forEach((checkbox, index) => {
+    const uniqueCheckboxId = `checkbox_${uniqueFormId}_${index + 1}`;
+    checkbox.id = uniqueCheckboxId;
+    //checkbox.name = `roomFeatures[][${uniqueCheckboxId}]`; // Update the name attribute as needed
+  });
+
+  // Get all file input fields in the cloned form
+  const clonedFileInputs = clonedFormRoom.querySelectorAll('input[type="file"]');
+
+  // Assign unique IDs to the file input fields
+  clonedFileInputs.forEach((fileInput, index) => {
+    const uniqueFileInputId = `file_${uniqueFormId}_${index + 1}`;
+    fileInput.id = uniqueFileInputId;
+    //fileInput.name = uniqueFileInputId; // Update the name attribute as well if needed
+  });
+
+  // Add the delete button to the cloned form
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'delete-button');
+  deleteButton.innerHTML = 'X';
+  deleteButton.addEventListener('click', function() {
+    deleteForm(this);
+  });
+
+  // Create a container for the delete button
+  const deleteContainer = document.createElement('div');
+  deleteContainer.classList.add('delete-container');
+  deleteContainer.appendChild(deleteButton);
+
+  // Insert the delete container at the beginning of the cloned form room
+  clonedFormRoom.insertBefore(deleteContainer, clonedFormRoom.firstChild);
+
+  // Add a line to demarcate each form
+  const line = document.createElement('hr');
+  clonedFormRoom.appendChild(line);
+
+  // Insert the cloned form room after the original form room
+  formContainer.appendChild(clonedFormRoom);
+}
+
+
+
+function deleteForm(button) {
+  const formRoom = button.closest('.formRoom');
+  const formId = formRoom.dataset.formId; // Get the unique form ID
+
+  // Select the form to delete based on its unique ID
+  const formToDelete = document.querySelector(`.formRoom[data-form-id="${formId}"]`);
+  formToDelete.remove();
+}
+
+
+
+ // Function to delete the last duplicated form
+  function deleteLastForm() {
+    const formContainer = document.getElementById('formContainer');
+    const formRows = formContainer.querySelectorAll('.formRoom');
+    if (formRows.length > 1) {
+      formContainer.removeChild(formRows[formRows.length - 1]);
+    }
+  }
+
+
+//Function to validate all forms fields
+function validateForms() {
+  const formContainer = document.getElementById('formContainer');
+  const forms = formContainer.querySelectorAll('.formRoom');
+
+  let isValid = true;
+
+  forms.forEach((form) => {
+    const formId = form.dataset.formId;
+
+    const roomNameElement = form.querySelector('[name="roomName"]');
+    const roomPriceElement = form.querySelector('[name="roomPrice"]');
+    const maxNumberAdultElement = form.querySelector('[name="maxNumberAdult"]');
+    const maxNumberChildrenElement = form.querySelector('[name="maxNumberChildren"]');
+    const noOfBedsElement = form.querySelector('[name="noOfBeds"]');
+    const roomDescriptionElement = form.querySelector('[name="roomDescription"]');
+    const detailedImage1Input = form.querySelector('[name="detailedImage1"]');
+    const roomImageInput = form.querySelector('[name="roomImage"]');
+    const detailedImage2Input = form.querySelector('[name="detailedImage2"]');        
+    const fileInputs = form.querySelectorAll('input[type="file"]');
+
+
+    // Perform validation for each field
+    if (!roomNameElement.value.trim()) {
+      isValid = false;
+      // Handle validation error for roomName field
+      // For example, display an error message or add a CSS class to indicate the error
+      roomNameElement.classList.add('error');
+    }
+
+    if (!roomPriceElement.value.trim()) {
+      isValid = false;
+      // Handle validation error for roomPrice field
+
+      // For example, display an error message or add a CSS class to indicate the error
+      roomPriceElement.classList.add('error');
+    }
+
+
+     if (!maxNumberAdultElement.value.trim()) {
+      isValid = false;
+      maxNumberAdultElement.classList.add('error');
+    }
+
+      // Perform max Number Children 
+    if (!maxNumberChildrenElement.value.trim()) {
+      isValid = false;
+      maxNumberChildrenElement.classList.add('error');
+    }
+
+
+    if (!noOfBedsElement.value.trim()) {
+      isValid = false;
+      noOfBedsElement.classList.add('error');
+    }
+
+    if (!roomDescriptionElement.value.trim()) {
+      isValid = false;
+      roomDescriptionElement.classList.add('error');
+    }
+
+
+  // Perform validation for image uploads
+
+fileInputs.forEach((images) => {
+  // Check if the file input has any files selected
+  if (images.files.length === 0) {
+    // The file input is empty
+    alert('Please select an image file to upload.');
+    return;
+  }
+
+  // Check the file type
+  const fileType = images.files[0].type;
+  switch (fileType) {   
+    case 'image/png':   
+      // The file is an image
+      break;
+    default:
+      alert('Please upload an image png file.');
+      return;
+  }
+
+  // Check the file size
+  const fileSize = images.files[0].size;
+  if (fileSize > 2000000) {
+    alert('The file size is too large. Please upload a file that is less than 2MB.');
+    return;
+  }
+
+  // Check the file dimensions
+  const image = new Image();
+  image.src = URL.createObjectURL(images.files[0]);
+  image.onload = () => {
+    if (image.width < 100 || image.height < 100) {
+      alert('The image dimensions are too small. Please upload an image that is at least 100x100 pixels.');
+      return;
+    }
+
+   };
+});
+    
+// Reset any previous error indications for the current form
+    form.querySelectorAll('.error').forEach((errorElement) => {
+      errorElement.classList.remove('error');
+
+    });
+  });
+
+  return isValid;
+}
+
+
+
+
+// Function to capture all forms Data
+function saveForms() {
+  const formContainer = document.getElementById('formContainer');
+  const forms = formContainer.querySelectorAll('.formRoom');
+  const formData = [];
+
+  forms.forEach((form) => {
+    const formId = form.dataset.formId;
+
+    const roomNameElement = form.querySelector('[name="roomName"]');
+    const roomPriceElement = form.querySelector('[name="roomPrice"]');
+    const maxNumberAdultElement = form.querySelector('[name="maxNumberAdult"]');
+    const maxNumberChildrenElement = form.querySelector('[name="maxNumberChildren"]');
+    const noOfBedsElement = form.querySelector('[name="noOfBeds"]');
+    const roomDescriptionElement = form.querySelector('[name="roomDescription"]');
+
+    const roomName = roomNameElement.value;
+    const roomPrice = roomPriceElement.value;
+    const maxNumberAdult = maxNumberAdultElement.value;
+    const maxNumberChildren = maxNumberChildrenElement.value;
+    const noOfBeds = noOfBedsElement.value;
+    const roomDescription = roomDescriptionElement.value;
+
+    const checkboxes = form.querySelectorAll(`input[type="checkbox"]:checked`);
+    const roomFeatures = Array.from(checkboxes).map((checkbox) => checkbox.name);
+
+    const fileInputs = form.querySelectorAll(`input[type="file"]`);
+    const fileNames = Array.from(fileInputs).map((fileInput) => fileInput.value);
+
+    const formDataItem = {
+      formId,
+      roomName,
+      roomPrice,
+      maxNumberAdult,
+      maxNumberChildren,
+      noOfBeds,
+      roomDescription,
+      roomFeatures,
+      fileNames,
+    };
+
+    formData.push(formDataItem);
+
+
+
+  });
+  
+
+   return formData;
+}
+
+
+//data loops together as Array which is closer to first, only debu, form appending and sending
+async function  saveFormsNew() {
+  const formContainer = document.getElementById('formContainer');
+  const forms = formContainer.querySelectorAll('.formRoom');
+  const formData = [];
+
+  forms.forEach((form) => {
+    const roomNameElement = form.querySelector('[name="roomName"]');
+    const roomPriceElement = form.querySelector('[name="roomPrice"]');
+    const roomDescriptionElement = form.querySelector('[name="roomDescription"]');
+
+    const roomName = roomNameElement.value;
+    const roomPrice = parseInt(roomPriceElement.value);
+    const roomDescription = roomDescriptionElement.value;
+
+    const checkboxes = form.querySelectorAll(`input[type="checkbox"]:checked`);
+    const roomFeatures = Array.from(checkboxes).map((checkbox) => checkbox.name);
+
+
+  
+    const fileInputs = form.querySelectorAll(`input[type="file"]`);
+    const detailedImageFiles = Array.from(fileInputs).map((fileInput) => fileInput.files[0]);
+  
+
+    const maxNumberAdultElement = form.querySelector('[name="maxNumberAdult"]');
+    const maxNumberChildrenElement = form.querySelector('[name="maxNumberChildren"]');
+    const maxNumberAdult = parseInt(maxNumberAdultElement.value);
+    const maxNumberChildren = parseInt(maxNumberChildrenElement.value);
+
+    const formDataItem = {
+      name: roomName,
+      image: detailedImageFiles[0], // Assuming the first image in the form is the primary image
+      description: roomDescription,
+      price: roomPrice,
+      features: roomFeatures,
+      detailedImage1: detailedImageFiles[1], // The rest of the images
+      detailedImage2: detailedImageFiles[2], // The rest of the images
+      //detailedImage: detailedImage.slice(1), // The rest of the images
+      maxNumberAdult,
+      maxNumberChildren,
+      hotelName: '<%= hotel.name %>',
+    };
+
+    formData.push(formDataItem);
+  });
+
+  console.log(formData);
+// create a form and attach data into forms, from 1 - n arrays
+
+const formDataToSend = new FormData();
+
+// iterate each data and save it inside the form
+formData.forEach((formDataItem) => {
+// Send the form data to the server to save filenames in the database
+formDataToSend.append('name', formDataItem.name);
+formDataToSend.append('image', formDataItem.image);
+formDataToSend.append('detailedImage1', formDataItem.detailedImage1);
+formDataToSend.append('detailedImage2', formDataItem.detailedImage2);
+formDataToSend.append('description', formDataItem.description);
+formDataToSend.append('price', formDataItem.price);
+
+// Append the feature names array to the FormData
+formDataToSend.append('features', formDataItem.features);
+
+
+formDataToSend.append('maxNumberAdult', formDataItem.maxNumberAdult);
+formDataToSend.append('maxNumberChildren', formDataItem.maxNumberChildren);
+formDataToSend.append('hotelName', formDataItem.hotelName);
+});
+
+console.log(formDataToSend);
+// Iterate through the FormData entries
+for (const entry of formDataToSend.entries()) {
+  const [fieldName, fieldValue] = entry;
+  
+    // Check if the field name is "detailedImage"
+ console.log(fieldName, fieldValue);
+}
+
+//send the form through fetch DataToSend
+  //return formData;
+   try {
+
+      const response = await fetch('http://localhost:3000/admin/add/roomtypes/<%=hotel._id%>', {
+      method: 'POST',
+       body: formDataToSend,
+        ///body: JSON.stringify(formDataToSend),
+        headers: {
+          'X-CSRF-Token': '<%= csrfToken %>',
+                 },
+      });
+
+      if (response.ok) {
+        console.log('Form data saved successfully.');
+        const responseData = await response.json();
+        const redirectUrl = responseData.redirectUrl; // Assuming the server includes the redirectUrl property in the response
+        window.location.href = redirectUrl;
+      } else {
+        console.log('Error:', response.status);
+        const responseData = await response.json();
+        const redirectUrl = responseData.redirectUrl; // Assuming the server includes the redirectUrl property in the response
+        window.location.href = redirectUrl;
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      // Handle error and show appropriate message to the user    
+    }
+}
+
+
+
+const createRoomBtn = document.getElementById('createRoomBtn');
+createRoomBtn.addEventListener('click', async (event) => {
+  event.preventDefault();
+  const isValid = validateForms();
+  if (isValid) {    
+    //const hotelId = "<%= hotel._id%>";
+    // Get the form data
+    const formData = saveFormsNew();
+
+  } else {
+    console.log('Please fill in all required fields.');
+  }
+});
+
+
+
+
+
+</script>
+
+
+
+<%- include ("../partials/_dashFooter") %>

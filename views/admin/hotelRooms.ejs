@@ -89,7 +89,7 @@
                                                 <% rooms.forEach(room => { %>
 
 												<tr>
-									<td><span class="badge bg-success-light"><a href=""> #Room <%= room.roomID %></a></td>
+									<td><span class="badge bg-success-light"><a href=""> <%= room.roomID %></a></td>
 										<td><%= room.roomType.name %></td>
 										<td><span class="badge bg-success-light"><%= room.roomType.maxNumberAdult %></span></td>
 										<td> <%= room.checkOut.toLocaleString('en-US', {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}) %></td>
@@ -115,15 +115,14 @@
 											
                                                <% }); %>         
 											   
-											   <% } else { %>
-  <p>No rooms found for <%= hotel.name %>.</p>
-<% } %>
+							<% } else { %>
+							<p>No rooms found for <%= hotel.name %>.</p>
+							<% } %>
                                             </tbody>
 										</table>
-									</div>
-							   
+									</div>							   
 								</div>
-
+<!-- /hotels/:hotelId/rooms -->
 <div class="pagination">
   <% if (currentPage > 1) { %>
     <a href="/admin/hotels/<%= hotel._id %>/rooms?page=<%= currentPage - 1 %>" class="btn btn-outline-secondary">
@@ -147,20 +146,13 @@
 </div>
 
 
-
-
-
-
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Page Wrapper -->
-			
-		</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /Page Wrapper -->			
+</div>
 
 		
          <%- include ("../partials/_dashFooter") %>

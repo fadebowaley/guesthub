@@ -2,7 +2,6 @@
 
 <%- include ("../partials/_dashHeads") %>
 
-
 	<!-- Page Wrapper -->
             <div class="page-wrapper">
 
@@ -21,7 +20,7 @@
 							<div class="col-sm-12">
 								<h3 class="page-title"><%= pageName %></h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="/admin/hotels"><i data-feather="corner-up-left"></i>Hotels</a></li>
 									<li class="breadcrumb-item active"><%= pageName %></li>
 								</ul>
 							</div>
@@ -40,75 +39,85 @@
 									<p class="card-text">Begin your process of creating Hotels data , Types of Rooms available and much more</p>
 								</div>
 								<div class="card-body">
-									<div class="row">
-										<div class="col-sm">
-											<form class="needs-validation" novalidate="">
-												<div class="form-row">
-													<div class="col-md-4 mb-3">
-														<label for="validationCustom01">First name</label>
-														<input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required="">
-														<div class="valid-feedback">
-															Looks good!
-														</div>
-													</div>
-													<div class="col-md-4 mb-3">
-														<label for="validationCustom02">Last name</label>
-														<input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required="">
-														<div class="valid-feedback">
-															Looks good!
-														</div>
-													</div>
-													<div class="col-md-4 mb-3">
-														<label for="validationCustomUsername">Username</label>
-														<div class="input-group">
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="inputGroupPrepend">@</span>
-															</div>
-															<input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required="">
-															<div class="invalid-feedback">
-																Please choose a username.
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-row">
-													<div class="col-md-6 mb-3">
-														<label for="validationCustom03">City</label>
-														<input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
-														<div class="invalid-feedback">
-															Please provide a valid city.
-														</div>
-													</div>
-													<div class="col-md-3 mb-3">
-														<label for="validationCustom04">State</label>
-														<input type="text" class="form-control" id="validationCustom04" placeholder="State" required="">
-														<div class="invalid-feedback">
-															Please provide a valid state.
-														</div>
-													</div>
-													<div class="col-md-3 mb-3">
-														<label for="validationCustom05">Zip</label>
-														<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required="">
-														<div class="invalid-feedback">
-															Please provide a valid zip.
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required="">
-														<label class="form-check-label" for="invalidCheck">
-															Agree to terms and conditions
-														</label>
-														<div class="invalid-feedback">
-															You must agree before submitting.
-														</div>
-													</div>
-												</div>
-												<button class="btn btn-primary" type="submit">Submit form</button>
-											</form>
-										</div>
-									</div>
+  <div class="row">
+    <div class="col-sm">
+      <form id="hotelForm" class="needs-validation" novalidate="">
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="hotelName">Hotel Name</label>
+            <input type="text" class="form-control" id="hotelName" placeholder="Hotel Name" required="">
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="hotelDescription">Hotel Description</label>
+            <input type="text" class="form-control" id="hotelDescription" placeholder="Hotel Description" required="">
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="hotelAddress">Hotel Address</label>
+            <input type="text" class="form-control" id="hotelAddress" placeholder="Hotel Address" required="">
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3 mb-3">
+            <input type="text" class="form-control" id="hotelCity" placeholder="City" required="">
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <input type="text" class="form-control" id="hotelState" placeholder="State" required="">
+            <div class="invalid-feedback">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <input type="text" class="form-control" id="hotelZip" placeholder="Zip" required="">
+            <div class="invalid-feedback">
+              Please provide a valid zip.
+            </div>
+          </div>
+		  <div class="col-md-3 mb-3">
+            <input type="text" class="form-control" id="hotelPhone" placeholder="Phone" required="">
+            <div class="invalid-feedback">
+              Please provide a valid phone number.
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+             <div class="col-md-3 mb-3">
+            <label for="hotelEmail">Email</label>
+            <input type="email" class="form-control" id="hotelEmail" placeholder="Email" required="">
+            <div class="invalid-feedback">
+              Please provide a valid email.
+            </div>
+          </div>
+
+		  <div class="col-md-3 mb-3">
+            <label for="hotelWebsite">Website</label>
+            <input type="text" class="form-control" id="hotelWebsite" placeholder="Website" required="">
+            <div class="invalid-feedback">
+              Please provide a valid website.
+            </div>
+          </div>
+
+
+        </div>
+        
+        <button class="btn btn-primary btn-lg float-right" type="submit">Create Hotel</button>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
 								</div>
 							</div>
 							<!-- /Custom Boostrap Validation -->
@@ -121,5 +130,61 @@
 			</div>
 			<!-- /Page Wrapper -->
 
+<script>
 
+	document.getElementById('hotelForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  // Perform form validation
+  if (!this.checkValidity()) {
+    this.classList.add('was-validated');
+    return;
+  }
+
+  // Create the hotel object
+  const hotelData = {
+    name: document.getElementById('hotelName').value,
+    description: document.getElementById('hotelDescription').value,
+    address: document.getElementById('hotelAddress').value,
+    city: document.getElementById('hotelCity').value,
+    state: document.getElementById('hotelState').value,
+    zip: document.getElementById('hotelZip').value,
+    phone: document.getElementById('hotelPhone').value,
+    email: document.getElementById('hotelEmail').value,
+    website: document.getElementById('hotelWebsite').value
+  };
+
+  console.log(hotelData);
+  // Send the hotel data to the server
+  try {
+    const response = await fetch('/admin/create-hotel', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= csrfToken %>'
+      },
+      body: JSON.stringify(hotelData)
+    });
+
+    // Handle the response
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Hotel created successfully:', responseData);
+      // Perform any additional actions after successful hotel creation
+	  
+	// Redirect the user to the specified URL
+      window.location.href = responseData.redirectUrl;      
+
+    } else {
+      console.log('Hotel creation failed:', response.status, response.statusText);
+      // Handle the error appropriately
+    }
+  } catch (error) {
+    console.error('An error occurred during hotel creation', error);
+    // Handle the error appropriately
+  }
+}, false);
+
+</script>
               <%- include ("../partials/_dashFooter") %>

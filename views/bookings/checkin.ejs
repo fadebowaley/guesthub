@@ -1,10 +1,7 @@
 <%- include ("../partials/_head") %>
 
  <style>
-  
-
-
-  .contact-field select{
+    .contact-field select{
 height: calc(2.9em + 0.75rem + 2px);
      border: 1px solid #777;
 
@@ -57,10 +54,26 @@ height: calc(2.9em + 0.75rem + 2px);
 <section id="contact" class="contact-area after-none contact-bg pt-120 pb-120 p-relative fix">
   <div class="container">             
     <div class="row justify-content-center align-items-center">
+      
+
       <div class="col-lg-12 order-1 offset-lg-2">
+        
         <div class="contact-bg02">
           <div class="section-title center-align mb-40 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+            <div class="row">
+              <div class="contact-field p-relative c-name mb-20 col-lg-6 " >
             <h2><i class="fas fa-user-plus"> </i> Check-In Form </h2>
+          </div>
+            <!-- <div class="col-lg-6">
+            <div class="contact-field p-relative c-name mb-20  " >
+              <select id="title" name="title" required>
+                <option  value="" disabled selected >Choose Available Rooms  . . ..</option>
+                <option value="Chief">Chief </option>
+              </select>
+            </div>
+            </div> -->
+                        
+            </div>
   <!-- Flash message -->
      <% if(errorMsg !=null && errorMsg.length>0) {%>
 
@@ -73,7 +86,7 @@ height: calc(2.9em + 0.75rem + 2px);
 
 <form action="/user/signup" method="POST" class="contact-form mt-30">
 <div class="row justify-content-center align-items-center">
-<div class="row">
+<!-- <div class="row">
 <div class="col-lg-2">
 <div class="contact-field p-relative c-name mb-20" >
 <select id="title" name="title" required>
@@ -96,11 +109,11 @@ height: calc(2.9em + 0.75rem + 2px);
 <input type="text" id="name" name="name" placeholder="Last Name" required>
 </div>                               
 </div>
-</div>
+</div> -->
 
 <div class="row">
 
-<div class="col-lg-6 col-md-6">                               
+<!-- <div class="col-lg-6 col-md-6">                               
 <div class="contact-field p-relative c-subject mb-20">                                   
 <input type="text" id="email" name="email" placeholder="Email" required>
 </div>
@@ -110,7 +123,7 @@ height: calc(2.9em + 0.75rem + 2px);
 <div class="contact-field p-relative c-name mb-20">                                    
 <input type="text" id="firstname" name="name" placeholder="Phone Number" required>
 </div>                               
-</div>
+</div> -->
 
  <div class="col-lg-3 col-md-6">
     <label> <br> </label>
@@ -425,7 +438,7 @@ height: calc(2.9em + 0.75rem + 2px);
 
 
 </div>
-</div>
+      </div>
 
 
             

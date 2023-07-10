@@ -1,0 +1,188 @@
+
+
+<%- include ("../partials/_dashHeads") %>
+
+	<!-- Page Wrapper -->
+            <div class="page-wrapper">
+
+                	<!-- Header -->
+			<%- include ("../partials/newHeader") %>
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+		<%- include ("../partials/_sideBar") %>
+			<!-- /Sidebar -->
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title"><%= hotel.name %></h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="/admin/roomtypes/<%= hotel._id%>/rooms/<%= roomType._id%>"> <i data-feather="corner-up-left"></i> rooms</a></li>
+									<li class="breadcrumb-item active"><%= roomType.name %></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					<!-- Row -->
+					<div class="row">
+						<div class="col-sm-12">
+						
+							<!-- Custom Boostrap Validation -->
+<div class="card">
+	<div class="card-header">
+		<h5 class="card-title">Create Rooms </h5>
+		<p class="card-text">Begin your process of creating Rooms data , Types of Rooms available and much more</p>
+	</div>
+	<div class="card-body">
+		<div class="row">
+<div class="col-md-12 offset-2">
+
+<form id="roomForm" action="/" method="POST">
+  <div id="roomFields">
+
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" name="roomId[]" placeholder="Room ID" required="">
+      </div>     
+
+      <div class="col-md-4 mb-3">
+        <div class="btn-group">
+          <a href="#" class="btn btn-primary add-room-btn" onclick="addRoomField(event)">
+            <i class="fas fa-plus"></i> 
+          </a>
+		  </div>
+		  <div class="btn-group">
+          <a href="#" class="btn btn-danger delete-room-btn" onclick="removeRoomField(event)">
+            <i class="fas fa-trash-alt"></i> 
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+  <div class="mt-3 col-md-6 mb-3">
+    <button id="createRoomBtn" class="btn btn-primary  float-right btn-medium " type="submit"><i class="far fa-arrow-right"> </i>Create Rooms</button>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /Row -->
+</div>			
+</div>
+			<!-- /Page Wrapper -->
+
+<script>
+
+  //Add input data of rooms on incremental value
+	function addRoomField(event) {
+  event.preventDefault();
+
+  const formRow = event.target.closest('.form-row');
+  const clonedFormRow = formRow.cloneNode(true);
+  const roomForm = document.querySelector('#roomForm');
+
+  // Find the room ID input in the cloned form row
+  const roomIdInput = clonedFormRow.querySelector('input[name="roomId[]"]');
+  const roomIdValue = roomIdInput.value;
+
+  // Extract the number at the end of the room ID
+  const numberPattern = /(\d+)$/;
+  const matches = roomIdValue.match(numberPattern);
+
+  if (matches) {
+    const currentNumber = parseInt(matches[0]);
+    const incrementedNumber = currentNumber + 1;
+    const newRoomIdValue = roomIdValue.replace(numberPattern, incrementedNumber);
+    roomIdInput.value = newRoomIdValue;
+  }
+
+  roomForm.appendChild(clonedFormRow);
+}
+
+//remove data on button presses
+  function removeRoomField(event) {
+    event.preventDefault();
+
+    const deleteButton = event.target;
+    const formRow = deleteButton.closest('.form-row');
+    const roomForm = document.querySelector('#roomForm');
+
+    if (roomForm.childElementCount > 1) {
+      roomForm.removeChild(formRow);
+    }
+  }
+
+
+// Function to handle room creation and submit to server
+async function createRooms(hotelId, roomTypeId) {
+  const roomForm = document.getElementById('roomForm');
+   const roomsData = Array.from(roomForm.elements)
+  .filter(element => element.name === 'roomId[]')
+  .map(element => ({
+    roomId: element.value,
+   
+  }));
+
+
+  try {
+    // Make a POST request to the server to create the rooms
+    const response = await fetch(`/admin/${hotelId}/${roomTypeId}/new-room`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+		'X-CSRF-Token': '<%= csrfToken %>'
+      },
+      body: JSON.stringify({ roomsData }),
+    });
+
+
+    // Check the response status
+    if (response.ok) {
+      const data = await response.json();
+ 
+      // Redirect the user to the specified URL
+      window.location.href =data.redirect;      
+         
+    } else {
+      // Handle the error response, if needed
+      console.error(response.statusText);
+    }
+  } catch (err) {
+    // Handle any network or server errors
+    console.error(err);
+  }
+}
+
+
+// Add event listener to the submit button
+const createRoomBtn = document.getElementById('createRoomBtn');
+createRoomBtn.addEventListener('click', async (event) => {
+  event.preventDefault();
+  
+  const hotelId = "<%= hotelId %>";
+  const roomTypeId = "<%= roomTypeId %>";
+  
+
+  // Call the createRooms function with the hotelId and roomTypeId
+  await createRooms(hotelId, roomTypeId);
+});
+
+
+
+
+</script>
+
+
+
+
+
+<%- include ("../partials/_dashFooter") %>

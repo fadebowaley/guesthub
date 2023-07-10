@@ -82,10 +82,12 @@
                                                 <% hotels.forEach(function(hotel, index) { %>
 
 												<tr>
-													<td><%= index + 1 %></td>
-													<td>
-													<a href=""><%= hotel.name %></a>
-													</td>
+												<td><%= index + 1 %></td>
+												
+												<td><strong>
+													<a href="/admin/roomtypes/<%= hotel._id%>"><%= hotel.name %></a>
+													</strong>
+												</td>
 													
 												<td>
 													<span class="text-warning">

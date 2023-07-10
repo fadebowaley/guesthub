@@ -139,11 +139,15 @@
                            <div class="service-detail">
                       
                           <!-- Two Column -->
-                            <div class="two-column">
+
+                     <div class="two-column">
                             <div class="row">
 
                             <div class="image-column col-xl-6 col-lg-12 col-md-12">
-                            <figure class="image"><img src="<%= room.detailedImage[1] %>" alt=""></figure>
+                            <figure class="image">
+                              <img src="/roomImages/<%= room.hotel.name.replace(/\s+/g, '_') %>/<%= room.name.replace(/\s+/g, '_') %>/<%= room.image %>" alt="img">
+                           
+                            </figure>
                                     
                             <div class="content-box">
                             <div class="row align-items-center mb-50">
@@ -152,12 +156,12 @@
                                   <%= room.hotel.name %>
                                     <div id="price" class="price">                              
                                         <h4><%= room.name %></h4>
-                                        <span>$ <%= room.price %>/Night</span>
+                                        <span>$ <%= room.price %>/Nighot</span>
                                     </div>
                                 </div>
                                 
                                 <div class="col-lg-6 text-right">
-                                  <!-- ratings-->
+                               
                                 <div class="review text-right">
                                 <div class="stars">
                                     <i class="fa fa-star"></i>
@@ -168,7 +172,7 @@
                                 </div>
                                 <div class="rating">(4.0)</div>
                                 </div>
-                                <!-- ratings-->
+                            
                              
 
                                 </div>
@@ -179,57 +183,62 @@
                             </div>
                             </div>
                             <div class="text-column col-xl-6 col-lg-12 col-md-12">
-                            <figure class="image"><img src="<%= room.detailedImage[0] %>" alt=""></figure>
-                                         
-                            <!-- <h4>Room Feature.</h4> -->
-                             <ul class="room-features d-flex align-items-center">
-  <% room.features.forEach(function(feature) { %>
-    <% if (feature.value === 0) { %>
-      <li>
-        <% if (feature.name === "TV") { %>
-          <i class="fal fa-tv-retro"></i>
-        <% } else if (feature.name === "Free Wifi") { %>
-          <i class="fal fa-wifi"></i>
-        <% } else if (feature.name === "Air Condition") { %>
-          <i class="fal fa-air-conditioner"></i>
-        <% } else if (feature.name === "Heater") { %>
-          <i class="fal fa-dumpster-fire"></i>
-        <% } else if (feature.name === "Phone") { %>
-          <i class="fal fa-phone-rotary"></i>
-        <% } else if (feature.name === "Laundry") { %>
-          <i class="fal fa-dryer-alt"></i>
-        <% } else if (feature.name === "Adults") { %>
-          <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
-        <% } else if (feature.name === "Size") { %>
-          <i class="fal fa-square"></i> <%= feature.name %>  <%= feature.value %> m²
-        <% } else if (feature.name === "Bed Type") { %>
-          <i class="fal fa-bed"></i> <%= feature.name %>  <%= feature.value %> Bed
-        <% } %>
-        <%= feature.name %>
-      </li>
-<% } else if (feature.value > 0) { %>
-  <li>
-    <% if (feature.name === "Adults") { %>
-      <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
-    <% } else if (feature.name === "Size") { %>
-      <i class="fal fa-square"></i> <%= feature.name %>: <%= feature.value %> m²
-    <% } else if (feature.name === "Bed Type") { %>
-      <i class="fal fa-bed"></i> <%= feature.name %>: <% if (feature.value === 1) { %>
-        One Bed
-      <% } else if (feature.value === 2) { %>
-        Two Beds
-      <% } else { %>
-        Bunk 
-      <% } %>
-    <% } %>
-  </li>
-<% } %>
+                            <figure class="image">
+                              <img src="/roomImages/<%= room.hotel.name.replace(/\s+/g, '_') %>/<%= room.name.replace(/\s+/g, '_') %>/<%= room.detailedImage[1] %>" alt="img">
 
-  <% }) %>
-                            </ul> 
+                            </figure>                                         
+                      
+                             <ul class="room-features d-flex align-items-center">
+                              <% room.features.forEach(function(feature) { %>
+                                <% if (feature.value === 0) { %>
+                                  <li>
+                                    <% if (feature.name === "TV") { %>
+                                      <i class="fal fa-tv-retro"></i>
+                                    <% } else if (feature.name === "Free Wifi") { %>
+                                      <i class="fal fa-wifi"></i>
+                                    <% } else if (feature.name === "Air Condition") { %>
+                                      <i class="fal fa-air-conditioner"></i>
+                                    <% } else if (feature.name === "Heater") { %>
+                                      <i class="fal fa-dumpster-fire"></i>
+                                    <% } else if (feature.name === "Phone") { %>
+                                      <i class="fal fa-phone-rotary"></i>
+                                    <% } else if (feature.name === "Laundry") { %>
+                                      <i class="fal fa-dryer-alt"></i>
+                                    <% } else if (feature.name === "Adults") { %>
+                                      <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+                                    <% } else if (feature.name === "Size") { %>
+                                      <i class="fal fa-square"></i> <%= feature.name %>  <%= feature.value %> m²
+                                    <% } else if (feature.name === "Bed Type") { %>
+                                      <i class="fal fa-bed"></i> <%= feature.name %>  <%= feature.value %> Bed
+                                    <% } %>
+                                    <%= feature.name %>
+                                  </li>
+                            <% } else if (feature.value > 0) { %>
+                              <li>
+                                <% if (feature.name === "Adults") { %>
+                                  <i class="fal fa-user"></i> <%= feature.name %>: <%= feature.value %>
+                                <% } else if (feature.name === "Size") { %>
+                                  <i class="fal fa-square"></i> <%= feature.name %>: <%= feature.value %> m²
+                                <% } else if (feature.name === "Bed Type") { %>
+                                  <i class="fal fa-bed"></i> <%= feature.name %>: <% if (feature.value === 1) { %>
+                                    One Bed
+                                  <% } else if (feature.value === 2) { %>
+                                    Two Beds
+                                  <% } else { %>
+                                    Bunk 
+                                  <% } %>
+                                <% } %>
+                              </li>
+                            <% } %>
+
+                              <% }) %>
+                                                        </ul> 
                             </div>                                                                       
                             </div>
-                        </div>                 
+                        </div> 
+                     
+                        
+                        
                         </div>
                         </div>                     
                     </div>
@@ -241,7 +250,8 @@
         </main>
         <!-- main-area-end -->
 <script>
-//Declare all variables
+
+
 // Get the check-in and check-out date input fields
 const checkInInput = document.getElementById("checkIn");
 const checkOutInput = document.getElementById("checkOut");
@@ -302,7 +312,6 @@ form.addEventListener('submit', async (event) => {
   const checkOutDate = new Date(checkOutInput.value);
   const numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
 
-  console.log(checkOutInput.value);
   // get the form data
   const bookingData = {
     checkIn: checkInInput.value,
@@ -337,7 +346,7 @@ form.addEventListener('submit', async (event) => {
 
     document.getElementById("bookingForm").reset();
 
-      console.log(data); // log the data to the console
+      //console.log(data); // log the data to the console
     } else {
       console.error('Error:', response.statusText);
     }

@@ -1,0 +1,960 @@
+<%- include ("../partials/_head") %>
+<style>
+
+input[value]:not([value=""]),
+select:not(:default):not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  background-color:#d7d7d7;
+  font-weight: 400;
+  font-size:medium;
+  color: #333;
+}
+
+
+.load-more-btn {
+background-color:#644222;
+color: #ffffff;
+border: none;
+padding: 10px 20px;
+margin-top: 10px;
+cursor: pointer;
+}
+
+.md-stepper-horizontal {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.md-step {
+position: relative;
+}
+
+.md-step.active .md-step-circle {
+background-color: #644222;
+}
+
+.md-step.active .md-step-title {
+color: #333;
+font-weight: bold;
+font-size: 20px;
+}
+
+.md-step.active.editable .md-step-optional {
+display: flex;
+color: darkred;
+font-size: 14px;
+}
+
+.md-step.active .md-step-bar-left,
+.md-step.active .md-step-bar-right {
+background-color: #644222;
+}
+
+.md-step-circle {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: #ccc;
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+z-index: 2;
+margin: 0 10px; /* Adjust the margin as per your preference */
+}
+
+.md-step-circle span {
+font-size: 20px;
+color: #fff;
+}
+
+.md-step-title {
+font-size: 14px;
+color: #999;
+margin-top: 10px;
+font-weight: normal;
+}
+
+.md-step-optional {
+display: none;
+font-size: 12px;
+color: #999;
+margin-top: 5px;
+}
+
+.md-step-bar-left,
+.md-step-bar-right {
+flex-grow: 1;
+height: 2px;
+background-color: #ccc;
+}
+
+.md-step-bar-left {
+margin-right: 5px;
+}
+
+.md-step-bar-right {
+margin-left: 5px;
+}
+
+
+.breadcrumb-area {
+background-size: cover;
+position: relative;
+min-height: 300px;
+background-color: rgb(0, 0, 0);
+background-repeat: no-repeat;
+}
+.room-categories {
+display: flex;
+justify-content: space-between;
+}
+.room.selected {
+/* Define the styles for the selected room */
+background-color: greenyellow;
+border: 2px solid black;
+/* Add any other styles as needed */
+}
+.room-category {
+flex-basis: 45%;
+}
+.contact-field select{
+height: calc(2.9em + 0.75rem + 2px);
+border: 1px solid #777;
+
+}
+button, input, optgroup, select, textarea{
+padding-left: 1rem;
+}
+.room-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;
+margin-top: 10px;
+}
+
+.room {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border-color: antiquewhite;
+background-color: lightgray;
+padding: 10px;
+cursor: pointer;
+position: relative;
+border-radius: 10px;
+z-index: 1;
+overflow: hidden;
+width: 100px;
+height: 120px;
+border: 2px solid #644222;;
+}
+
+.room span {
+font-weight: bold;
+}
+
+.available {
+background-color: #f3f4f8;
+}
+
+.unavailable {
+background-color: lightcoral;
+cursor: none;
+}
+
+.selected {
+background-color: lightblue;
+}
+
+.bed {
+position: relative;
+width: 60px;
+height: 60px;
+background-color: white;
+border: 2px solid black;
+border-radius: 5px;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+}
+
+.bed-leg {
+width: 63px;
+height: 20px;
+background-color: #644222;;
+margin: 0 3px;
+
+}
+
+.room span {
+margin-top: 5px;
+}
+.review {
+display: flex;
+align-items: center;
+}
+
+.stars {
+color: #f7c54a;
+}
+
+.rating {
+margin-left: 10px;
+font-size: 20px;
+font-weight: bold;
+}
+
+.pt-120 {
+padding-top: 50px;
+}
+
+.pagination-container {
+display: flex;
+justify-content: center;
+margin-top: 20px;
+}
+
+.pagination {
+list-style: none;
+display: flex;
+align-items: center;
+}
+
+.pagination li {
+margin: 0 5px;
+}
+
+.pagination-link {
+color: #333;
+text-decoration: none;
+padding: 5px 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+
+.pagination-link:hover {
+background-color: #eee;
+}
+
+.pagination-link.disabled {
+pointer-events: none;
+color: #999;
+}
+
+.pagination-link.disabled:hover {
+background-color: transparent;
+}
+
+
+</style>
+
+<!--/head-->
+<body>
+<!-- header -->
+<%- include ("../partials/_header") %>
+<!-- header-end -->
+
+<!-- main-area -->
+<main>
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area d-flex align-items-center" style="background-image:url(/images/img/bg/bdrc-bg.jpg);">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-xl-12 col-lg-12">
+<div class="breadcrumb-wrap text-center">
+<div class="breadcrumb-title">
+<h2>Check-In Rooms</h2>    
+<div class="breadcrumb-wrap">
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="/">chekin</a></li>
+<li class="breadcrumb-item active" aria-current="page"><%= noRooms %> Rooms </li>
+</ol>
+</nav>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+<!-- breadcrumb-area-end -->
+<div class="row" style="margin-top: 24px;">
+<div class="col-xl-6 offset-2">    
+<div class="section-title center-align  text-center">
+<!-- <h5>The pleasure of luxury</h5> -->
+<!-- <h3>3 Quick Steps</h3> -->
+<br>
+</div>
+
+<div class="md-stepper-horizontal orange">
+<div class="md-step active editable">
+<div class="md-step-circle"><span>1</span></div>
+<div class="md-step-title">Pick your <%=  noRooms %> Room</div>
+<div class="md-step-optional">Choose your room of Choice</div>
+<div class="md-step-bar-left"></div>
+<div class="md-step-bar-right"></div>
+</div>
+<div class="md-step active editable">
+<div class="md-step-circle"><span>2</span></div>
+<div class="md-step-title">Fill Simple Form</div>
+<div class="md-step-optional">Help us to know little more about you</div>
+<div class="md-step-bar-left"></div>
+<div class="md-step-bar-right"></div>
+</div>
+<div class="md-step active editable">
+<div class="md-step-circle"><span>3</span></div>
+<div class="md-step-title">Check in your Room</div>
+<div class="md-step-optional">Click the button and you are done</div>
+<div class="md-step-bar-left"></div>
+<div class="md-step-bar-right"></div>    </div>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<!-- service-details-area -->
+<div class="about-area5 about-p p-relative">
+<div class="container pt-120 pb-40">
+<div class="row">
+<!-- #right side -->
+<div class="col-sm-12 col-md-12 col-lg-6 order-2">
+<aside class="sidebar services-sidebar">
+
+<!-- Category Widget -->
+<div class="sidebar-widget categories">
+<div class="widget-content">
+<h2 class="widget-title">  Check-in Details  </h2>
+<!-- Services Category -->
+<!-- booking-area -->
+<div class="booking">
+<div class="contact-bg"> 
+<form  method="post" class="contact-form mt-30">
+<div class="row">
+
+<div class="col-lg-6">
+  <div class="contact-field p-relative c-name mb-20">
+    <label><i class="fal fa-user"></i> Mode of Identification</label>
+    <select id="identification" name="identification" required>
+      <option value="" disabled selected>Mode of Identification</option>
+      <option value="International Passport" <%= guest && guest.identification === "International Passport" ? 'selected' : '' %>>International Passport</option>
+      <option value="Driver Licence" <%= guest && guest.identification === "Driver Licence" ? 'selected' : '' %>>Driver Licence</option>
+      <option value="National ID" <%= guest && guest.identification === "National ID" ? 'selected' : '' %>>National ID</option>
+      <option value="Voters Card" <%= guest && guest.identification === "Voters Card" ? 'selected' : '' %>>Voters Card</option>
+      <option value="Others" <%= guest && guest.identification === "Others" ? 'selected' : '' %>>Others</option>
+    </select>
+  </div>
+</div>
+
+<div class="col-lg-6">
+<div class="contact-field p-relative c-name mb-20">                                    
+<label><i class="fal fa-badge-check"></i> Nationality</label>
+<select id="nationality"></select>
+</div>                               
+</div>
+
+<div class="col-lg-6">
+  <div class="contact-field p-relative c-name mb-20">
+    <label><i class="fal fa-badge-check"></i> Religion</label>
+    <select id="religion" name="religion">
+      <option value="" selected disabled>Religion</option>
+      <option value="christianity" <%= guest && guest.religion === "christianity" ? 'selected' : '' %>>Christianity</option>
+      <option value="islam" <%= guest && guest.religion === "islam" ? 'selected' : '' %>>Islam</option>
+      <option value="traditional" <%= guest && guest.religion === "traditional" ? 'selected' : '' %>>Traditional African Religions</option>
+      <option value="other" <%= guest && guest.religion === "other" ? 'selected' : '' %>>Other</option>
+    </select>
+  </div>
+</div>
+
+
+<div class="col-lg-6">
+  <div class="contact-field p-relative c-name mb-20">
+    <label><i class="fal fa-badge-check"></i> Denomination</label>
+    <select id="denomination" name="denomination">
+      <option value="" selected disabled>Denominations</option>
+      <option value="catholic" <%= guest && guest.denomination === "catholic" ? 'selected' : '' %>>Catholic</option>
+      <option value="pentecostal" <%= guest && guest.denomination === "pentecostal" ? 'selected' : '' %>>Pentecostal</option>
+      <option value="anglican" <%= guest && guest.denomination === "anglican" ? 'selected' : '' %>>Anglican</option>
+      <option value="baptist" <%= guest && guest.denomination === "baptist" ? 'selected' : '' %>>Baptist</option>
+      <option value="methodist" <%= guest && guest.denomination === "methodist" ? 'selected' : '' %>>Methodist</option>
+      <option value="presbyterian" <%= guest && guest.denomination === "presbyterian" ? 'selected' : '' %>>Presbyterian</option>
+      <option value="lutheran" <%= guest && guest.denomination === "lutheran" ? 'selected' : '' %>>Lutheran</option>
+      <option value="apostolic" <%= guest && guest.denomination === "apostolic" ? 'selected' : '' %>>Apostolic</option>
+      <option value="redeemed" <%= guest && guest.denomination === "redeemed" ? 'selected' : '' %>>Redeemed Christian Church of God</option>
+      <option value="other" <%= guest && guest.denomination === "other" ? 'selected' : '' %>>Other</option>
+    </select>
+  </div>
+</div>
+
+
+<div class="col-lg-12">
+  <div class="contact-field p-relative c-subject mb-20">
+    <label><i class="fal fa-times-octagon"></i> Purpose</label>
+    <select id="purpose" name="purpose" required>
+      <option value="" disabled selected>Select Purpose</option>
+      <option value="Business" <%= guest && guest.purpose === "Business" ? 'selected' : '' %>>Business Trip</option>
+      <option value="Vacation" <%= guest && guest.purpose === "Vacation" ? 'selected' : '' %>>Vacation</option>
+      <option value="Conference" <%= guest && guest.purpose === "Conference" ? 'selected' : '' %>>Conference/Event</option>
+      <option value="Retreats" <%= guest && guest.purpose === "Retreats" ? 'selected' : '' %>>Retreats</option>
+      <option value="Holiday" <%= guest && guest.purpose === "Holiday" ? 'selected' : '' %>>Holiday</option>
+      <option value="Special Programmes" <%= guest && guest.purpose === "Special Programmes" ? 'selected' : '' %>>Special Programmes</option>
+      <option value="Church Service" <%= guest && guest.purpose === "Church Service" ? 'selected' : '' %>>Church Service</option>
+    </select>
+  </div>
+</div>
+
+
+
+<div style="text-align: left;">
+<p><i class="fa fa-file"></i><b>
+Occupation Details</b>
+</p></div>
+
+<div class="col-lg-6">                               
+<div class="contact-field p-relative c-subject mb-20">                                   
+<label><i class="fal fa-times-octagon"></i> Occupation</label>
+<select id="occupation"></select>                                               
+</div>
+</div>	
+
+
+<div class="col-lg-6">
+  <div class="contact-field p-relative c-subject mb-20">
+    <label><i class="fal fa-users"></i> Organization Name</label>
+    <input type="text" id="organisation" name="organisation" placeholder="Organization/Church Name" value="<%= guest && guest.organization ? guest.organization : '' %>" required>
+  </div>
+</div>
+
+<div class="col-lg-8">
+  <div class="contact-field p-relative c-subject mb-20">
+    <label><i class="fal fa-users"></i> Address</label>
+    <input type="text" id="address" name="address" placeholder="Address of Organization" value="<%= guest && guest.nokAddress ? guest.nokAddress : '' %>" required>
+  </div>
+</div>
+
+
+<div class="col-lg-4">                               
+<div class="contact-field p-relative c-subject mb-20">                                   
+<label><i class="fal fa-users"></i> City </label>
+<select id="city"></select>                                                        
+</div>
+</div>
+
+<div style="text-align: left;">
+<p><i class="fa fa-users"></i><b>
+Next Of Kin</b>
+</p></div>
+
+
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nok" name="nok" placeholder="Next Of Kin Name" value="<%= guest && guest.nextOfKin ? guest.nextOfKin : '' %>" required>
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nokOccupation" name="nokOccupation" placeholder="Next Of Kin Occupation"  value="<%= guest && guest.nokOccupation ? guest.nokOccupation : '' %>" required>
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<input type="text" id="nokTel" name="nokTel" placeholder="Phone Number"  value="<%= guest && guest.nokTel ? guest.nokTel : '' %>"   required>
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 ">
+<div class="contact-field p-relative c-message mb-30">                                  
+<select id="relationship"></select>
+</div>
+</div>
+
+<div class="col-lg-12">
+<div class="slider-btn mt-15">                                          
+<button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s"><span>Checkin  Now</span></button>				
+</div>                             
+</div>
+</div>
+</form>                            
+</div>  
+</div>
+<!-- booking-area-end -->	
+</div>
+</div>
+<!--Service Contact-->
+</aside>
+</div>
+<!-- #right side end -->
+
+
+<div class="col-lg-6 col-md-12 col-sm-6 order-1">
+<div class="service-detail">
+<!-- Two Column -->
+<div class="two-column">
+<div class="row">
+<ul id="roomList" class="room-features d-flex align-items-center">
+<% rooms.forEach(room => { %>
+<li >
+<div id="<%= room.roomID %>" class="room <%= room.available ? 'available' : 'unavailable' %>">
+<div class="bed">
+<div class="bed-leg"></div>
+</div>
+<span><%= room.roomID %></span>
+</div>
+</li>
+<% }); %>                              
+</ul>                                   
+
+<div class="pagination-container">
+<button id="loadMoreBtn" class="load-more-btn">Show More Rooms</button>
+</div>
+</div>  </div>
+
+<div class="content-box">
+<div class="row align-items-center mb-50">
+<div class="col-lg-6 col-md-6">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<h3>Children and extra beds.</h3>
+<p>Children are welcome Kids stay free! Children stay free when using existing bedding; children may not be eligible for complimentary breakfast Rollaway/extra beds are available for $ 10 per day.Interdum et malesu they adamale fames ac anteipsu pimsine faucibus curabitur arcu site feugiat in tortor in, volutpat sollicitudin libero. Hotel non lorem acer suscipit bibendum vulla facilisi nedeuter nunc volutpa mollis sapien velet conseyer turpeutionyer masin libero sempe mollis.</p>
+
+
+
+
+</div>
+<div class="service-detail-contact wow fadeup-animation" data-wow-delay="1.1s">
+<h3 class="h3-title">If You Need Any Help Contact With Us</h3>
+<a href="javascript:void(0);" title="Call now">+91 705 2101 786</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</main>
+<!-- main-area-end -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Get the room list and load more button elements
+const roomList = document.getElementById('roomList');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+// Set the number of rooms to load per click
+const roomsPerLoad = 8; // Adjust this value as needed
+
+// Function to show additional rooms when the "Load More" button is clicked
+function showMoreRooms() {
+const hiddenRooms = Array.from(roomList.querySelectorAll('.room[style*="display: none;"]'));
+
+for (let i = 0; i < roomsPerLoad && i < hiddenRooms.length; i++) {
+hiddenRooms[i].style.display = 'block';
+}
+
+// Hide the "Load More" button if no more hidden rooms
+if (hiddenRooms.length <= roomsPerLoad) {
+loadMoreBtn.style.display = 'none';
+}
+}
+
+// Event listener for the "Load More" button
+loadMoreBtn.addEventListener('click', showMoreRooms);
+
+// Initial setup to show the first batch of rooms and hide the button if not needed
+const roomElements = roomList.getElementsByClassName('room');
+for (let i = roomsPerLoad; i < roomElements.length; i++) {
+roomElements[i].style.display = 'none'; 
+
+}
+if (roomElements.length <= roomsPerLoad) {
+loadMoreBtn.style.display = 'none';
+}
+});
+
+
+// Get all the room elements
+const rooms = document.querySelectorAll('.room');
+
+// Define the maximum number of rooms
+const noOfRooms = <%= noRooms %>; // Change this value according to your requirement
+
+// Track the currently selected rooms
+let selectedRooms = [];
+
+
+// Add click event listeners to each room
+rooms.forEach(room => {
+room.addEventListener('click', () => {
+// Check if the room is available
+if (!room.classList.contains('unavailable')) {
+// Check if the room is already selected
+if (room.classList.contains('selected')) {
+// Unselect the room
+room.classList.remove('selected');
+selectedRooms = selectedRooms.filter(selectedRoom => selectedRoom !== room.id);
+} else {
+// Check the number of currently selected rooms
+if (selectedRooms.length < noOfRooms) {
+// Allow selection of a new room
+room.classList.add('selected');
+selectedRooms.push(room.id);
+console.log(selectedRooms);
+} else {
+// Show confirmation dialog
+const confirmMessage = 'You have selected a room. Your previous selection will be disabled.';
+const confirmed = confirm(confirmMessage);
+
+if (confirmed) {
+// Unselect the first selected room
+const firstSelectedRoomId = selectedRooms.shift();
+const firstSelectedRoom = document.getElementById(firstSelectedRoomId);
+firstSelectedRoom.classList.remove('selected');
+
+// Select the current room
+room.classList.add('selected');
+selectedRooms.push(room.id);
+}
+}
+}
+}
+});
+});
+
+
+
+
+// Get the select input element
+const selectOccupation = document.getElementById('occupation');
+
+// Define the occupation options
+const occupationOptions = [
+'Clergy',
+'Student',
+'Professional',
+'Homemaker',
+'Retired',
+'Unemployed',
+'Other',
+'Entrepreneur',
+'Freelancer',
+'Artist',
+'Teacher',
+];
+
+
+// Create the first option element as a label
+const labelOptionElement = document.createElement('option');
+labelOptionElement.value = '';
+labelOptionElement.textContent = 'Select Occupation';
+labelOptionElement.disabled = true;
+labelOptionElement.selected = true;
+selectOccupation.appendChild(labelOptionElement);
+
+// Populate the occupation options
+occupationOptions.forEach(option => {
+  const optionElement = document.createElement('option');
+  optionElement.value = option.toLowerCase();
+  optionElement.textContent = option;
+  selectOccupation.appendChild(optionElement);
+});
+
+// Get the selected occupation from the database
+const guestOccupation = '<%= guest && guest.occupation ? guest.occupation.toLowerCase() : "" %>';
+
+// Set the selected occupation in the dropdown if available
+if (guestOccupation) {
+  const selectedOption = selectOccupation.querySelector(`option[value="${guestOccupation}"]`);
+  if (selectedOption) {
+    selectedOption.selected = true;
+  }
+}
+
+// Get the selected occupation
+const selectedOccupation = selectOccupation.value;
+
+// Add event listener to the select input
+selectOccupation.addEventListener('change', () => {
+  const selectedOccupation = selectOccupation.value;
+
+});
+
+
+
+
+// Get the select input element
+const selectCity = document.getElementById('city');
+
+// Define the cities in Nigeria
+const citiesInNigeria = [
+'Lagos',
+'Abuja',
+'Kano',
+'Ibadan',
+'Port Harcourt',
+'Benin City',
+'Kaduna',
+'Jos',
+'Enugu',
+'Warri',
+'Calabar',
+'Uyo',
+'Abeokuta',
+'Onitsha',
+'Asaba',
+'Akure',
+'Maiduguri',
+'Zaria',
+'Aba',
+'Osogbo'
+];
+
+// Create the first option element as a label
+const labelOptionElementie = document.createElement('option');
+labelOptionElementie.value = '';
+labelOptionElementie.textContent = 'Select City';
+labelOptionElementie.disabled = true;
+labelOptionElementie.selected = true;
+selectCity.appendChild(labelOptionElementie);
+
+// Populate the city options from the database
+citiesInNigeria.forEach(city => {
+  const optionElement = document.createElement('option');
+  optionElement.value = city.toLowerCase();
+  optionElement.textContent = city;
+  selectCity.appendChild(optionElement);
+});
+
+// Get the selected city from the database
+const guestCity = '<%= guest && guest.city ? guest.city.toLowerCase() : "" %>';
+
+// Set the selected city in the dropdown if available
+if (guestCity) {
+  const selectedOption = selectCity.querySelector(`option[value="${guestCity}"]`);
+  if (selectedOption) {
+    selectedOption.selected = true;
+  }
+}
+
+// Get the selected city
+const selectedCity = selectCity.value;
+
+// Add event listener to the select input
+selectCity.addEventListener('change', () => {
+  const selectedCity = selectCity.value;
+;
+});
+
+
+
+
+
+// Get the select input element
+const selectCountry = document.getElementById('nationality');
+
+// Define the countries
+const countries = [
+'Select Country',
+'Nigeria',
+'United States',
+'United Kingdom',
+'Canada',
+'Australia',
+'Germany',
+'France',
+'China',
+'India',
+'Japan',
+'Brazil',
+'Mexico',
+'South Africa',
+'Kenya',
+'Ghana',
+'Egypt',
+'Saudi Arabia',
+'United Arab Emirates',
+'Other'
+];
+
+  const selectOption = document.createElement('option');
+  selectOption.value = '';
+  selectOption.textContent = 'Select Country';
+  selectOption.disabled = true;
+  selectCountry.appendChild(selectOption);
+  
+  countries.forEach(country => {
+    const optionElement = document.createElement('option');
+    optionElement.value = country.toLowerCase();
+    optionElement.textContent = country;
+    selectCountry.appendChild(optionElement);
+  });
+
+  // Get the selected country from the database
+  const guestNationality = '<%= guest && guest.country ? guest.country.toLowerCase() : "" %>';
+
+  console.log(`<%= guest.country %>`);
+  // Set the selected country in the dropdown if available
+  if (guestNationality) {
+    const selectedOption = selectCountry.querySelector(`option[value="${guestNationality}"]`);
+    if (selectedOption) {
+      selectedOption.selected = true;
+    }
+  }
+
+  // Add event listener to the select input
+  selectCountry.addEventListener('change', () => {
+    const selectedCountry = selectCountry.value;
+    console.log('Selected Country:', selectedCountry);
+  });
+
+
+
+// Get the select input element
+const selectRelationship = document.getElementById('relationship');
+
+// Define the relationship options
+const relationshipOptions = [
+'Select Relationship',
+'Spouse',
+'Parent',
+'Child',
+'Sibling',
+'Relative',
+'Friend',
+'Other'
+];
+
+  const selectOptionRelationship = document.createElement('option');
+  selectOptionRelationship.value = '';
+  selectOptionRelationship.textContent = 'Select Relationship';
+  selectOptionRelationship.disabled = true;
+  selectRelationship.appendChild(selectOptionRelationship);
+  
+  relationshipOptions.forEach(relationship => {
+    const optionElement = document.createElement('option');
+    optionElement.value = relationship.toLowerCase();
+    optionElement.textContent = relationship;
+    selectRelationship.appendChild(optionElement);
+  });
+
+  // Get the selected relationship from the database
+  const guestRelationship = '<%= guest && guest.relationship ? guest.relationship.toLowerCase() : "" %>';
+
+  // Set the selected relationship in the dropdown if available
+  if (guestRelationship) {
+    const selectedOption = selectRelationship.querySelector(`option[value="${guestRelationship}"]`);
+    if (selectedOption) {
+      selectedOption.selected = true;
+    }
+  }
+
+  // Add event listener to the select input
+  selectRelationship.addEventListener('change', () => {
+    const selectedRelationship = selectRelationship.value;
+
+  });
+
+
+
+//Get the check-in and check-out date input fields
+const identification = document.getElementById("identification");
+const denomination = document.getElementById("denomination");
+const religion = document.getElementById("religion");
+const purpose = document.getElementById('purpose');
+const occupation = document.getElementById('occupation');
+const organisation = document.getElementById('organisation');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const nextOfKin = document.getElementById('nok');
+const nextOfKinOccupation = document.getElementById('nokOccupation');
+const nextOfKinTelephone = document.getElementById('nokTel');
+const relationship = document.getElementById('relationship');
+
+
+
+//form and submission
+const form = document.querySelector('.contact-form');
+
+
+form.addEventListener('submit', async (event) => {
+event.preventDefault(); // prevent the default form submission behavior
+
+
+
+// get the form data
+const guestData = {
+identification: identification.value,
+organisation: organisation.value,
+denomination: denomination.value,
+religion:religion.value,
+purpose: purpose.value,
+occupation: occupation.value,
+address: address.value,
+city: city.value,
+nextOfKin: nextOfKin.value,
+nextOfKinOccupation: nextOfKinOccupation.value,
+nextOfKinTelephone: nextOfKinTelephone.value,
+relationship: relationship.value,
+selectedRooms:selectedRooms,
+itemId: '<%= itemId %>',
+orderId: '<%= orderId %>',
+roomType: '<%= roomType %>',
+_csrf: '<%= csrfToken %>',
+};
+
+if(noOfRooms === selectedRooms.length ){
+
+try {
+const response = await fetch('/bookings/checkin/rooms', { // send an AJAX request to the server
+method: 'POST',
+body: JSON.stringify(guestData),
+headers: {
+'Content-Type': 'application/json',
+'X-CSRF-Token': '<%= csrfToken %>' // include the CSRF token in the request headers
+},
+});
+
+if (response.ok) { // handle the response
+const data = await response.json();
+console.log(data.code)
+const redirectUrl = data.redirectUrl+data.code;
+// Redirect the user to the specified URL
+window.location.href = redirectUrl;       
+
+} else {
+console.error('Error:', response.statusText);
+}
+
+} catch (error) {
+console.error('Error:', error);
+}
+}else{
+confirm(`Please Select your ${noOfRooms} Rooms`);
+}
+
+});
+
+
+</script>
+
+<!-- main-area-end -->
+<%- include ("../partials/_footer") %>

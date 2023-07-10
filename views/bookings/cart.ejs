@@ -4,6 +4,20 @@
 
 
 <style>
+
+
+input[value],
+select:not(:default):not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  background-color: rgb(255, 255, 255);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #f4f4fe;
+}
+
   .contact-field select, input, textarea {
     height: calc(2.9em + 0.75rem + 2px);
     border: 2px solid #777;
@@ -294,104 +308,114 @@ NGN  <%= cart.totalCost %> </span>
 
 <div class="col-lg-3">
 <div class="contact-field p-relative c-name mb-20" >
-   <select id="title" name="title" required>
-      <option value="" disabled selected>Title</option>
-      <option value="Pastor" <% if (currentUser && currentUser.title === "Pastor") { %>selected<% } %>>Pastor</option>
-      <option value="Bishop" <% if (currentUser && currentUser.title === "Bishop") { %>selected<% } %>>Bishop</option>
-      <option value="Mr" <% if (currentUser && currentUser.title === "Mr") { %>selected<% } %>>Mr</option>
-      <option value="Chief" <% if (currentUser && currentUser.title === "Chief") { %>selected<% } %>>Chief</option>
-      <option value="Dr" <% if (currentUser && currentUser.title === "Dr") { %>selected<% } %>>Dr</option>
-    </select>
+<select id="title" name="title" required>
+  <option value="" disabled selected>Title</option>
+  <option value="Pastor" <%= guest && guest.title === "Pastor" ? 'selected' : '' %>>Pastor</option>
+  <option value="Bishop" <%= guest && guest.title === "Bishop" ? 'selected' : '' %>>Bishop</option>
+  <option value="Mr" <%= guest && guest.title === "Mr" ? 'selected' : '' %>>Mr</option>
+  <option value="Chief" <%= guest && guest.title === "Chief" ? 'selected' : '' %>>Chief</option>
+  <option value="Dr" <%= guest && guest.title === "Dr" ? 'selected' : '' %>>Dr</option>
+</select>
+
+
+
 </div>
 </div>
 
 <div class="col-lg-5">
-<div class="contact-field p-relative c-name mb-20">      
-<input type="text" id="firstname" name="firstname" value="<%= currentUser && currentUser.firstname ? currentUser.firstname : '' %>" placeholder="First Name" required>
-</div>                               
+  <div class="contact-field p-relative c-name mb-20">
+    <input type="text" id="firstname" name="firstname" value="<%= guest && guest.first_name ? guest.first_name : '' %>" placeholder="First Name" <%= guest && guest.first_name ? 'disabled' : 'required' %>>
+  </div>
 </div>
 
+
 <div class="col-lg-4">
-<div class="contact-field p-relative c-name mb-20">      
-<input type="text" id="lastname" name="lastname" value="<%= currentUser && currentUser.lastname ? currentUser.lastname : '' %>" placeholder="Last Name" required>
-</div>                               
+  <div class="contact-field p-relative c-name mb-20">
+    <input type="text" id="lastname" name="lastname" value="<%= guest && guest.last_name ? guest.last_name : '' %>" placeholder="Last Name" <%= guest && guest.last_name ? 'disabled' : 'required' %>>
+  </div>
 </div>
+
 
 </div>
 
 <div class="row">
 
-<div class="col-lg-6 col-md-6">                               
-<div class="contact-field p-relative c-subject mb-20">                                   
-<input type="text" id="email" value="<%= currentUser && currentUser.email ? currentUser.email : '' %>" name="email" placeholder="Contact Email" required>
+<div class="col-lg-6 col-md-6">
+  <div class="contact-field p-relative c-subject mb-20">
+    <input type="text" id="email" value="<%= guest && guest.email ? guest.email : '' %>" name="email" placeholder="Contact Email" <%= guest && guest.email ? 'disabled' : 'required' %>>
+  </div>
 </div>
-</div>	
+	
 
 <div class="col-lg-6 col-md-6">
-<div class="contact-field p-relative c-name mb-20">                                    
-<input type="text" id="phoneNumber" name="phoneNumber" value="<%= currentUser && currentUser.phone ? currentUser.phone : '' %>" placeholder="Phone Number" required>
-</div>                               
+  <div class="contact-field p-relative c-name mb-20">
+    <input type="text" id="phoneNumber" name="phoneNumber" value="<%= guest && guest.phone_number ? guest.phone_number : '' %>" placeholder="Phone Number" <%= guest && guest.phone_number ? 'disabled' : 'required' %>>
+  </div>
 </div>
+
 
 <div class="col-lg-12">
-    <div class="contact-field p-relative c-name mb-20">                                    
-        <textarea id="residential"     name="residential" placeholder="Residential Address" required  rows="2" ></textarea>
-    </div>  
+  <div class="contact-field p-relative c-name mb-20">
+    <textarea id="residential" name="residential" placeholder="Residential Address" required rows="1" <%= guest && guest.residential ? 'disabled' : 'required' %>><%= guest && guest.residential ? guest.residential : '' %></textarea>
+  </div>
 </div>
 
-<div class="col-lg-6 col-md-6">    
-<div class="contact-field p-relative c-name mb-20" >
-<input type="text" id="city" name="city" placeholder="City" required>
 
-</div>
+<div class="col-lg-6 col-md-6">
+  <div class="contact-field p-relative c-name mb-20">
+    <input type="text" id="city" value="<%= guest && guest.city ? guest.city : '' %>" name="city" placeholder="City" <%= guest && guest.city ? 'disabled' : 'required' %>>
+  </div>
 </div>
 
-<div class="col-lg-6 col-md-6 ">
-<div class="contact-field p-relative c-message mb-30">
-<select id="state" name="states">
-  <option value="" selected>Select a state</option>
-  <option value="NA">Others</option>
-  <option value="Abia">Abia</option>
-  <option value="Abia">Abia</option>
-  <option value="Adamawa">Adamawa</option>
-  <option value="Akwa Ibom">Akwa Ibom</option>
-  <option value="Anambra">Anambra</option>
-  <option value="Bauchi">Bauchi</option>
-  <option value="Bayelsa">Bayelsa</option>
-  <option value="Benue">Benue</option>
-  <option value="Borno">Borno</option>
-  <option value="Cross River">Cross River</option>
-  <option value="Delta">Delta</option>
-  <option value="Ebonyi">Ebonyi</option>
-  <option value="Edo">Edo</option>
-  <option value="Ekiti">Ekiti</option>
-  <option value="Enugu">Enugu</option>
-  <option value="FCT" selected>Federal Capital Territory</option>
-  <option value="Gombe">Gombe</option>
-  <option value="Imo">Imo</option>
-  <option value="Jigawa">Jigawa</option>
-  <option value="Kaduna">Kaduna</option>
-  <option value="Kano">Kano</option>
-  <option value="Katsina">Katsina</option>
-  <option value="Kebbi">Kebbi</option>
-  <option value="Kogi">Kogi</option>
-  <option value="Kwara">Kwara</option>
-  <option value="Lagos">Lagos</option>
-  <option value="Nasarawa">Nasarawa</option>
-  <option value="Niger">Niger</option>
-  <option value="Ogun">Ogun</option>
-  <option value="Ondo">Ondo</option>
-  <option value="Osun">Osun</option>
-  <option value="Oyo">Oyo</option>
-  <option value="Plateau">Plateau</option>
-  <option value="Rivers">Rivers</option>
-  <option value="Sokoto">Sokoto</option>
-  <option value="Taraba">Taraba</option>
-  <option value="Yobe">Yobe</option>
-  <option value="Zamfara">Zamfara</option>
-</select> 
+
+<div class="col-lg-6 col-md-6">
+  <div class="contact-field p-relative c-message mb-30">
+    <select id="state" name="states">
+      <option value="" <%= !guest || !guest.state ? 'selected' : '' %>>Select a state</option>
+      <option value="NA" <%= guest && guest.state === "NA" ? 'selected' : '' %>>Others</option>
+      <option value="Abia" <%= guest && guest.state === "Abia" ? 'selected' : '' %>>Abia</option>
+      <option value="Adamawa" <%= guest && guest.state === "Adamawa" ? 'selected' : '' %>>Adamawa</option>
+      <option value="Akwa Ibom" <%= guest && guest.state === "Akwa Ibom" ? 'selected' : '' %>>Akwa Ibom</option>
+      <option value="Anambra" <%= guest && guest.state === "Anambra" ? 'selected' : '' %>>Anambra</option>
+      <option value="Bauchi" <%= guest && guest.state === "Bauchi" ? 'selected' : '' %>>Bauchi</option>
+      <option value="Bayelsa" <%= guest && guest.state === "Bayelsa" ? 'selected' : '' %>>Bayelsa</option>
+      <option value="Benue" <%= guest && guest.state === "Benue" ? 'selected' : '' %>>Benue</option>
+      <option value="Borno" <%= guest && guest.state === "Borno" ? 'selected' : '' %>>Borno</option>
+      <option value="Cross River" <%= guest && guest.state === "Cross River" ? 'selected' : '' %>>Cross River</option>
+      <option value="Delta" <%= guest && guest.state === "Delta" ? 'selected' : '' %>>Delta</option>
+      <option value="Ebonyi" <%= guest && guest.state === "Ebonyi" ? 'selected' : '' %>>Ebonyi</option>
+      <option value="Edo" <%= guest && guest.state === "Edo" ? 'selected' : '' %>>Edo</option>
+      <option value="Ekiti" <%= guest && guest.state === "Ekiti" ? 'selected' : '' %>>Ekiti</option>
+      <option value="Enugu" <%= guest && guest.state === "Enugu" ? 'selected' : '' %>>Enugu</option>
+      <option value="FCT" <%= guest && guest.state === "FCT" ? 'selected' : '' %>>Federal Capital Territory</option>
+      <option value="Gombe" <%= guest && guest.state === "Gombe" ? 'selected' : '' %>>Gombe</option>
+      <option value="Imo" <%= guest && guest.state === "Imo" ? 'selected' : '' %>>Imo</option>
+      <option value="Jigawa" <%= guest && guest.state === "Jigawa" ? 'selected' : '' %>>Jigawa</option>
+      <option value="Kaduna" <%= guest && guest.state === "Kaduna" ? 'selected' : '' %>>Kaduna</option>
+      <option value="Kano" <%= guest && guest.state === "Kano" ? 'selected' : '' %>>Kano</option>
+      <option value="Katsina" <%= guest && guest.state === "Katsina" ? 'selected' : '' %>>Katsina</option>
+      <option value="Kebbi" <%= guest && guest.state === "Kebbi" ? 'selected' : '' %>>Kebbi</option>
+      <option value="Kogi" <%= guest && guest.state === "Kogi" ? 'selected' : '' %>>Kogi</option>
+      <option value="Kwara" <%= guest && guest.state === "Kwara" ? 'selected' : '' %>>Kwara</option>
+      <option value="Lagos" <%= guest && guest.state === "Lagos" ? 'selected' : '' %>>Lagos</option>
+      <option value="Nasarawa" <%= guest && guest.state === "Nasarawa" ? 'selected' : '' %>>Nasarawa</option>
+      <option value="Niger" <%= guest && guest.state === "Niger" ? 'selected' : '' %>>Niger</option>
+      <option value="Ogun" <%= guest && guest.state === "Ogun" ? 'selected' : '' %>>Ogun</option>
+      <option value="Ondo" <%= guest && guest.state === "Ondo" ? 'selected' : '' %>>Ondo</option>
+      <option value="Osun" <%= guest && guest.state === "Osun" ? 'selected' : '' %>>Osun</option>
+      <option value="Oyo" <%= guest && guest.state === "Oyo" ? 'selected' : '' %>>Oyo</option>
+      <option value="Plateau" <%= guest && guest.state === "Plateau" ? 'selected' : '' %>>Plateau</option>
+      <option value="Rivers" <%= guest && guest.state === "Rivers" ? 'selected' : '' %>>Rivers</option>
+      <option value="Sokoto" <%= guest && guest.state === "Sokoto" ? 'selected' : '' %>>Sokoto</option>
+      <option value="Taraba" <%= guest && guest.state === "Taraba" ? 'selected' : '' %>>Taraba</option>
+      <option value="Yobe" <%= guest && guest.state === "Yobe" ? 'selected' : '' %>>Yobe</option>
+      <option value="Zamfara" <%= guest && guest.state === "Zamfara" ? 'selected' : '' %>>Zamfara</option>
+    </select>
+  </div>
 </div>
-</div>
+
+
+
 
 <div class="col-lg-6 col-md-6 ">
 <div class="contact-field p-relative c-message mb-30">
@@ -412,6 +436,7 @@ NGN  <%= cart.totalCost %> </span>
 
 </div>
 </div>
+
 
 <div class="col-lg-6 col-md-6">
 <button type="submit" onclick="payWithPaystack" class="btn btn-primary"><i class="fa fa fa-shopping-cart"></i> Checkout</button>

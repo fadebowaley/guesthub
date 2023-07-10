@@ -118,8 +118,26 @@ const sendOrderCompletion = async ( order ) => {
     console.log("Order completion email sent successfully.");
 
   } catch (error) {
-       console.error("Error sending order completion email:", error);
-    throw error;
+    console.error("Error sending order completion email:", error);
+    if (
+      error.code === "EPROTOCOL" &&
+      error.responseCode === 421 &&
+      error.response === "421 Service not available"
+    ) {
+      // Handle the SMTP server failure gracefully
+
+      // Log the error or send a notification to the developer/admin
+
+      // Implement retry logic or alternative actions
+      
+
+      return; // Exit the function to prevent further execution
+    }
+    
+    //throw error;
+      
+    //setTimeout(sendOrderCompletionEmail, 60000); // Retry after 1 minute
+
   }
 };
 
