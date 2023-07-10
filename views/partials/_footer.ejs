@@ -101,7 +101,35 @@
             </div>
         </footer>
         <!-- footer-end -->
+<script>
+ // Function to toggle the visibility of the admin sub-menu based on screen size
+ /**
+function toggleAdminSubMenu() {
+  var adminSubMenu = document.getElementById("adminMenu");
+  var userSubMenu = document.getElementById("userMenu");
+  var classMenu = document.querySelector(".class-menu");
+  var loginMenuItem = document.getElementById("loginMenuItem");
+  
+if (adminSubMenu && loginMenuItem && userSubMenu) {
+      if (window.innerWidth >= 992) {
+        adminSubMenu.style.display = "none"; // Hide admin sub-menu on larger screens
+        userSubMenu.style.display = "none"; // Hide user sub-menu on larger screens
+        loginMenuItem.style.display = "block"; // Show login menu item on larger screens
+      } else {
+        adminSubMenu.style.display = "block"; // Show admin sub-menu on smaller screens
+        userSubMenu.style.display = "block"; // Show user sub-menu on smaller screens
+        loginMenuItem.style.display = "none"; // Hide login menu item on smaller screens
+      }
+    }
+  }
 
+  // Call the function on page load and whenever the window is resized
+  window.addEventListener("load", toggleAdminSubMenu);
+  window.addEventListener("resize", toggleAdminSubMenu);
+
+  */
+
+</script>
 <!-- GET /stylesheets/css/bootstrap.min.css.map 404 115.574 ms - 1672
 GET /stylesheets/js/popper.min.js.map 404 150.107 ms - 1672
 GET /stylesheets/js/bootstrap.min.js.map 404 176.254 ms - 1672 -->

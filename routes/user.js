@@ -392,22 +392,6 @@ router.get("/account", middleware.isLoggedIn, async (req, res) => {
     const userId = req.user._id; // Assuming you have access to the current user's ID
     
     const allOrders = await Order.find({ user: userId });
-
-    //const orderTest = await Order.find({ user: userId });
-//     for (const order of allOrders) {
-//   const { items } = order.cart;
-//   console.log('Items in the order:');
-//   for (const item of items) {
-//     console.log(item);
-//   }
-//   console.log('---------------------------');
-// }
-    // Extract relevant data from the order
-    // console.log(allOrders);
-
-    // console.log(allOrder);
-    // console.log(typeof (allOrders));
-
     
     res.render("user/account", {
       orders : allOrders,

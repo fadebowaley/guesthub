@@ -8,6 +8,10 @@ const guestSchema = new Schema({
     type: String,
     required: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   first_name: {
     type: String,
     required: true,
@@ -52,8 +56,12 @@ const guestSchema = new Schema({
     {
       room_id: {
         type: Schema.Types.ObjectId,
-        ref: "Room",
-        required: false,
+        ref: "Room",       
+      },   
+      itemId: {
+        type: Schema.Types.ObjectId,
+        ref: "Cart", // Update the reference to the Cart model
+        required: true,
       },
       check_in_date: {
         type: Date,
@@ -64,8 +72,8 @@ const guestSchema = new Schema({
         required: true,
       },
       num_guests: {
-        type: Number,
-        required: true,
+        type: String,
+        
       },
       room_type: {
         type: Schema.Types.ObjectId,
@@ -120,6 +128,9 @@ const guestSchema = new Schema({
     type: String
   },
   nokTel: {
+    type: String
+  },
+  relationship: {
     type: String
   },
   nokOccupation: {

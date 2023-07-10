@@ -24,6 +24,10 @@ const orderSchema = Schema({
           type: Schema.Types.ObjectId,
           ref: "RoomType",
         },
+        confirmed: {
+          type: Boolean,
+          default: false,
+        },
         noRooms: {
           type: Number,
           default: 0,

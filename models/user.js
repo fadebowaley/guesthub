@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt-nodejs");
 const Schema = mongoose.Schema;
 const { conn } = require("../config/dbb");
 
+
 const userSchema = Schema({
   email: {
     type: String,
@@ -25,6 +26,7 @@ const userSchema = Schema({
   },
   role: {
     type: String,
+    enum: ["user", "admin"],
     default: "user",
   },
   password: {
@@ -60,6 +62,12 @@ username: {
       return `${this.firstname.toLowerCase()}${this.lastname.toLowerCase()}${Math.floor(Math.random() * 10000)}`;
     }
   },
+  hotels: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Hotel",
+    },
+  ],
 
 });
 

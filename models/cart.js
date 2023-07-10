@@ -21,6 +21,10 @@ const cartSchema = Schema({
         type: Number,
         default: 1,
       },
+      num_guests: {
+        type: String,
+        required: true,
+     },
      checkIn: {
         type: Date,       
       },

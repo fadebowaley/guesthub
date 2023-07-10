@@ -38,38 +38,81 @@
 <div class="row align-items-center">
 <div class="col-xl-2 col-lg-2">
 <div class="logo">
-<a href="/pages/home"><img src="/images/img/logo/logo.png" alt="logo"></a>
+<a href="/"><img src="/images/img/logo/logo.png" alt="logo"></a>
 </div>
 </div>
-<div class="col-xl-8 col-lg-8">                              
-<div class="main-menu text-center">
-<nav id="mobile-menu">
-    <ul>
-    <li class="has-sub">
-        <a href="/">Home</a>
-    
-    </li>
-    <li><a href="/pages/about">About</a></li>        
-    <li class="has-sub">
-        <a href="#">our rooms</a>
-        <ul>													
-        
-            <li> <a href="/pages/room-details">Rooms Details</a></li>
-        </ul>
-    </li>     
-    <li class="has-sub">
-        <a href="/pages/facilities">Facilities</a>
-        <ul>													
-            
-            <li> <a href="facilities-details">Services Details</a></li>
-        </ul>
-    </li>  
+<div class="col-xl-8 col-lg-8">
+  <div class="main-menu text-center">
+    <nav id="mobile-menu">
+      <ul>
+        <span class="classMenu" id="classMenu">
+        <li><a href="/">Home</a></li>
 
-    <li><a href="/pages/contact">Contact</a></li>                                               
-</ul>
-</nav>
+        <li><a href="/pages/about">About</a></li>
+
+        <li class="has-sub"><a href="#">Our Rooms</a>
+          <ul>
+            <li><a href="/pages/room-details">Room Details</a></li>
+          </ul>
+        </li>
+        <li class="has-sub">
+          <a href="/pages/facilities">Facilities</a>
+          <ul>
+            <li><a href="facilities-details">Services Details</a></li>
+          </ul>
+        </li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </span>
+
+        <script>
+        document.getElementById("classMenu").style.display = window.innerWidth < 992 ? "none" : "block";
+      </script>
+
+        <% if (currentUser) { %>
+          <% if (currentUser.role === "admin") { %>
+          <!-- Admin Dashboard Menu -->
+          
+            <li class="has-sub" id="adminMenu" >
+              <a href="#"><i class="fas fa-user-shield"></i> Admin</a>
+              <ul>
+                <li><a href="/admin/dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+                <li><a href="/admin/customer"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="/user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+              </ul>
+            </li>
+       <script>
+              document.getElementById("adminMenu").style.display = window.innerWidth >= 992 ? "none" : "block";
+            </script>
+
+          <% } else if (currentUser.role === "user") { %>
+            <!-- User Profile Menu -->
+            
+            <li class="has-sub" id="userMenu">
+             <a href="#"><i class="fas fa-user"></i> Profile</a>
+              <ul>
+                <li><a href="/user/account"><i class="fas fa-user-circle"></i> Account</a></li>
+                <li><a href="/bookings/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="/user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+              </ul>
+            </li>
+        <script>
+              document.getElementById("userMenu").style.display = window.innerWidth >= 992 ? "none" : "block";
+            </script>
+          <% } %>
+        <% } else { %>
+          <!-- Guest Menu -->
+          <li id="loginMenuItem"><a href="/user/login">Login</a></li>
+           <script>
+            document.getElementById("loginMenuItem").style.display = window.innerWidth >= 992 ? "none" : "block";
+          </script>
+        <% } %>
+      </ul>
+    
+
+    </nav>
+  </div>
 </div>
-</div>   
+
 
 <div class="col-xl-2 col-lg-2 d-none d-lg-block">
 
@@ -118,7 +161,10 @@
 
 
 <div class="col-12">
-<div class="mobile-menu"></div>
+<div class="mobile-menu">
+
+  <!-- some menu here -->
+</div>
 </div>
 </div>
 </div>

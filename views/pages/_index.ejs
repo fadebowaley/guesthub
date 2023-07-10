@@ -197,9 +197,11 @@
                     <div id="roomType" class="col-xl-4 col-md-6">
                         <div class="single-services mb-30">
                             <div class="services-thumb">
-                                <a class="gallery-link popup-image" href="/images/img/gallery/room-img01.png">
-                                <img src="/images/img/gallery/room-img01.png" alt="img">
-                                </a>
+                                <a class="gallery-link popup-image" href="/roomImages/<%= hotels[0].name %>/<%=roomtype.image %>">
+                                <!-- <img src="/roomImages/<%= hotels[0].name %>/<%=roomtype.name %>/<%=roomtype.image %>" alt="img"> -->
+                            <img src="/roomImages/<%= hotels[0].name.replace(/\s+/g, '_') %>/<%= roomtype.name.replace(/\s+/g, '_') %>/<%= roomtype.image %>" alt="img">
+    
+                            </a>
                             </div>
                             <div class="services-content"> 
                                 <div class="day-book">
@@ -373,7 +375,7 @@
                                      <img src="/images/img/icon/fe-icon01.png" alt="img">
                                     </div>
                                     <div class="services-08-content">
-                                        <h3><a href="single-service.html"> Qulity Room</a></h3>
+                                        <h3><a href="single-service.html"> Quality Room</a></h3>
                                         <p>Nullam molestie lacus sit amet velit fermentum feugiat. Mauris auctor eget nunc sit amet.</p>
                                         <a href="single-service.html">Read More <i class="fal fa-long-arrow-right"></i></a>
                                     </div>

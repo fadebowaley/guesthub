@@ -57,7 +57,7 @@ const hotelSchema = Schema({
       ref: "RoomType",
     },
   ],
-  // add any other relevant fields here
+   // add any other relevant fields here
 });
 
 

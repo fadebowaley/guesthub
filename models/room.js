@@ -5,7 +5,7 @@ const { conn } = require("../config/dbb");
 
 const roomSchema = Schema({
   roomID: {
-    type: Number,
+    type: String,
     required: true,
   },
   roomType: {
@@ -26,6 +26,10 @@ const roomSchema = Schema({
   available: {
     type: Boolean,
     default: true,
+  },
+  lock: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,

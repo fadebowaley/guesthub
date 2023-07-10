@@ -1,10 +1,10 @@
 "use strict";
 require("dotenv").config();
-
 const cors = require('cors');
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
+const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -17,6 +17,8 @@ const User = require("./models/user");
 const {conn} = require("./config/dbb");
 var MongoStore = require("connect-mongo")(session);
 
+
+
 //schedule cron
 // const CronJob = require("cron").CronJob;
 // const { checkOutRooms, updateRoomAvailability } = require("./worker/hotelCron");
@@ -27,6 +29,8 @@ var MongoStore = require("connect-mongo")(session);
 const app = express();
 require("./config/passport");
 
+
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -34,9 +38,19 @@ app.use(logger("dev"));
 app.use(cors());
 app.use(flash());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+// Increase the limit for parsing JSON requests to 10MB
+app.use(bodyParser.json({ limit: '100mb' }));
+
+app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use('/documents', express.static(path.join(__dirname, 'documents')));
+app.use('/roomImages', express.static(path.join(__dirname,  'roomImages')));
+// app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -152,23 +166,15 @@ app.use("/bookings", bookRouter);
 
 
 
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+// Error handling middleware for 404 (Page Not Found) errors
+app.use((req, res, next) => {
+  res.status(404).render("error/404");
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+// Error handling middleware for 500 (Internal Server Error) errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("error/500");
 });
 
 
@@ -213,7 +219,7 @@ app.use(function (err, req, res, next) {
 
 const port = process.env.PORT;
 app.set("port", port);
-app.listen(port, () => {
+app.listen(port, '127.0.0.1', () => {
   console.log("Server running at port " + port);
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
   const max = process.memoryUsage().heapTotal / 1024 / 1024;

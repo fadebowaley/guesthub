@@ -311,7 +311,7 @@ const seedRoom = async () => {
         roomID: i + 1,
         roomType: roomTypes[roomTypeIndex],
         hotel: hotels[hotelIndex],
-        available: Math.random() < 0.5, // randomly assign true or false
+        available: Math.random() >= 0.5,
         checkIn,
         checkOut: checkOut < new Date() ? checkOut : new Date(),
       };
@@ -435,10 +435,10 @@ const seedRoomType = async () => {
 const dbSeed = async () => {
   try {
     // connect Database
-    await seedUsers();
+    //await seedUsers();
     await seedHotels();
     await seedRoomType();
-    await seedReviews();
+   await seedReviews();
     await seedRoom();
 
     console.log("Data seeded successfully . . . ");
